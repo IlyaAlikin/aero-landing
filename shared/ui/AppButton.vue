@@ -26,7 +26,6 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
   justify-content: center;
   gap: 12px;
   width: 100%;
-  height: 100%;
   font-family: var(--font-inter);
   font-weight: 600;
 }
@@ -37,6 +36,7 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
 
 /* size lg — Figma 57:27/57:241: h 123, font 31.837, radius 39.796 */
 .btn--lg {
+  height: 123px;
   border-radius: 39.796px;
   font-size: 31.837px;
   letter-spacing: -0.3184px;
@@ -48,6 +48,7 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
 
 /* size md — Figma 57:359/57:364: h 113, font 28, radius 35 */
 .btn--md {
+  height: 113px;
   border-radius: 35px;
   font-size: 28px;
   letter-spacing: -0.28px;
@@ -68,5 +69,16 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
 .btn--beige {
   background: var(--c-beige);
   color: var(--c-ink-20);
+}
+
+@media (max-width: 760px) {
+  .btn--lg {
+    height: 68px;
+    font-size: 18px;
+  }
+  .btn--md {
+    height: 66px;
+    font-size: 17px;
+  }
 }
 </style>

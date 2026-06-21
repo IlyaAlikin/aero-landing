@@ -1,100 +1,77 @@
 <script setup lang="ts">
-// Offer + pricing — Figma 57:304 (slogan), 57:305-319 (polaroids), 57:320/336/342 (features),
-// 57:348 (pricing panel with 2 gradient cards + 2 buttons).
-import { pos } from '@shared/lib/figma'
+// Offer + pricing — Figma 57:304/305-319/320-345/348. Block layout.
+import type { CSSProperties } from 'vue'
 import AppButton from '@shared/ui/AppButton.vue'
 
-interface Polaroid {
-  src: string
-  x: number
-  y: number
-  w: number
-  h: number
-  rot: number
-}
+interface Polaroid { src: string; rot: number; style: CSSProperties }
 const polaroids: Polaroid[] = [
-  { src: '/img/offer/p1.png', x: 1154, y: 6532, w: 293, h: 322, rot: -17.16 },
-  { src: '/img/offer/p2.png', x: 1278, y: 6700, w: 293, h: 322, rot: 0 },
-  { src: '/img/offer/p3.png', x: 797, y: 6749, w: 293, h: 322, rot: 11.46 },
-  { src: '/img/offer/p4.png', x: 1435, y: 6960, w: 211, h: 232, rot: 17.06 },
-  { src: '/img/offer/p5.png', x: 1014, y: 6830, w: 358, h: 393, rot: -11.1 },
+  { src: '/img/offer/p1.png', rot: -17, style: { left: '8%', top: '0' } },
+  { src: '/img/offer/p5.png', rot: -11, style: { left: '30%', top: '120px', zIndex: '2' } },
+  { src: '/img/offer/p3.png', rot: 11, style: { left: '0', top: '210px' } },
+  { src: '/img/offer/p2.png', rot: 0, style: { right: '6%', top: '40px' } },
+  { src: '/img/offer/p4.png', rot: 17, style: { right: '14%', top: '250px' } },
 ]
 
-interface Feature {
-  y: number
-  title: string[]
-  tw: number
-  img: string
-  flip?: boolean
-  cover?: boolean
-}
-const features: Feature[] = [
-  { y: 6714, title: ['Полный доступ', 'к программе'], tw: 154, img: '/img/bcard-balloons.png' },
-  { y: 6830, title: ['Сертификат', 'после завершения'], tw: 190, img: '/img/bcard-cert.png', cover: true },
-  { y: 6958, title: ['Доступ из любой точки мира'], tw: 190, img: '/img/offer/globe.png', flip: true },
+const features = [
+  { title: ['Полный доступ', 'к программе'], img: '/img/bcard-balloons.png', flip: false },
+  { title: ['Сертификат', 'после завершения'], img: '/img/bcard-cert.png', flip: false },
+  { title: ['Доступ из любой точки мира'], img: '/img/offer/globe.png', flip: true },
 ]
-
-const ICON_GRAD =
-  'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
+const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 </script>
 
 <template>
-  <section id="pricing">
-    <!-- Slogan 57:304 @(362,6461) Suisse Light 64.582 -->
-    <h2 class="slogan" :style="pos(362, 6461, 804)">
-      Начните создавать красивые <b>композиции&nbsp; из шаров уже сегодня</b>
-    </h2>
+  <section id="pricing" class="offer">
+    <div class="container">
+      <h2 class="slogan">Начните создавать красивые <b>композиции из шаров уже сегодня</b></h2>
 
-    <!-- Polaroids 57:305-319 -->
-    <div
-      v-for="(p, i) in polaroids"
-      :key="i"
-      class="polaroid"
-      :style="{ ...pos(p.x, p.y, p.w, p.h), transform: `rotate(${p.rot}deg)` }"
-    >
-      <img class="polaroid__photo" :src="p.src" alt="" />
-      <img class="polaroid__frame" src="/img/offer/frame.png" alt="" />
-    </div>
+      <div class="offer__mid">
+        <div class="features">
+          <div v-for="(f, i) in features" :key="i" class="feat">
+            <div class="feat__icon" :style="{ backgroundImage: ICON_GRAD }">
+              <img :src="f.img" :class="{ 'feat__img--flip': f.flip }" alt="" draggable="false" />
+            </div>
+            <p class="feat__text">
+              <template v-for="(l, j) in f.title" :key="j">{{ l }}<br v-if="j < f.title.length - 1" /></template>
+            </p>
+          </div>
+        </div>
 
-    <!-- Feature rows 57:320/336/342 @(362, y) 325×116 r7.334 -->
-    <div v-for="(f, i) in features" :key="i" class="feat" :style="pos(362, f.y, 325, 116)">
-      <div class="feat__icon" :style="{ backgroundImage: ICON_GRAD }">
-        <img :src="f.img" alt="" :class="{ 'feat__img--flip': f.flip }" />
+        <div class="cluster">
+          <div v-for="(p, i) in polaroids" :key="i" class="pol" :style="{ ...p.style, transform: `rotate(${p.rot}deg)` }">
+            <img class="pol__photo" :src="p.src" alt="" draggable="false" />
+            <img class="pol__frame" src="/img/offer/frame.png" alt="" draggable="false" />
+          </div>
+        </div>
       </div>
-      <p class="feat__text" :style="{ width: f.tw + 'px' }">
-        <template v-for="(l, j) in f.title" :key="j">{{ l }}<br v-if="j < f.title.length - 1" /></template>
-      </p>
-    </div>
 
-    <!-- Pricing panel 57:348 @(362,7073) 1066×426 r15 -->
-    <div class="panel" :style="pos(362, 7073, 1066, 426)" />
-
-    <!-- headers -->
-    <p class="ph ph--heavy" :style="pos(377, 7126, 422)">Стоимость курса “Баблс”</p>
-    <p class="ph" :style="pos(902, 7085, 431)">Стоимость курса <b>“Аэродизайн с нуля”</b></p>
-
-    <!-- price cards -->
-    <div class="pcard pcard--pink" :style="pos(377, 7191, 513, 155)" />
-    <div class="pcard pcard--beige" :style="pos(902, 7191, 513, 155)" />
-
-    <!-- prices -->
-    <p class="price price--white" :style="pos(444, 7244, 249)">8 990₽</p>
-    <p class="price price--old price--old-w" :style="pos(710, 7258, 114)">9 990₽</p>
-    <p class="price price--dark" :style="pos(959, 7244, 271)">10 990₽</p>
-    <p class="price price--old price--old-d" :style="pos(1248, 7258, 129)">15 990₽</p>
-
-    <!-- buttons -->
-    <div class="pbtn" :style="{ ...pos(377, 7374, 512, 113), boxShadow: '0 28.395px 56.79px -14.197px rgba(233,97,129,0.5)' }">
-      <AppButton label="Перейти к покупке" variant="pink" size="md" />
-    </div>
-    <div class="pbtn" :style="{ ...pos(902, 7374, 512, 113), boxShadow: '0 28.395px 56.79px -14.197px rgba(245,200,169,0.5)' }">
-      <AppButton label="Перейти к покупке" variant="beige" size="md" />
+      <div class="panel">
+        <div class="pcol">
+          <p class="pcol__head">Стоимость курса “Баблс”</p>
+          <div class="pcard pcard--pink">
+            <span class="pcard__now">8 990₽</span><span class="pcard__old pcard__old--w">9 990₽</span>
+          </div>
+          <a class="pcol__btn" href="#"><AppButton label="Перейти к покупке" variant="pink" size="md" /></a>
+        </div>
+        <div class="pcol">
+          <p class="pcol__head pcol__head--dark"><span>Стоимость курса </span><b>“Аэродизайн с нуля”</b></p>
+          <div class="pcard pcard--beige">
+            <span class="pcard__now pcard__now--dark">10 990₽</span><span class="pcard__old pcard__old--d">15 990₽</span>
+          </div>
+          <a class="pcol__btn" href="#"><AppButton label="Перейти к покупке" variant="beige" size="md" /></a>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+.offer {
+  background: var(--c-page-2);
+  padding: 50px 0 70px;
+}
 .slogan {
+  max-width: 804px;
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 64.582px;
@@ -105,27 +82,26 @@ const ICON_GRAD =
   font-weight: 700;
 }
 
-.polaroid {
-  transform-origin: center;
+.offer__mid {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  margin-top: 40px;
 }
-.polaroid__photo,
-.polaroid__frame {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.features {
+  flex: 0 0 325px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 3;
 }
-.polaroid__photo {
-  object-fit: cover;
-  border-radius: 8px;
-  padding: 6%;
-}
-
 .feat {
+  position: relative;
+  height: 116px;
   background: var(--c-white);
   border-radius: 7.334px;
-  overflow: hidden;
+  box-shadow: 0 4px 65px rgba(0, 0, 0, 0.06);
 }
 .feat__icon {
   position: absolute;
@@ -155,26 +131,58 @@ const ICON_GRAD =
   color: var(--c-ink-2f);
 }
 
+.cluster {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 470px;
+}
+.pol {
+  position: absolute;
+  width: 240px;
+  height: 264px;
+}
+.pol__photo,
+.pol__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.pol__photo {
+  object-fit: cover;
+  border-radius: 8px;
+  padding: 6%;
+}
+
 .panel {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
   background: var(--c-white);
   border-radius: 15px;
   box-shadow: 0 4px 67px rgba(0, 0, 0, 0.06);
+  padding: 30px 36px 40px;
 }
-
-.ph {
+.pcol__head {
   font-family: var(--font-sf);
-  font-weight: 400;
-  font-size: 32.04px;
+  font-weight: 800;
+  font-size: 32px;
   line-height: 1.25;
   letter-spacing: 0.32px;
   color: var(--c-ink-20);
+  min-height: 84px;
 }
-.ph--heavy,
-.ph b {
-  font-weight: 800;
+.pcol__head--dark span {
+  font-weight: 400;
 }
-
 .pcard {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  height: 155px;
+  padding: 0 40px;
   border-radius: 32.716px;
   box-shadow: inset 1.258px 1.258px 100px rgba(255, 255, 255, 0.3);
 }
@@ -184,40 +192,75 @@ const ICON_GRAD =
 .pcard--beige {
   background: linear-gradient(to right, #f5c8a9 0%, #ffdcc4 47.6%, #f5c8a9 100%);
 }
-
-.price {
+.pcard__now {
   font-family: var(--font-sf);
   font-weight: 600;
   font-size: 69.207px;
-  line-height: 48.323px;
+  line-height: 1;
   letter-spacing: 0.692px;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.price--old {
-  white-space: nowrap;
-}
-.price--white {
   color: var(--c-white);
+  white-space: nowrap;
 }
-.price--dark {
+.pcard__now--dark {
   color: var(--c-ink-20);
 }
-.price--old {
+.pcard__old {
+  font-family: var(--font-sf);
   font-weight: 500;
   font-size: 32.04px;
-  line-height: 22.372px;
-  letter-spacing: 0.32px;
   text-decoration: line-through;
+  white-space: nowrap;
 }
-.price--old-w {
+.pcard__old--w {
   color: rgba(255, 255, 255, 0.4);
 }
-.price--old-d {
+.pcard__old--d {
   color: rgba(32, 32, 32, 0.4);
 }
+.pcol__btn {
+  display: block;
+  margin-top: 28px;
+  border-radius: 35px;
+}
+.pcol:first-child .pcol__btn {
+  box-shadow: 0 28.395px 56.79px -14.197px rgba(233, 97, 129, 0.5);
+}
+.pcol:last-child .pcol__btn {
+  box-shadow: 0 28.395px 56.79px -14.197px rgba(245, 200, 169, 0.5);
+}
 
-.pbtn {
-  border-radius: 35.494px;
+@media (max-width: 900px) {
+  .slogan {
+    font-size: 24px;
+  }
+  .offer__mid {
+    flex-direction: column;
+  }
+  .features {
+    flex-basis: auto;
+    width: 100%;
+  }
+  .cluster {
+    width: 100%;
+    min-height: 420px;
+  }
+  .panel {
+    grid-template-columns: 1fr;
+    padding: 24px 18px 30px;
+  }
+  .pcol__head {
+    font-size: 22px;
+    min-height: 0;
+  }
+  .pcard {
+    height: 120px;
+    padding: 0 24px;
+  }
+  .pcard__now {
+    font-size: 46px;
+  }
+  .pcard__old {
+    font-size: 22px;
+  }
 }
 </style>

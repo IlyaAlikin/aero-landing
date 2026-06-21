@@ -1,13 +1,11 @@
 <script setup lang="ts">
-// Telegram channel — Figma 57:240 (desc), 57:225 (iPhone-Air), 57:239 (white panel),
-// 57:247/264/279 (modules), 57:241 (button).
-import { pos } from '@shared/lib/figma'
+// Telegram channel — Figma 57:240/225/239/247-279/241. Block layout; phone sits UNDER the
+// white panel (#4 z-index); CTA is a real link (#3-style).
 import AppButton from '@shared/ui/AppButton.vue'
 import ModuleCard from '@entities/module-card/ui/ModuleCard.vue'
 
 const modules = [
   {
-    x: 382,
     title: ['Работа', 'с шарами'],
     desc: 'Правила надува латексных шаров, Прозрачный шар с конфетти, Шар с перьями, Дабл Стафф, Дабл Стафф с поталью, Шары 5", Шар с парящими 5" на леске, Фольгированные шары',
     photos: [
@@ -16,7 +14,6 @@ const modules = [
     ],
   },
   {
-    x: 779,
     title: ['Блок ', 'Bubbles'],
     desc: 'Правила надува латексных шаров, Прозрачный шар с конфетти, Шар с перьями, Дабл Стафф, Дабл Стафф с поталью, Шары 5", Шар с парящими 5" на леске, Фольгированные шары',
     photos: [
@@ -25,7 +22,6 @@ const modules = [
     ],
   },
   {
-    x: 1176,
     title: ['Дополнительные', 'материалы'],
     desc: 'Дополнительные материалы, Коробка-сюрприз с игрушкой внутри, Поставщики Лучшие фирмы, которыми пользуюсь лично. Расчёт себестоимости, Чек-лист по печати на плоттере, Подборка шрифтов, Как сделать макет',
     photos: [
@@ -37,84 +33,145 @@ const modules = [
 </script>
 
 <template>
-  <section id="telegram">
-    <!-- Description 57:240 @(360,5209) Suisse Light 64.582 -->
-    <p class="desc" :style="pos(360, 5209, 667)">
-      <span>Также у нас есть закрытый </span><span class="desc--tg">Telegram канал,</span
-      ><span> в котором вы найдете материалы<br /></span><span class="desc--b">с нуля до профи</span>
-    </p>
-
-    <!-- iPhone-Air mockup 57:225 @(1068,5222) 416×859 -->
-    <div class="airphone" :style="pos(1068, 5222, 416, 859)">
-      <img class="airphone__frame" src="/img/tg/air-frame.png" alt="" />
-      <img class="airphone__screen" src="/img/tg/air-screen.png" alt="" />
+  <section id="telegram" class="tg">
+    <div class="tg__top container">
+      <p class="tg__desc">
+        Также у нас есть закрытый <span class="tg__blue">Telegram канал,</span>
+        в котором вы найдете материалы <b>с нуля до профи</b>
+      </p>
+      <div class="tg__phone">
+        <img class="tg__phone-frame" src="/img/tg/air-frame.png" alt="" draggable="false" />
+        <img class="tg__phone-screen" src="/img/tg/air-screen.png" alt="" draggable="false" />
+      </div>
     </div>
 
-    <!-- White panel 57:239 @(362,5699) 1198×611 r50 -->
-    <div class="panel" :style="pos(362, 5699, 1198, 611)" />
-
-    <!-- Module cards @ y5747 -->
-    <div
-      v-for="m in modules"
-      :key="m.x"
-      :style="pos(m.x, 5747, m.x === 779 ? 365 : 364, 475)"
-    >
-      <ModuleCard :title="m.title" :desc="m.desc" :photos="m.photos" />
-    </div>
-
-    <!-- Button 57:241 @(688,6254) 544×123 blue -->
-    <div
-      class="cta"
-      :style="{ ...pos(688, 6254, 544, 123), boxShadow: '0 31.837px 63.674px -15.918px #58a4c9' }"
-    >
-      <AppButton label="Хочу перейти в канал" variant="blue" size="lg" />
+    <div class="tg__panel container">
+      <div class="tg__modules">
+        <div v-for="(m, i) in modules" :key="i" class="tg__module">
+          <ModuleCard :title="m.title" :desc="m.desc" :photos="m.photos" />
+        </div>
+      </div>
+      <a class="tg__cta" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
+        <AppButton label="Хочу перейти в канал" variant="blue" size="lg" />
+      </a>
     </div>
   </section>
 </template>
 
 <style scoped>
-.desc {
+.tg {
+  position: relative;
+  background: var(--c-page-2);
+  padding: 50px 0 70px;
+}
+.tg__top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  min-height: 420px;
+}
+.tg__desc {
+  flex: 1 1 0;
+  max-width: 667px;
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 64.582px;
   line-height: 1.2;
   color: var(--c-ink);
 }
-.desc--tg {
+.tg__blue {
   font-weight: 700;
   color: var(--c-blue);
 }
-.desc--b {
+.tg__desc b {
   font-weight: 700;
 }
-
-.airphone {
-  z-index: 2;
+.tg__phone {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 416px;
+  height: 720px;
+  margin-bottom: -260px; /* lower part tucks under the panel (#4) */
 }
-.airphone__frame {
+.tg__phone-frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  object-position: top;
 }
-.airphone__screen {
+.tg__phone-screen {
   position: absolute;
-  left: 17px;
-  top: 15px;
-  width: 382px;
-  height: 829px;
+  left: 5.6%;
+  top: 1.6%;
+  width: 88.5%;
+  height: 84%;
   object-fit: cover;
   object-position: top;
   border-radius: 52px;
 }
 
-.panel {
+.tg__panel {
+  position: relative;
+  z-index: 2;
+}
+.tg__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 20px;
   background: var(--c-white);
   border-radius: 50px;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
+}
+.tg__modules {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px 40px 0;
+}
+.tg__module {
+  position: relative;
+  flex: 0 0 364px;
+  width: 364px;
+  height: 475px;
+}
+.tg__cta {
+  position: relative;
+  display: block;
+  width: 544px;
+  max-width: calc(100% - 80px);
+  margin: 40px auto 48px;
+  border-radius: 39.796px;
+  box-shadow: 0 31.837px 63.674px -15.918px #58a4c9;
 }
 
-.cta {
-  border-radius: 39.796px;
+@media (max-width: 1100px) {
+  .tg__top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .tg__phone {
+    margin-bottom: -120px;
+  }
+}
+@media (max-width: 760px) {
+  .tg__desc {
+    font-size: 21px;
+  }
+  .tg__phone {
+    width: 200px;
+    height: 360px;
+    margin-bottom: -60px;
+  }
+  .tg__modules {
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 0;
+  }
 }
 </style>

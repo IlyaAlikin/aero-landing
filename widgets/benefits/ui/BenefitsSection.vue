@@ -1,112 +1,107 @@
 <script setup lang="ts">
-// Benefits row — Figma 57:93 / 57:104 / 57:115 @ y733, x 360/768/1176, 385×189, r=30.315.
-import type { CSSProperties } from 'vue'
-import { pos } from '@shared/lib/figma'
-
+// Benefits — Figma 57:93/104/115. Block grid of 3 cards.
 interface Card {
-  x: number
-  title: string[]
-  desc: string[]
+  title: string
+  desc: string
   img: string
-  imgWrap: CSSProperties
-  imgStyle: CSSProperties
+  cls: string
 }
-
-const LINE_XS = [205, 230, 255, 280, 306, 331, 356]
-
 const cards: Card[] = [
-  {
-    x: 360,
-    title: ['Сертификат', 'об обучении'],
-    desc: ['Выдаем сертификат после', 'прохождения обучения'],
-    img: '/img/bcard-cert.png',
-    imgWrap: { ...pos(210, 54, 211, 151), overflow: 'hidden' },
-    // 57:103 inner scale/offset
-    imgStyle: { position: 'absolute', width: '139.36%', height: '129.4%', left: '-19.4%', top: '-14.7%', maxWidth: 'none' },
-  },
-  {
-    x: 768,
-    title: ['Проверенные', 'методы'],
-    desc: ['Обучаем проверенным', 'техникам работ'],
-    img: '/img/bcard-balloons.png',
-    imgWrap: pos(152, -86, 275, 412), // 57:114 overflows top
-    imgStyle: { position: 'absolute', inset: '0', width: '100%', height: '100%', objectFit: 'cover' },
-  },
-  {
-    x: 1176,
-    title: ['Обучаем', 'базе'],
-    desc: ['Понятная база', 'по аэродизайну'],
-    img: '/img/bcard-dog.png',
-    imgWrap: pos(143, -22, 224, 270), // 57:125, mirrored
-    imgStyle: { position: 'absolute', inset: '0', width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' },
-  },
+  { title: 'Сертификат об обучении', desc: 'Выдаем сертификат после прохождения обучения', img: '/img/bcard-cert.png', cls: 'cert' },
+  { title: 'Проверенные методы', desc: 'Обучаем проверенным техникам работ', img: '/img/bcard-balloons.png', cls: 'balloons' },
+  { title: 'Обучаем базе', desc: 'Понятная база по аэродизайну', img: '/img/bcard-dog.png', cls: 'dog' },
 ]
 </script>
 
 <template>
-  <article v-for="c in cards" :key="c.x" class="bcard" :style="pos(c.x, 733, 385, 189)">
-    <!-- decorative dashed lines (57:96–102) -->
-    <img
-      v-for="lx in LINE_XS"
-      :key="lx"
-      class="bcard__line"
-      src="/img/card-line.svg"
-      alt=""
-      aria-hidden="true"
-      :style="{ left: lx + 'px', top: '1px' }"
-    />
-
-    <div class="bcard__imgwrap" :style="c.imgWrap">
-      <img :src="c.img" :style="c.imgStyle" alt="" />
+  <section class="benefits">
+    <div class="benefits__inner container">
+      <article v-for="c in cards" :key="c.title" class="bcard">
+        <h3 class="bcard__title">{{ c.title }}</h3>
+        <p class="bcard__desc">{{ c.desc }}</p>
+        <img class="bcard__img" :class="`bcard__img--${c.cls}`" :src="c.img" alt="" draggable="false" />
+      </article>
     </div>
-
-    <h3 class="bcard__title" :style="pos(30, 51)">
-      <template v-for="(l, i) in c.title" :key="i">{{ l }}<br v-if="i < c.title.length - 1" /></template>
-    </h3>
-    <p class="bcard__desc" :style="pos(30, 113)">
-      <template v-for="(l, i) in c.desc" :key="i">{{ l }}<br v-if="i < c.desc.length - 1" /></template>
-    </p>
-  </article>
+  </section>
 </template>
 
 <style scoped>
+.benefits {
+  background: var(--c-page);
+  padding-bottom: 40px;
+}
+.benefits__inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px;
+}
 .bcard {
+  position: relative;
+  min-height: 189px;
   background: var(--c-white);
   border-radius: 30.315px;
+  padding: 51px 30px 24px;
   overflow: hidden;
 }
-
-.bcard__line {
-  position: absolute;
-  width: 178px;
-  height: 1.263px;
-  transform-origin: 0 0;
-  transform: rotate(90deg);
-  pointer-events: none;
-}
-
-.bcard__imgwrap {
-  pointer-events: none;
-}
-.bcard__imgwrap img {
-  display: block;
-}
-
 .bcard__title {
+  position: relative;
+  z-index: 2;
+  max-width: 58%;
   font-family: var(--font-inter);
   font-weight: 700;
   font-size: 21.22px;
   line-height: 1.3;
   letter-spacing: -0.6366px;
   color: var(--c-black);
-  white-space: nowrap;
 }
 .bcard__desc {
+  position: relative;
+  z-index: 2;
+  margin-top: 8px;
+  max-width: 52%;
   font-family: var(--font-inter);
   font-weight: 400;
   font-size: 12.884px;
   line-height: 1.3;
   color: rgba(0, 0, 0, 0.8);
-  white-space: nowrap;
+}
+.bcard__img {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.bcard__img--cert {
+  width: 211px;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.bcard__img--balloons {
+  width: 150px;
+  right: -8px;
+  bottom: -30px;
+}
+.bcard__img--dog {
+  width: 150px;
+  right: -6px;
+  bottom: -14px;
+  transform: scaleX(-1);
+}
+
+@media (max-width: 900px) {
+  .benefits__inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bcard {
+    min-height: 148px;
+    border-radius: 24px;
+  }
+  .bcard__title {
+    font-size: 16.6px;
+  }
+  .bcard__desc {
+    font-size: 10px;
+  }
 }
 </style>

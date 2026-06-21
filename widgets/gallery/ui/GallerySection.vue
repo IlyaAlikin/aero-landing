@@ -1,75 +1,87 @@
 <script setup lang="ts">
-// Gallery "Как выглядит обучение изнутри?" — Figma 57:300, 57:301, 57:295 (Image Row).
-import { pos } from '@shared/lib/figma'
-
-interface Thumb {
-  src: string
-  w: number
-  h: number
-}
-const thumbs: Thumb[] = [
-  { src: '/img/gallery/v1.png', w: 489, h: 266 },
-  { src: '/img/gallery/v2.png', w: 519, h: 266 },
-  { src: '/img/gallery/v3.png', w: 489, h: 258 },
-  { src: '/img/gallery/v4.png', w: 489, h: 258 },
+// "Как выглядит обучение изнутри?" — Figma 57:300/301/295.
+// #2: continuously rotating slider — thumbs duplicated ×3 for a seamless marquee.
+const thumbs = [
+  '/img/gallery/v1.png',
+  '/img/gallery/v2.png',
+  '/img/gallery/v3.png',
+  '/img/gallery/v4.png',
 ]
+const loop = [...thumbs, ...thumbs, ...thumbs]
 </script>
 
 <template>
-  <section>
-    <!-- Title 57:300 @(360,3536) Suisse SemiBold 36 #1d1d1d -->
-    <h2 class="title" :style="pos(360, 3536, 605)">Как выглядит обучение изнутри?</h2>
-
-    <!-- Swipe hint 57:301 @(1277,3531) -->
-    <div class="swipe" :style="pos(1277, 3531, 283, 48)">
-      <span class="swipe__text">Листайте, чтобы посмотреть больше</span>
-      <img class="swipe__arrow" src="/img/gallery/arrow.svg" alt="" />
+  <section class="gallery">
+    <div class="gallery__head container">
+      <h2 class="gallery__title">Как выглядит обучение изнутри?</h2>
+      <div class="gallery__swipe">
+        <span>Листайте, чтобы посмотреть больше</span>
+        <img src="/img/gallery/arrow.svg" alt="" />
+      </div>
     </div>
 
-    <!-- Image row 57:295 @(-36,3676) gap 46, bleeds off right -->
-    <div class="row" :style="pos(-36, 3676)">
-      <div v-for="(t, i) in thumbs" :key="i" class="thumb" :style="{ width: t.w + 'px', height: t.h + 'px' }">
-        <img :src="t.src" alt="" />
+    <div class="gallery__viewport">
+      <div class="gallery__track">
+        <div v-for="(t, i) in loop" :key="i" class="thumb">
+          <img :src="t" alt="Видео обучения" draggable="false" />
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.title {
+.gallery {
+  background: var(--c-page-2);
+  padding: 50px 0 60px;
+  overflow: hidden;
+}
+.gallery__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.gallery__title {
   font-family: var(--font-suisse);
   font-weight: 600;
   font-size: 36px;
   line-height: 1.1;
   color: var(--c-ink);
-  white-space: nowrap;
 }
-
-.swipe {
-  display: flex;
+.gallery__swipe {
+  display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 12px;
+  color: var(--c-ink);
 }
-.swipe__text {
-  width: 211px;
+.gallery__swipe span {
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 21px;
-  line-height: 1.1;
-  color: var(--c-ink);
 }
-.swipe__arrow {
+.gallery__swipe img {
   width: 72px;
-  height: 16px;
 }
 
-.row {
+.gallery__viewport {
+  margin-top: 38px;
+  overflow: hidden;
+}
+.gallery__track {
   display: flex;
   gap: 46px;
-  align-items: flex-start;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.gallery__track:hover {
+  animation-play-state: paused;
 }
 .thumb {
   flex: none;
+  width: 489px;
+  height: 266px;
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 4px 52px rgba(0, 0, 0, 0.06);
@@ -79,5 +91,35 @@ const thumbs: Thumb[] = [
   height: 100%;
   object-fit: cover;
   object-position: center top;
+}
+
+/* one third of the track = the original 4 thumbs */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+@media (max-width: 760px) {
+  .gallery__title {
+    font-size: 22px;
+  }
+  .gallery__swipe span {
+    font-size: 14px;
+  }
+  .gallery__swipe img {
+    width: 54px;
+  }
+  .thumb {
+    width: 280px;
+    height: 158px;
+    border-radius: 18px;
+  }
+  .gallery__track {
+    gap: 20px;
+  }
 }
 </style>

@@ -1,100 +1,122 @@
 <script setup lang="ts">
-// Author / stats / quote — Figma 57:165, 57:173, 57:176, 57:182, 57:234, 57:166.
-import { pos } from '@shared/lib/figma'
+// Author / stats / quote — Figma 57:176/182/234/166. Block: white card + photo on the right.
 </script>
 
 <template>
-  <section id="author">
-    <!-- Author photo (57:175) — pre-positioned export 2010×1147; placed at native size so the
-         woman lands on the right with her base at the pink section bottom (3466). -->
-    <img
-      class="photo"
-      :style="pos(0, 2319, 2010, 1147)"
-      src="/img/author-photo.png"
-      alt="Виктория Русских"
-    />
+  <section id="author" class="author">
+    <div class="author__inner container">
+      <div class="card">
+        <h2 class="card__name"><b>Автор обучения - </b><span>Виктория Русских</span></h2>
 
-    <!-- White quote card (57:177) @(360,2400) 630×1011 r16 -->
-    <div class="card" :style="pos(360, 2400, 630, 1011)" />
+        <div class="stats">
+          <div class="stat">
+            <span class="stat__num">200+</span>
+            <span class="stat__label">Учеников прошло мое обучение</span>
+          </div>
+          <div class="stat">
+            <span class="stat__num">8+</span>
+            <span class="stat__label">Лет практического опыта</span>
+          </div>
+        </div>
 
-    <!-- Author title (57:182) @(413,2437) w524, Suisse 58/1.2 #222 -->
-    <h2 class="atitle" :style="pos(413, 2437, 524)">
-      <b>Автор обучения - </b><span>Виктория Русских</span>
-    </h2>
-
-    <!-- Statistics (57:234) -->
-    <p class="stat-num" :style="pos(413, 2616, 246, 104)">200+</p>
-    <p class="stat-label" :style="pos(413, 2712, 269, 68)">Учеников прошло мое обучение</p>
-    <p class="stat-num" :style="pos(413, 2799, 123, 104)">8+</p>
-    <p class="stat-label" :style="pos(413, 2896, 275, 68)">Лет практического опыта</p>
-
-    <!-- Quote (57:176) -->
-    <div class="qmark" :style="pos(412, 3018, 57, 57)">
-      <img src="/img/quote-mark.svg" alt="" :style="pos(16, 17, 27, 24)" />
+        <div class="quote">
+          <span class="quote__mark"><img src="/img/quote-mark.svg" alt="" /></span>
+          <h3 class="quote__title">Меня выбирают не только за знания, но и за подход к обучению</h3>
+          <p class="quote__text">
+            Я знаю, как сложно новичкам разобраться в большом количестве информации.
+            Поэтому создала курс где собрала все самое важное и полезное простым и
+            понятным языком
+          </p>
+        </div>
+      </div>
     </div>
-    <h3 class="qtitle" :style="pos(412, 3107, 578)">
-      Меня выбирают не только за знания, но и за подход к обучению
-    </h3>
-    <p class="qdesc" :style="pos(412, 3193, 533)">
-      <span class="qdesc__semi">Я знаю, как сложно новичкам разобраться<br />в большом количестве информации.</span
-      ><span><br />Поэтому создала курс где собрала<br />все самое важное и полезное простым<br />и понятным языком</span>
-    </p>
 
-    <!-- Author info + telegram pill (57:166) -->
-    <div class="ainfo" :style="pos(1027, 2969)">
-      <p class="ainfo__dim">Автор обучения</p>
-      <p class="ainfo__name">Виктория Русских</p>
-    </div>
-    <a class="tg-pill" :style="pos(1027, 3018, 196, 41)" href="#" aria-label="Telegram @VikaRusskikh">
-      <span class="tg-pill__row" :style="pos(18, 7)">
-        <img class="tg-pill__icon" src="/img/tg-icon.svg" alt="" />
-        <span class="tg-pill__handle">@VikaRusskikh</span>
+    <img class="author__photo" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
+
+    <!-- #3 clickable telegram -->
+    <a class="tg" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
+      <span class="tg__cap">Автор обучения<br />Виктория Русских</span>
+      <span class="tg__pill">
+        <img class="tg__icon" src="/img/tg-icon.svg" alt="" />
+        <span class="tg__handle">@VikaRusskikh</span>
       </span>
     </a>
   </section>
 </template>
 
 <style scoped>
-.photo {
-  pointer-events: none;
+.author {
+  position: relative;
+  background: var(--c-pink);
+  overflow: hidden;
+  padding: 50px 0 60px;
 }
-
+.author__inner {
+  position: relative;
+  z-index: 2;
+}
 .card {
+  width: 630px;
+  max-width: 100%;
   background: var(--c-white);
   border-radius: 16px;
+  padding: 37px 52px 50px;
 }
-
-.atitle {
+.card__name {
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 58px;
   line-height: 1.2;
   color: var(--c-ink-22);
 }
-.atitle b {
+.card__name b {
   font-weight: 700;
 }
-
-.stat-num {
+.stats {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+.stat__num {
   font-family: var(--font-suisse);
   font-weight: 700;
-  font-size: 90.139px;
+  font-size: 90px;
   line-height: 1;
   color: var(--c-beige);
 }
-.stat-label {
+.stat__label {
+  margin-top: -6px;
+  max-width: 275px;
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 29.554px;
-  line-height: 1.1;
+  line-height: 1.12;
   color: var(--c-ink-22);
 }
-
-.qmark {
-  background: var(--c-ink-2f);
-  border-radius: 3.65px;
+.quote {
+  margin-top: 44px;
 }
-.qtitle {
+.quote__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 57px;
+  height: 57px;
+  border-radius: 4px;
+  background: var(--c-ink-2f);
+}
+.quote__mark img {
+  width: 27px;
+  height: 24px;
+}
+.quote__title {
+  margin-top: 30px;
+  max-width: 578px;
   font-family: var(--font-suisse);
   font-weight: 700;
   font-size: 30.416px;
@@ -102,7 +124,9 @@ import { pos } from '@shared/lib/figma'
   color: var(--c-ink-2f);
   opacity: 0.8;
 }
-.qdesc {
+.quote__text {
+  margin-top: 18px;
+  max-width: 533px;
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 21.899px;
@@ -110,40 +134,85 @@ import { pos } from '@shared/lib/figma'
   color: var(--c-ink-2f);
   opacity: 0.8;
 }
-.qdesc__semi {
-  font-weight: 600;
+
+.author__photo {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  object-position: right bottom;
+  pointer-events: none;
 }
 
-.ainfo {
+.tg {
+  position: absolute;
+  z-index: 3;
+  right: 28%;
+  bottom: 90px;
+}
+.tg__cap {
+  display: block;
   font-family: var(--font-sf);
   font-size: 15.307px;
-  line-height: 1.1;
-  color: var(--c-white);
-  white-space: nowrap;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 8px;
 }
-.ainfo__dim {
-  color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 3px;
-}
-
-.tg-pill {
-  background: var(--c-white);
-  border-radius: 7.463px;
-}
-.tg-pill__row {
-  display: flex;
+.tg__pill {
+  display: inline-flex;
   align-items: center;
   gap: 13px;
+  background: var(--c-white);
+  border-radius: 7.463px;
+  padding: 8px 16px;
 }
-.tg-pill__icon {
+.tg__icon {
   width: 18px;
   height: 16px;
 }
-.tg-pill__handle {
+.tg__handle {
   font-family: var(--font-sf);
   font-size: 20px;
-  line-height: 1;
   color: var(--c-grey-555);
-  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .author {
+    padding: 36px 0 40px;
+  }
+  .card {
+    width: 100%;
+    padding: 26px 22px 32px;
+  }
+  .card__name {
+    font-size: 24px;
+    text-align: center;
+  }
+  .stat__num {
+    font-size: 42px;
+  }
+  .stat__label {
+    font-size: 14px;
+  }
+  .quote__title {
+    font-size: 17px;
+  }
+  .quote__text {
+    font-size: 13px;
+  }
+  .author__photo {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 24px;
+  }
+  .tg {
+    display: none;
+  }
 }
 </style>

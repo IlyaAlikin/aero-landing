@@ -1,77 +1,78 @@
 <script setup lang="ts">
-// FAQ — Figma 57:76 (title), 57:128 (container, 6 rows). Accordion toggles the +/− icon.
-import { pos } from '@shared/lib/figma'
+// FAQ — Figma 57:76/128. Block accordion; toggles the +/− icon (no answer body in the mockup).
 import { useFaqStore } from '@features/faq-accordion/model/store'
 
 const faq = useFaqStore()
-
-const rows = [
-  { y: 7842, q: 'Подойдет ли курс новичку', w: 332 },
-  { y: 7967, q: 'Смогу ли я разобраться без опыта?', w: 445 },
-  { y: 8092, q: 'На какое время предоставляется доступ к курсу?', w: 623 },
-  { y: 8217, q: 'Выдается ли сертификат?', w: 327 },
-  { y: 8342, q: 'Есть ли обратная связь?', w: 307 },
-  { y: 8467, q: 'Что понадобится для обучения?', w: 404 },
+const questions = [
+  'Подойдет ли курс новичку',
+  'Смогу ли я разобраться без опыта?',
+  'На какое время предоставляется доступ к курсу?',
+  'Выдается ли сертификат?',
+  'Есть ли обратная связь?',
+  'Что понадобится для обучения?',
 ]
 </script>
 
 <template>
-  <section id="faq">
-    <!-- Title 57:76 @(360,7645) Suisse 64.582 white UPPER -->
-    <h2 class="title" :style="pos(360, 7645, 667)">
-      <span class="title--light">Ответы на</span><span> частые вопросы</span>
-    </h2>
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2 class="faq__title"><span class="faq__title--light">Ответы на</span> частые вопросы</h2>
 
-    <!-- Rows 57:129… @(360, y) 1200×100 r15 -->
-    <button
-      v-for="(r, i) in rows"
-      :key="i"
-      class="row"
-      :style="pos(360, r.y, 1200, 100)"
-      @click="faq.toggle(i)"
-    >
-      <span class="row__q" :style="{ width: r.w + 'px' }">{{ r.q }}</span>
-      <span class="row__icon" :class="{ 'row__icon--open': faq.isOpen(i) }">
-        <i class="bar bar--h" /><i class="bar bar--v" />
-      </span>
-    </button>
+      <div class="faq__list">
+        <button v-for="(q, i) in questions" :key="i" class="row" @click="faq.toggle(i)">
+          <span class="row__q">{{ q }}</span>
+          <span class="row__icon" :class="{ 'row__icon--open': faq.isOpen(i) }">
+            <i class="bar bar--h" /><i class="bar bar--v" />
+          </span>
+        </button>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-.title {
+.faq {
+  background: var(--c-pink);
+  padding: 56px 0 70px;
+}
+.faq__title {
   font-family: var(--font-suisse);
   font-weight: 700;
   font-size: 64.582px;
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--c-white);
+  margin-bottom: 44px;
 }
-.title--light {
+.faq__title--light {
   font-weight: 300;
 }
-
+.faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
 .row {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100px;
   background: var(--c-white);
   border-radius: 15px;
+  padding: 0 51px;
   text-align: left;
 }
 .row__q {
-  position: absolute;
-  left: 51px;
-  top: 35px;
   font-family: var(--font-suisse);
   font-weight: 450;
   font-size: 25px;
   line-height: 1.2;
   color: var(--c-black);
 }
-/* +/- icon (57:132) 22×21 @ right */
 .row__icon {
-  position: absolute;
-  left: 1146px;
-  top: 40px;
+  position: relative;
+  flex: none;
   width: 22px;
   height: 21px;
 }
@@ -94,5 +95,20 @@ const rows = [
 }
 .row__icon--open .bar--v {
   opacity: 0;
+}
+
+@media (max-width: 760px) {
+  .faq__title {
+    font-size: 24px;
+    margin-bottom: 28px;
+  }
+  .row {
+    min-height: 64px;
+    padding: 0 24px;
+    border-radius: 10px;
+  }
+  .row__q {
+    font-size: 14px;
+  }
 }
 </style>

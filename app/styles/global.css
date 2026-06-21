@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px; /* offset for sticky header on anchor jumps */
+}
+
 html,
 body {
   margin: 0;
@@ -14,13 +19,14 @@ body {
   font-family: var(--font-suisse);
   color: var(--c-black);
   background: var(--c-page);
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 img {
   display: block;
-  max-width: none;
+  max-width: 100%;
 }
 
 a {
@@ -44,18 +50,34 @@ h4 {
   margin: 0;
 }
 
-/* Desktop frame visible ≥ 761px; mobile frame below. Toggled in the page. */
-.show-desktop {
-  display: block;
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.show-mobile {
-  display: none;
+
+/* Centred content column (Figma container = 1200px). */
+.container {
+  width: 100%;
+  max-width: 1240px; /* 1200 content + 2×20 padding */
+  margin: 0 auto;
+  padding-inline: 20px;
 }
+
+/* #6 — design imagery must not be selectable / draggable / savable via drag. */
+img,
+.no-save {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}
+
 @media (max-width: 760px) {
-  .show-desktop {
-    display: none;
+  html {
+    scroll-padding-top: 80px;
   }
-  .show-mobile {
-    display: block;
+  .container {
+    padding-inline: 16px;
   }
 }

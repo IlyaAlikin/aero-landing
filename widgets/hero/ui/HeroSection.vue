@@ -1,50 +1,65 @@
 <script setup lang="ts">
-// Hero — Figma: 57:25 (H1), 57:32 (subtitle), 57:27 (button), 57:33 (dog art).
-import { pos } from '@shared/lib/figma'
+// Hero — Figma 57:25 / 57:32 / 57:27 / 57:33. Block layout: text column + dog art.
 import AppButton from '@shared/ui/AppButton.vue'
 </script>
 
 <template>
-  <!-- H1: 57:25 @(358,173) w773, Suisse Light 46/1.2 uppercase -->
-  <h1 class="title" :style="pos(358, 173, 773)">
-    <span class="title__dim">Научитесь создавать </span><span class="title__accent"
-      >современные<br />и качественные </span
-    ><span class="title__dim">оформления<br />из шаров</span>
-  </h1>
-
-  <!-- Subtitle: 57:32 @(358,475) w486, Suisse Regular 23 / 1.45, tracking -0.32 -->
-  <p class="subtitle" :style="pos(358, 475, 486)">
-    <span>Пошаговая система работы с шарами, материалами и техниками </span
-    ><span class="subtitle__bold">от практика<br />с реальным опытом.</span>
-  </p>
-
-  <!-- Button: 57:27 @(358,592) 544×123 -->
-  <div
-    class="cta"
-    :style="{ ...pos(358, 592, 544, 123), boxShadow: '0 31.837px 63.674px -15.918px rgba(233,97,129,0.5)' }"
-  >
-    <AppButton label="Перейти к покупке" variant="pink" size="lg" />
-  </div>
+  <section class="hero">
+    <div class="hero__inner container">
+      <div class="hero__text">
+        <h1 class="hero__title">
+          <span class="dim">Научитесь создавать</span>
+          <span class="accent">современные<br />и качественные</span>
+          <span class="dim">оформления из шаров</span>
+        </h1>
+        <p class="hero__sub">
+          Пошаговая система работы с шарами, материалами и техниками
+          <b>от практика с реальным опытом.</b>
+        </p>
+        <img class="hero__dog hero__dog--mobile" src="/img/hero-dog.png" alt="Собачка из шаров" />
+        <div class="hero__cta">
+          <AppButton label="Перейти к покупке" variant="pink" size="lg" />
+        </div>
+      </div>
+      <img class="hero__dog hero__dog--desktop" src="/img/hero-dog.png" alt="Собачка из шаров" />
+    </div>
+  </section>
 </template>
 
 <style scoped>
-.title {
+.hero {
+  background: var(--c-page);
+  padding-top: 150px;
+  padding-bottom: 50px;
+}
+.hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.hero__text {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.hero__title {
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 46px;
   line-height: 1.2;
   text-transform: uppercase;
-  margin: 0;
 }
-.title__dim {
+.hero__title .dim {
+  display: block;
   color: rgba(27, 27, 27, 0.8);
 }
-.title__accent {
+.hero__title .accent {
+  display: block;
   color: var(--c-pink);
   font-weight: 700;
 }
-
-.subtitle {
+.hero__sub {
+  margin-top: 18px;
+  max-width: 490px;
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 23px;
@@ -52,11 +67,53 @@ import AppButton from '@shared/ui/AppButton.vue'
   letter-spacing: -0.32px;
   color: var(--c-ink-1b);
 }
-.subtitle__bold {
+.hero__sub b {
   font-weight: 700;
 }
-
-.cta {
+.hero__cta {
+  margin-top: 28px;
+  width: 544px;
+  max-width: 100%;
+  box-shadow: 0 31.837px 63.674px -15.918px rgba(233, 97, 129, 0.5);
   border-radius: 39.796px;
+}
+
+.hero__dog--desktop {
+  flex: 0 0 auto;
+  width: 46%;
+  max-width: 620px;
+  height: auto;
+  object-fit: contain;
+}
+.hero__dog--mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding-top: 110px;
+  }
+  .hero__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero__title {
+    font-size: 24px;
+  }
+  .hero__sub {
+    margin-inline: auto;
+    font-size: 15px;
+  }
+  .hero__dog--desktop {
+    display: none;
+  }
+  .hero__dog--mobile {
+    display: block;
+    width: 78%;
+    margin: 6px auto 0;
+  }
+  .hero__cta {
+    height: 68px;
+  }
 }
 </style>
