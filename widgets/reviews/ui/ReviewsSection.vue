@@ -64,11 +64,10 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 }
 
 .stage {
-  margin-top: 36px;
+  margin-top: 52px; /* Figma: title bottom -> phones */
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 22px;
+  justify-content: space-between; /* arrows pinned to content edges (Figma 57:193) */
 }
 .phones {
   display: flex;
@@ -97,7 +96,7 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 }
 
 .dots {
-  margin-top: 30px;
+  margin-top: 21px;
   display: flex;
   align-items: center;
   justify-content: center;

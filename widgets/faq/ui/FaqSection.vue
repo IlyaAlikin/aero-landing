@@ -36,6 +36,7 @@ const questions = [
   padding: 56px 0 70px;
 }
 .faq__title {
+  max-width: 760px; /* wraps to 2 lines: 'ОТВЕТЫ НА ЧАСТЫЕ' / 'ВОПРОСЫ' */
   font-family: var(--font-suisse);
   font-weight: 700;
   font-size: 64.582px;

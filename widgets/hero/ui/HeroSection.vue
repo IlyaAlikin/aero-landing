@@ -10,7 +10,7 @@ import AppButton from '@shared/ui/AppButton.vue'
         <h1 class="hero__title">
           <span class="dim">Научитесь создавать</span>
           <span class="accent">современные<br />и качественные</span>
-          <span class="dim">оформления из шаров</span>
+          <span class="dim">оформления<br />из шаров</span>
         </h1>
         <p class="hero__sub">
           Пошаговая система работы с шарами, материалами и техниками
@@ -28,8 +28,9 @@ import AppButton from '@shared/ui/AppButton.vue'
 
 <style scoped>
 .hero {
+  position: relative;
   background: var(--c-page);
-  padding-top: 150px;
+  padding-top: 78px; /* lift title to Figma y≈173 */
   padding-bottom: 50px;
 }
 .hero__inner {
@@ -42,6 +43,7 @@ import AppButton from '@shared/ui/AppButton.vue'
   min-width: 0;
 }
 .hero__title {
+  max-width: 640px; /* Figma Huge Subtitle box 773px in 1200 col */
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 46px;
@@ -64,7 +66,7 @@ import AppButton from '@shared/ui/AppButton.vue'
   font-weight: 400;
   font-size: 23px;
   line-height: 1.45;
-  letter-spacing: -0.32px;
+  letter-spacing: -0.46px; /* Figma Huge Title ls-0.46 */
   color: var(--c-ink-1b);
 }
 .hero__sub b {
@@ -79,11 +81,14 @@ import AppButton from '@shared/ui/AppButton.vue'
 }
 
 .hero__dog--desktop {
-  flex: 0 0 auto;
-  width: 46%;
-  max-width: 620px;
-  aspect-ratio: 1039 / 1250; /* Figma 57:33 box */
-  object-fit: cover; /* fill like Figma, not tiny with margins */
+  position: absolute; /* Figma 57:33: big head-crop anchored right, body covered by next section */
+  z-index: 0;
+  right: -10px;
+  top: -30px;
+  width: 1000px;
+  max-width: 54vw;
+  height: auto;
+  pointer-events: none;
 }
 .hero__dog--mobile {
   display: none;

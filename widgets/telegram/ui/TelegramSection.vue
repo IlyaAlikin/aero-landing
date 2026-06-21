@@ -62,7 +62,7 @@ const modules = [
 .tg {
   position: relative;
   background: var(--c-page-2);
-  padding: 50px 0 70px;
+  padding: 40px 0 40px;
 }
 .tg__top {
   position: relative;
@@ -82,7 +82,7 @@ const modules = [
 }
 .tg__blue {
   font-weight: 700;
-  color: var(--c-blue);
+  color: var(--c-blue-accent); /* vivid accent blue per macet */
 }
 .tg__desc b {
   font-weight: 700;
@@ -121,7 +121,7 @@ const modules = [
 .tg__panel::before {
   content: '';
   position: absolute;
-  inset: 0 20px;
+  inset: 0; /* Figma Feature Background spans the full content width */
   background: var(--c-white);
   border-radius: 50px;
   box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
@@ -130,7 +130,7 @@ const modules = [
   position: relative;
   display: flex;
   justify-content: center;
-  gap: 16px;
+  gap: 33px; /* Figma card x-gaps 33/32 */
   padding: 48px 40px 0;
 }
 .tg__module {
@@ -144,7 +144,7 @@ const modules = [
   display: block;
   width: 544px;
   max-width: calc(100% - 80px);
-  margin: 40px auto 48px;
+  margin: 32px auto 40px;
   border-radius: 39.796px;
   box-shadow: 0 31.837px 63.674px -15.918px #58a4c9;
 }

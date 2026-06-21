@@ -54,7 +54,7 @@ function maskStyle(src: string, size: number): CSSProperties {
   font-size: 64.582px;
   line-height: 1.2;
   color: var(--c-ink);
-  margin-bottom: 70px;
+  margin-bottom: 55px; /* tighter title->cards gap per macet */
 }
 .course__title b {
   font-weight: 700;

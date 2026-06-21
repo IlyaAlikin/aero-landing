@@ -57,16 +57,18 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
   color: var(--c-ink);
 }
 .gallery__swipe span {
+  max-width: 211px; /* Figma Swipe Text box 211px -> 2 lines */
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 21px;
 }
 .gallery__swipe img {
   width: 72px;
+  height: 15px; /* thin line-arrow, not a stretched blob */
 }
 
 .gallery__viewport {
-  margin-top: 38px;
+  margin-top: 20px;
   overflow: hidden;
 }
 .gallery__track {
@@ -85,6 +87,9 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 4px 52px rgba(0, 0, 0, 0.06);
+}
+.thumb:nth-child(4n + 2) {
+  width: 519px; /* Figma: 2nd photo wider (57:297) */
 }
 .thumb img {
   width: 100%;

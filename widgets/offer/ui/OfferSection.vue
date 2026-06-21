@@ -5,11 +5,11 @@ import AppButton from '@shared/ui/AppButton.vue'
 
 interface Polaroid { src: string; rot: number; style: CSSProperties }
 const polaroids: Polaroid[] = [
-  { src: '/img/offer/p1.png', rot: -17, style: { left: '8%', top: '0' } },
-  { src: '/img/offer/p5.png', rot: -11, style: { left: '30%', top: '120px', zIndex: '2' } },
-  { src: '/img/offer/p3.png', rot: 11, style: { left: '0', top: '210px' } },
-  { src: '/img/offer/p2.png', rot: 0, style: { right: '6%', top: '40px' } },
-  { src: '/img/offer/p4.png', rot: 17, style: { right: '14%', top: '250px' } },
+  { src: '/img/offer/p1.png', rot: -15, style: { left: '4%', top: '6px' } },
+  { src: '/img/offer/p5.png', rot: -7, style: { left: '30%', top: '70px', zIndex: '3' } },
+  { src: '/img/offer/p3.png', rot: 12, style: { left: '1%', top: '175px' } },
+  { src: '/img/offer/p2.png', rot: 4, style: { right: '11%', top: '0', zIndex: '2' } },
+  { src: '/img/offer/p4.png', rot: 16, style: { right: '0', top: '150px' } },
 ]
 
 const features = [
@@ -86,15 +86,18 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   display: flex;
   gap: 30px;
   align-items: flex-start;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 .features {
   flex: 0 0 325px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0; /* Figma: cards 1&2 flush, 3rd +12px */
   position: relative;
   z-index: 3;
+}
+.feat:last-child {
+  margin-top: 12px;
 }
 .feat {
   position: relative;
@@ -134,12 +137,12 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 .cluster {
   position: relative;
   flex: 1 1 0;
-  min-height: 470px;
+  min-height: 440px;
 }
 .pol {
   position: absolute;
-  width: 240px;
-  height: 264px;
+  width: 285px; /* larger photos -> denser overlapping cluster like macet */
+  height: 312px;
 }
 .pol__photo,
 .pol__frame {
@@ -156,7 +159,9 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 }
 
 .panel {
-  margin-top: 40px;
+  width: 1066px; /* Figma Main Container 1066px, left-aligned (gap on right) */
+  max-width: 100%;
+  margin-top: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
@@ -179,7 +184,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 }
 .pcard {
   display: flex;
-  align-items: baseline;
+  align-items: center; /* price vertically centered in card */
   gap: 18px;
   height: 155px;
   padding: 0 40px;

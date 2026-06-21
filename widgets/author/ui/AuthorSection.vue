@@ -49,7 +49,7 @@
   position: relative;
   background: var(--c-pink);
   overflow: hidden;
-  padding: 50px 0 60px;
+  padding: 24px 0 48px;
 }
 .author__inner {
   position: relative;
@@ -73,7 +73,7 @@
   font-weight: 700;
 }
 .stats {
-  margin-top: 30px;
+  margin-top: 44px;
   display: flex;
   flex-direction: column;
   gap: 26px;
@@ -141,18 +141,18 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 62%;
+  width: 66%;
   height: 100%;
   object-fit: cover; /* fill right side, balanced like Figma 57:165 */
-  object-position: right bottom;
+  object-position: right top;
   pointer-events: none;
 }
 
 .tg {
   position: absolute;
   z-index: 3;
-  right: 28%;
-  bottom: 90px;
+  left: calc(50% + 67px); /* Figma Author Info @x1027 */
+  top: 699px; /* Figma pill @y3018 from pink top y2319 */
 }
 .tg__cap {
   display: block;

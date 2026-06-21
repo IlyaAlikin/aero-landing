@@ -22,7 +22,8 @@ function isActive(href: string) {
           v-for="link in NAV_LINKS"
           :key="link.label"
           class="nav__item"
-          :class="{ 'nav__item--accent': link.accent, 'nav__item--active': isActive(link.href) && !link.accent }"
+          :class="{ 'nav__item--accent': link.accent }"
+          :style="{ width: link.width + 'px' }"
           :href="link.href"
         >
           {{ link.label }}
@@ -89,7 +90,7 @@ function isActive(href: string) {
   align-items: center;
   justify-content: center;
   height: 55px;
-  padding: 18px 34px 19px 35px; /* Figma 57:79 */
+  padding: 0 10px; /* width is fixed per item (Figma 57:79..91), text centered */
   background: var(--c-white);
   border-radius: 19.514px;
   font-family: var(--font-inter);
