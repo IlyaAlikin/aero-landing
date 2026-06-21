@@ -3,14 +3,26 @@
 import type { CSSProperties } from 'vue'
 import AppButton from '@shared/ui/AppButton.vue'
 
-interface Polaroid { src: string; rot: number; style: CSSProperties }
+// 5 collage images — exact Figma Image Containers (frame coords, section padding-box top = y6411).
+// dx = frameX - 960 (centre-anchored), dy = frameY - 6411. z = draw order (5 on top).
+interface Polaroid { src: string; w: number; h: number; dx: number; dy: number; rot: number; z: number }
 const polaroids: Polaroid[] = [
-  { src: '/img/offer/p1.png', rot: -15, style: { left: '4%', top: '6px' } },
-  { src: '/img/offer/p5.png', rot: -7, style: { left: '30%', top: '70px', zIndex: '3' } },
-  { src: '/img/offer/p3.png', rot: 12, style: { left: '1%', top: '175px' } },
-  { src: '/img/offer/p2.png', rot: 4, style: { right: '11%', top: '0', zIndex: '2' } },
-  { src: '/img/offer/p4.png', rot: 16, style: { right: '0', top: '150px' } },
+  { src: '/img/offer/p1.png', w: 375, h: 394, dx: 153, dy: -1, rot: -8, z: 1 },
+  { src: '/img/offer/p2.png', w: 293, h: 322, dx: 318, dy: 289, rot: 6, z: 2 },
+  { src: '/img/offer/p3.png', w: 351, h: 374, dx: -256, dy: 312, rot: -11, z: 3 },
+  { src: '/img/offer/p4.png', w: 270, h: 284, dx: 378, dy: 523, rot: 14, z: 4 },
+  { src: '/img/offer/p5.png', w: 427, h: 455, dx: 19, dy: 319, rot: 3, z: 5 },
 ]
+function polStyle(p: Polaroid): CSSProperties {
+  return {
+    left: `calc(50% + ${p.dx}px)`,
+    top: `${p.dy}px`,
+    width: `${p.w}px`,
+    height: `${p.h}px`,
+    zIndex: String(p.z),
+    transform: `rotate(${p.rot}deg)`,
+  }
+}
 
 const features = [
   { title: ['Полный доступ', 'к программе'], img: '/img/bcard-balloons.png', flip: false },
@@ -37,11 +49,12 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
           </div>
         </div>
 
-        <div class="cluster">
-          <div v-for="(p, i) in polaroids" :key="i" class="pol" :style="{ ...p.style, transform: `rotate(${p.rot}deg)` }">
-            <img class="pol__photo" :src="p.src" alt="" draggable="false" />
-            <img class="pol__frame" src="/img/offer/frame.png" alt="" draggable="false" />
-          </div>
+      </div>
+
+      <div class="collage" aria-hidden="true">
+        <div v-for="(p, i) in polaroids" :key="i" class="pol" :style="polStyle(p)">
+          <img class="pol__photo" :src="p.src" alt="" draggable="false" />
+          <img class="pol__frame" src="/img/offer/frame.png" alt="" draggable="false" />
         </div>
       </div>
 
@@ -67,6 +80,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 
 <style scoped>
 .offer {
+  position: relative;
   background: var(--c-page-2);
   padding: 50px 0 70px;
 }
@@ -134,15 +148,17 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   color: var(--c-ink-2f);
 }
 
-.cluster {
-  position: relative;
-  flex: 1 1 0;
-  min-height: 440px;
+.collage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* behind the white price panel (z2), above section bg */
+  pointer-events: none;
 }
 .pol {
-  position: absolute;
-  width: 285px; /* larger photos -> denser overlapping cluster like macet */
-  height: 312px;
+  position: absolute; /* size/pos/z set inline from Figma Image Containers */
 }
 .pol__photo,
 .pol__frame {
@@ -159,6 +175,8 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 }
 
 .panel {
+  position: relative;
+  z-index: 2; /* above the collage; collage tucks behind its top edge like macet */
   width: 1066px; /* Figma Main Container 1066px, left-aligned (gap on right) */
   max-width: 100%;
   margin-top: 24px;
@@ -245,9 +263,8 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
     flex-basis: auto;
     width: 100%;
   }
-  .cluster {
-    width: 100%;
-    min-height: 420px;
+  .collage {
+    display: none;
   }
   .panel {
     grid-template-columns: 1fr;

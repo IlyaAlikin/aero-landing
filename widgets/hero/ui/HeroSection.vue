@@ -30,7 +30,7 @@ import AppButton from '@shared/ui/AppButton.vue'
 .hero {
   position: relative;
   background: var(--c-page);
-  padding-top: 78px; /* lift title to Figma y≈173 */
+  padding-top: 8px; /* lift title to Figma y≈184 (measured title = pad + ~176) */
   padding-bottom: 50px;
 }
 .hero__inner {
