@@ -127,7 +127,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   font-family: var(--font-suisse);
   font-weight: 600;
   font-size: 18.744px;
-  line-height: 1.15;
+  line-height: 1.2; /* Figma normal */
   color: var(--c-ink-2f);
 }
 
@@ -163,7 +163,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   background: var(--c-white);
   border-radius: 15px;
   box-shadow: 0 4px 67px rgba(0, 0, 0, 0.06);
-  padding: 30px 36px 40px;
+  padding: 40px 28px 28px; /* Figma inner 1038×402 in 1066×426 */
 }
 .pcol__head {
   font-family: var(--font-sf);

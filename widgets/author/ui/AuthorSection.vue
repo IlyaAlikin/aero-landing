@@ -95,7 +95,7 @@
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 29.554px;
-  line-height: 1.12;
+  line-height: 1.157; /* Figma 34.2/29.554 */
   color: var(--c-ink-22);
 }
 .quote {
@@ -107,7 +107,7 @@
   justify-content: center;
   width: 57px;
   height: 57px;
-  border-radius: 4px;
+  border-radius: 3.65px; /* Figma 57:180 */
   background: var(--c-ink-2f);
 }
 .quote__mark img {
@@ -139,11 +139,11 @@
   position: absolute;
   z-index: 1;
   right: 0;
+  top: 0;
   bottom: 0;
+  width: 62%;
   height: 100%;
-  width: auto;
-  max-width: none;
-  object-fit: contain;
+  object-fit: cover; /* fill right side, balanced like Figma 57:165 */
   object-position: right bottom;
   pointer-events: none;
 }

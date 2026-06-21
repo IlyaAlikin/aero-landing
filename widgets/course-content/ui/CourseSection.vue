@@ -62,7 +62,7 @@ function maskStyle(src: string, size: number): CSSProperties {
 .course__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 36px 40px;
+  gap: 55px 41px; /* Figma row≈55 / col≈41 */
 }
 .cc {
   position: relative;
@@ -126,7 +126,7 @@ function maskStyle(src: string, size: number): CSSProperties {
   color: var(--c-black);
 }
 .cc__desc {
-  margin-top: 18px;
+  margin-top: 22px; /* Figma desc @1435 vs title @1379 */
   font-family: var(--font-suisse);
   font-weight: 300;
   font-size: 18px;

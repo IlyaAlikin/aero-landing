@@ -68,7 +68,7 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 28px;
+  gap: 22px;
 }
 .phones {
   display: flex;
@@ -77,8 +77,7 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   gap: 5px;
 }
 .phones__item {
-  flex: none;
-  transform: scale(0.86);
+  flex: none; /* full 339×685 (Figma 57:201) */
 }
 
 .arrow {

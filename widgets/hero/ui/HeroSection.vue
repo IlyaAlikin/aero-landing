@@ -82,8 +82,8 @@ import AppButton from '@shared/ui/AppButton.vue'
   flex: 0 0 auto;
   width: 46%;
   max-width: 620px;
-  height: auto;
-  object-fit: contain;
+  aspect-ratio: 1039 / 1250; /* Figma 57:33 box */
+  object-fit: cover; /* fill like Figma, not tiny with margins */
 }
 .hero__dog--mobile {
   display: none;

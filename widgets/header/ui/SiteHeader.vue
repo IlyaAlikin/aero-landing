@@ -76,7 +76,7 @@ function isActive(href: string) {
 
 .nav {
   display: flex;
-  gap: 14px;
+  gap: 35px; /* Figma 57:78 itemSpacing */
   align-items: center;
   background: var(--c-nav);
   border-radius: 27.32px;
@@ -89,7 +89,7 @@ function isActive(href: string) {
   align-items: center;
   justify-content: center;
   height: 55px;
-  padding: 0 28px;
+  padding: 18px 34px 19px 35px; /* Figma 57:79 */
   background: var(--c-white);
   border-radius: 19.514px;
   font-family: var(--font-inter);

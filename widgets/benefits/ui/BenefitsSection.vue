@@ -77,14 +77,14 @@ const cards: Card[] = [
   transform: translateY(-50%);
 }
 .bcard__img--balloons {
-  width: 150px;
-  right: -8px;
-  bottom: -30px;
+  width: 275px; /* Figma 57:114 */
+  right: -42px;
+  top: -86px;
 }
 .bcard__img--dog {
-  width: 150px;
-  right: -6px;
-  bottom: -14px;
+  width: 224px; /* Figma 57:125 */
+  right: 18px;
+  top: -22px;
   transform: scaleX(-1);
 }
 
