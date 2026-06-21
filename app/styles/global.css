@@ -1,0 +1,61 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-suisse);
+  color: var(--c-black);
+  background: var(--c-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+/* Desktop frame visible ≥ 761px; mobile frame below. Toggled in the page. */
+.show-desktop {
+  display: block;
+}
+.show-mobile {
+  display: none;
+}
+@media (max-width: 760px) {
+  .show-desktop {
+    display: none;
+  }
+  .show-mobile {
+    display: block;
+  }
+}

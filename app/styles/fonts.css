@@ -1,0 +1,81 @@
+/* Fonts.
+   The Figma макет uses commercial "Suisse Intl" (main) and "SF Pro Display" (prices).
+   Per agreement these are wired as @font-face placeholders pointing to /public/fonts.
+   Drop the real .woff2 files there and they take over automatically; until then the
+   stack falls back to Inter so layout/metrics already render. */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ---- Suisse Intl (placeholders) ---- */
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 450; /* Figma "Book" */
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-Book.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Suisse Intl';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SuisseIntl-Bold.woff2') format('woff2');
+}
+
+/* ---- SF Pro Display (placeholders) ---- */
+@font-face {
+  font-family: 'SF Pro Display';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SFProDisplay-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SFProDisplay-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SFProDisplay-Semibold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('/fonts/SFProDisplay-Heavy.woff2') format('woff2');
+}

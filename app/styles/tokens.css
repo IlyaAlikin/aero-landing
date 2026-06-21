@@ -1,0 +1,28 @@
+/* Design tokens — values sourced from Figma via MCP get_design_context.
+   File gaEFna5BRenoXLemYoj7kl. No Figma Variables defined (get_variable_defs => {}),
+   so tokens are the concrete recurring values confirmed per node. */
+:root {
+  /* Colors */
+  --c-pink: #e96181;
+  --c-white: #ffffff;
+  --c-black: #000000;
+  --c-ink: #1d1d1d;
+  --c-ink-1b: #1b1b1b;
+  --c-ink-20: #202020;
+  --c-ink-22: #222222;
+  --c-ink-2f: #2f2f2f;
+  --c-ink-1a: #1a1a1a;
+  --c-blue: #2f9dcd;
+  --c-blue-accent: #517ef9;
+  --c-beige: #f5c8a9;
+  --c-grey-line: #e7e7e7;
+  --c-grey-555: #555555;
+  --c-page: #f2f2f2;
+  --c-page-2: #fafafa;
+  --c-nav: #ececec;
+
+  /* Fonts (Suisse Intl / SF Pro Display with Inter fallback) */
+  --font-suisse: 'Suisse Intl', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sf: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
