@@ -92,17 +92,41 @@ const cards: Card[] = [
 @media (max-width: 900px) {
   .benefits__inner {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 21px; /* Figma Banner itemSpacing 21 */
   }
   .bcard {
-    min-height: 148px;
-    border-radius: 24px;
+    min-height: 148px; /* Figma card h148 */
+    height: 148px;
+    border-radius: 23.752px; /* Figma rounded-[23.752px] */
+    padding: 40px 0 0 23.5px; /* Figma title top40 / left calc(50%-126.5px)=23.5 */
   }
   .bcard__title {
-    font-size: 16.6px;
+    max-width: 130px;
+    font-size: 16.627px; /* Figma Inter Bold 16.627 */
+    letter-spacing: -0.4988px;
   }
   .bcard__desc {
-    font-size: 10px;
+    margin-top: 6px; /* title 2 lines (top40) -> desc top88 */
+    max-width: 150px;
+    font-size: 10.095px; /* Figma Inter Regular 10.095 */
+  }
+  /* mobile image placement (Figma, card 300×148) */
+  .bcard__img--cert {
+    width: 165px; /* Figma w165 */
+    right: -30px; /* left165 in 300 -> right -30 */
+    top: 42px;
+    transform: none;
+  }
+  .bcard__img--balloons {
+    width: 215px; /* Figma w215 */
+    right: -34px; /* left119 -> right -34 */
+    top: -67px;
+  }
+  .bcard__img--dog {
+    width: 176px; /* Figma w176 */
+    right: 12px; /* left112 -> right 12 */
+    top: -17px;
+    transform: scaleX(-1);
   }
 }
 </style>

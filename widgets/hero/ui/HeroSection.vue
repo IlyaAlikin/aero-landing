@@ -107,7 +107,10 @@ import AppButton from '@shared/ui/AppButton.vue'
   }
   .hero__sub {
     margin-inline: auto;
+    max-width: 303px; /* Figma Huge Title box 303 (was clipping at desktop 490) */
     font-size: 15px;
+    line-height: 1.2; /* Figma mobile */
+    letter-spacing: -0.3px; /* Figma tracking -0.3 */
   }
   .hero__dog--desktop {
     display: none;

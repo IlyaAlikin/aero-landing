@@ -17,6 +17,11 @@ function isActive(href: string) {
 <template>
   <header class="header">
     <div class="header__inner container">
+      <!-- Mobile-only avatar logo (Figma mobile 73:1148 — 56×56 round). Desktop keeps the nav pill. -->
+      <a class="header__logo" href="#" aria-label="На главную">
+        <img src="/img/logo.png" alt="" />
+      </a>
+
       <nav class="nav">
         <a
           v-for="link in NAV_LINKS"
@@ -111,25 +116,36 @@ function isActive(href: string) {
   font-weight: 700;
 }
 
-/* Burger — mobile only */
+/* Mobile-only round avatar logo (Figma 73:1148: 56×56, radius 1000px). */
+.header__logo {
+  display: none;
+  width: 56px; /* Figma mobile size-[56px] */
+  height: 56px;
+  border-radius: 50%; /* Figma rounded-[1000px] */
+  overflow: hidden;
+  pointer-events: auto;
+  flex: 0 0 auto;
+}
+.header__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Burger — mobile only. Figma 73:1149: bare 3 lines, 32×21, 1px black, no box. */
 .burger {
   display: none;
-  width: 52px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--c-white);
+  width: 32px; /* Figma Menu w-[32px] */
+  height: 21px; /* Figma Menu viewBox 32×21 */
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  justify-content: space-between;
+  align-items: stretch;
   pointer-events: auto;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 .burger span {
-  width: 26px;
-  height: 2px;
+  width: 100%;
+  height: 1px; /* Figma stroke 1px */
   background: var(--c-black);
-  border-radius: 2px;
 }
 
 /* Mobile menu overlay */
@@ -184,7 +200,11 @@ function isActive(href: string) {
     display: none;
   }
   .header__inner {
-    justify-content: flex-end;
+    justify-content: space-between; /* Figma mobile: logo left, burger right */
+    align-items: center;
+  }
+  .header__logo {
+    display: block;
   }
   .burger {
     display: flex;

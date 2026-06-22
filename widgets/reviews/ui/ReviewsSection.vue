@@ -122,18 +122,38 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 }
 @media (max-width: 760px) {
   .reviews__title {
-    font-size: 30px;
+    font-size: 24px; /* Figma Reviews Title 24 */
   }
   .stage {
-    gap: 6px;
+    gap: 0;
+  }
+  /* Figma mobile shows all three phone mockups (bleeding past the edges) */
+  .phones__item:not(.phones__item--center) {
+    display: block;
   }
   .phones__item {
-    transform: scale(0.62);
-    margin-inline: -40px;
+    transform: scale(0.543); /* Figma phone 184 from base 339 */
+    margin-inline: -76px;
   }
   .arrow {
-    width: 44px;
-    height: 44px;
+    width: 33px; /* Figma Nav Dot 33×33 */
+    height: 33px;
+  }
+  .arrow svg {
+    width: 7px;
+    height: 11px;
+  }
+  .dots {
+    gap: 11px;
+    margin-top: 12px;
+  }
+  .dot {
+    width: 5px; /* Figma Active Indicator dots 5px */
+    height: 5px;
+  }
+  .dot--active {
+    width: 9px; /* Figma Active Dot 9px */
+    height: 9px;
   }
 }
 </style>

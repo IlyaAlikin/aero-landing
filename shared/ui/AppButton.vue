@@ -72,13 +72,27 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
 }
 
 @media (max-width: 760px) {
+  /* Figma mobile button 73:804: h68, radius 21.93, Inter SemiBold 17.544, ls -0.1754 */
   .btn--lg {
     height: 68px;
-    font-size: 18px;
+    border-radius: 21.93px;
+    font-size: 17.544px;
+    letter-spacing: -0.1754px;
   }
+  .btn--lg .btn__tri {
+    width: 14px; /* Figma Polygon 6 size-[14px] */
+    height: 14px;
+  }
+  /* Figma mobile offer button 73:1068: h66, radius 20.824, font 16.659, ls -0.1666 */
   .btn--md {
     height: 66px;
-    font-size: 17px;
+    border-radius: 20.824px;
+    font-size: 16.659px;
+    letter-spacing: -0.1666px;
+  }
+  .btn--md .btn__tri {
+    width: 13px;
+    height: 13px;
   }
 }
 </style>

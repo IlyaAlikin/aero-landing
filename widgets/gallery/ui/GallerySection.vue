@@ -110,21 +110,23 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
 
 @media (max-width: 760px) {
   .gallery__title {
-    font-size: 22px;
+    font-size: 16.73px; /* Figma Internal Look Text 16.73 Bold */
+    font-weight: 700;
   }
-  .gallery__swipe span {
-    font-size: 14px;
-  }
-  .gallery__swipe img {
-    width: 54px;
+  /* Figma mobile Stats Section has only title + image row — no swipe hint */
+  .gallery__swipe {
+    display: none;
   }
   .thumb {
-    width: 280px;
-    height: 158px;
-    border-radius: 18px;
+    width: 204px; /* Figma Image Row image 204×111 */
+    height: 111px;
+    border-radius: 14px;
+  }
+  .thumb:nth-child(4n + 2) {
+    width: 216px; /* Figma 2nd image 216 */
   }
   .gallery__track {
-    gap: 20px;
+    gap: 19px; /* Figma row gap ≈19 */
   }
 }
 </style>

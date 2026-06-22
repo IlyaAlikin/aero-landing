@@ -100,16 +100,42 @@ const questions = [
 
 @media (max-width: 760px) {
   .faq__title {
-    font-size: 24px;
-    margin-bottom: 28px;
+    font-size: 21px; /* Figma Suisse Medium 21 */
+    font-weight: 500;
+    text-transform: none; /* Figma mobile title is not uppercase */
+    margin-bottom: 15px; /* Figma FAQ Section gap 15 (title -> list) */
+  }
+  .faq__title--light {
+    font-weight: 500; /* single weight on mobile */
+  }
+  .faq__list {
+    gap: 9px; /* Figma FAQ List gap 9 */
   }
   .row {
-    min-height: 64px;
-    padding: 0 24px;
-    border-radius: 10px;
+    min-height: 43px; /* Figma collapsed item h43 */
+    padding: 0 22px; /* Figma question left 22 */
+    border-radius: 6.463px; /* Figma rounded-[6.463px] */
   }
   .row__q {
-    font-size: 14px;
+    font-size: 10.771px; /* Figma Suisse Book 10.771 */
+    font-weight: 450;
+  }
+  /* Figma Expand Icon 9×9 */
+  .row__icon {
+    width: 9px;
+    height: 9px;
+  }
+  .bar--h {
+    left: 0;
+    top: 4px;
+    width: 9px;
+    height: 1px;
+  }
+  .bar--v {
+    left: 4px;
+    top: 0;
+    width: 1px;
+    height: 9px;
   }
 }
 </style>

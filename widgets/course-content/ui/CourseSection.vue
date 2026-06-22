@@ -141,26 +141,28 @@ function maskStyle(src: string, size: number): CSSProperties {
   }
   .course__grid {
     grid-template-columns: 1fr;
-    gap: 46px;
+    gap: 42px; /* Figma item pitch 16 + badge overhang 26 */
   }
   .cc,
   .cc--wide {
     grid-column: auto;
     min-height: 0;
-    border-radius: 32px;
-    padding: 60px 27px 28px;
+    border-radius: 32.279px; /* Figma rounded-[32.279px] */
+    padding: 54px 27px 28px; /* Figma title top80 (card top26 -> 54), left 27 */
   }
   .cc__tile {
-    width: 54px;
-    height: 54px;
-    top: -27px;
-    border-radius: 16px;
+    width: 54px; /* Figma 54×53 */
+    height: 53px;
+    top: -26px; /* Figma card top 26 -> badge sits above */
+    left: 27px;
+    border-radius: 16.139px; /* Figma */
   }
   .cc__title {
-    font-size: 18px;
+    font-size: 17.753px; /* Figma Suisse Medium 17.753 */
   }
   .cc__desc {
-    font-size: 15px;
+    margin-top: 18px; /* Figma title top80 -> desc top125 */
+    font-size: 14.525px; /* Figma Suisse Light 14.525 */
   }
 }
 </style>

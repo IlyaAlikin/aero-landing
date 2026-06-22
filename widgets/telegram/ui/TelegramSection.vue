@@ -160,18 +160,45 @@ const modules = [
   }
 }
 @media (max-width: 760px) {
+  .tg {
+    padding: 24px 0 40px;
+  }
+  .tg__top {
+    min-height: 0;
+    gap: 16px;
+  }
   .tg__desc {
-    font-size: 21px;
+    font-size: 21px; /* Figma Additional Info 21 */
   }
   .tg__phone {
-    width: 200px;
-    height: 360px;
-    margin-bottom: -60px;
+    width: 171px; /* Figma iPhone-Air 171×353 */
+    height: 353px;
+    margin-bottom: -110px; /* lower part tucks under the panel */
+  }
+  .tg__panel::before {
+    border-radius: 24px;
   }
   .tg__modules {
     flex-direction: column;
     align-items: center;
-    padding: 32px 16px 0;
+    gap: 10px; /* Figma card pitch ≈9–10 */
+    padding: 40px 0 0;
+  }
+  .tg__module {
+    width: 240px; /* Figma mobile module card 240×314 */
+    height: 314px;
+  }
+  /* mobile module card == desktop card scaled 0.6593 (240/364):
+     reproduces Figma box 203×127, title 15.62, desc 11.25, line tops exactly */
+  .tg__module :deep(.mod) {
+    inset: 0 auto auto 0;
+    width: 364px;
+    height: 475px;
+    transform: scale(0.6593);
+    transform-origin: top left;
+  }
+  .tg__cta {
+    display: none; /* Figma mobile: no CTA button in this section */
   }
 }
 </style>

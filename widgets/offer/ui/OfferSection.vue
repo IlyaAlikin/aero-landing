@@ -254,7 +254,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 
 @media (max-width: 900px) {
   .slogan {
-    font-size: 24px;
+    font-size: 21px; /* Figma Slogan Text 21 */
   }
   .offer__mid {
     flex-direction: column;
@@ -262,27 +262,47 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   .features {
     flex-basis: auto;
     width: 100%;
+    gap: 6px; /* Figma Benefits Column gap 6 */
+  }
+  .feat {
+    height: 107px; /* Figma Benefit Item h107 */
+    border-radius: 6.767px;
+  }
+  .feat:last-child {
+    margin-top: 0; /* gap handles spacing on mobile */
+  }
+  .feat__icon {
+    left: 23px; /* Figma 73:1031 */
+    top: 14px;
+    width: 70px;
+    height: 78px;
+    border-radius: 4.511px;
+  }
+  .feat__text {
+    left: 113px; /* Figma 73:1030 */
+    top: 33px;
+    font-size: 17.293px; /* Figma Suisse SemiBold 17.293 */
   }
   .collage {
-    display: none;
+    display: none; /* TODO: mobile collage positions — pending visual pass */
   }
   .panel {
     grid-template-columns: 1fr;
     padding: 24px 18px 30px;
   }
   .pcol__head {
-    font-size: 22px;
+    font-size: 18.798px; /* Figma Price Info SF Pro 18.798 */
     min-height: 0;
   }
   .pcard {
-    height: 120px;
+    height: 91px; /* Figma Price Container h91 */
     padding: 0 24px;
   }
   .pcard__now {
-    font-size: 46px;
+    font-size: 40.604px; /* Figma Price SF Pro Semibold 40.604 */
   }
   .pcard__old {
-    font-size: 22px;
+    font-size: 16px;
   }
 }
 </style>
