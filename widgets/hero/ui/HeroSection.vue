@@ -10,7 +10,8 @@ import AppButton from '@shared/ui/AppButton.vue'
         <h1 class="hero__title">
           <span class="dim">Научитесь создавать</span>
           <span class="accent">современные<br />и качественные</span>
-          <span class="dim">оформления<br />из шаров</span>
+          <!-- desktop keeps the forced break; mobile (Figma Heading 73:802) is one line -->
+          <span class="dim">оформления <br class="hero__brk" />из шаров</span>
         </h1>
         <p class="hero__sub">
           Пошаговая система работы с шарами, материалами и техниками
@@ -74,8 +75,8 @@ import AppButton from '@shared/ui/AppButton.vue'
 }
 .hero__cta {
   margin-top: 28px;
-  width: 544px;
-  max-width: 100%;
+  max-width: 544px;
+  width: 100%;
   box-shadow: 0 31.837px 63.674px -15.918px rgba(233, 97, 129, 0.5);
   border-radius: 39.796px;
 }
@@ -94,7 +95,7 @@ import AppButton from '@shared/ui/AppButton.vue'
   display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .hero {
     padding-top: 110px;
   }
@@ -103,7 +104,13 @@ import AppButton from '@shared/ui/AppButton.vue'
     text-align: center;
   }
   .hero__title {
-    font-size: 24px;
+    font-size: 24px; /* Figma Heading 73:802 */
+    line-height: 1.2;
+    text-transform: none; /* Figma mobile heading is mixed-case, not uppercase */
+  }
+  /* Figma mobile: last line is "оформления из шаров" on ONE line (desktop keeps the break) */
+  .hero__brk {
+    display: none;
   }
   .hero__sub {
     margin-inline: auto;
@@ -115,12 +122,21 @@ import AppButton from '@shared/ui/AppButton.vue'
   .hero__dog--desktop {
     display: none;
   }
+  /* Figma Huge Background Image 73:801: 394px wide on the 320 frame (x:-37), full-bleed.
+     Button (73:803 @y466) overlaps the dog's lower body. */
   .hero__dog--mobile {
     display: block;
-    width: 78%;
-    margin: 6px auto 0;
+    width: 123vw; /* 394 / 320 */
+    max-width: none;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 6px 0 -120px;
+    z-index: 0;
   }
   .hero__cta {
+    position: relative;
+    z-index: 1;
     height: 68px;
   }
 }

@@ -134,10 +134,13 @@ function maskStyle(src: string, size: number): CSSProperties {
   color: var(--c-black);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
+  .course {
+    padding: 36px 0 40px;
+  }
   .course__title {
-    font-size: 24px;
-    margin-bottom: 56px;
+    font-size: 24px; /* Figma Course Contents Title 73:800 */
+    margin-bottom: 38px;
   }
   .course__grid {
     grid-template-columns: 1fr;
@@ -146,9 +149,10 @@ function maskStyle(src: string, size: number): CSSProperties {
   .cc,
   .cc--wide {
     grid-column: auto;
-    min-height: 0;
+    min-height: 230px; /* Figma card bg h230 (73:1079) */
     border-radius: 32.279px; /* Figma rounded-[32.279px] */
-    padding: 54px 27px 28px; /* Figma title top80 (card top26 -> 54), left 27 */
+    padding: 54px 0 28px 27px; /* Figma title top80 (card top26 -> 54), left27, desc to right edge */
+    box-shadow: 0 4px 65px rgba(0, 0, 0, 0.1); /* Figma card shadow */
   }
   .cc__tile {
     width: 54px; /* Figma 54×53 */
@@ -159,10 +163,12 @@ function maskStyle(src: string, size: number): CSSProperties {
   }
   .cc__title {
     font-size: 17.753px; /* Figma Suisse Medium 17.753 */
+    max-width: 218px; /* Figma title box w218 */
   }
   .cc__desc {
     margin-top: 18px; /* Figma title top80 -> desc top125 */
     font-size: 14.525px; /* Figma Suisse Light 14.525 */
+    max-width: 274px; /* Figma desc box w274 */
   }
 }
 </style>

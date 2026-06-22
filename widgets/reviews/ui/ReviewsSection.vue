@@ -120,12 +120,17 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
     display: none;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
+  .reviews {
+    padding: 30px 0 36px; /* on the pink band, continuous from gallery */
+  }
   .reviews__title {
     font-size: 24px; /* Figma Reviews Title 24 */
   }
   .stage {
     gap: 0;
+    margin-top: 28px; /* Figma title -> phones */
+    justify-content: center; /* center phones; arrows hidden on mobile */
   }
   /* Figma mobile shows all three phone mockups (bleeding past the edges) */
   .phones__item:not(.phones__item--center) {
@@ -135,13 +140,9 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
     transform: scale(0.543); /* Figma phone 184 from base 339 */
     margin-inline: -76px;
   }
+  /* Figma mobile: no visible arrow buttons — navigation via dots / swipe */
   .arrow {
-    width: 33px; /* Figma Nav Dot 33×33 */
-    height: 33px;
-  }
-  .arrow svg {
-    width: 7px;
-    height: 11px;
+    display: none;
   }
   .dots {
     gap: 11px;

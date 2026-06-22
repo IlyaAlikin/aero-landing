@@ -20,22 +20,27 @@ const PINK = 'var(--c-pink)'
   <SiteHeader />
   <main class="page">
     <HeroSection />
-    <BenefitsSection />
 
-    <!-- pink ribbon between benefits and course -->
-    <WaveDivider :from="PAGE" :to="PINK" :height="64" />
-    <div class="ribbon" />
-    <WaveDivider :from="PINK" :to="FAFA" :height="64" />
+    <!-- mobile: benefits sits on a pink band (Figma Rectangle 47 73:809) -->
+    <WaveDivider class="wd-mobile" :from="PAGE" :to="PINK" :height="64" :mobile-height="24" />
+    <BenefitsSection />
+    <WaveDivider class="wd-mobile" :from="PINK" :to="FAFA" :height="64" :mobile-height="24" />
+
+    <!-- desktop: pink ribbon between benefits and course -->
+    <WaveDivider class="wd-desktop" :from="PAGE" :to="PINK" :height="64" />
+    <div class="ribbon wd-desktop" />
+    <WaveDivider class="wd-desktop" :from="PINK" :to="FAFA" :height="64" />
 
     <CourseSection />
 
     <WaveDivider :from="FAFA" :to="PINK" :height="80" />
     <AuthorSection />
-    <WaveDivider :from="PINK" :to="FAFA" :height="80" />
+    <!-- desktop: gallery is its own fafa section; mobile merges author+gallery+reviews on one pink band -->
+    <WaveDivider class="wd-desktop" :from="PINK" :to="FAFA" :height="80" />
 
     <GallerySection />
 
-    <WaveDivider :from="FAFA" :to="PINK" :height="80" />
+    <WaveDivider class="wd-desktop" :from="FAFA" :to="PINK" :height="80" />
     <ReviewsSection />
     <WaveDivider :from="PINK" :to="FAFA" :height="80" />
 
@@ -51,12 +56,23 @@ const PINK = 'var(--c-pink)'
 .page {
   /* pull content up so the sticky header floats over the hero top */
   margin-top: -107px;
+  overflow: clip;
 }
 .ribbon {
   height: 6px;
   background: var(--c-pink);
 }
-@media (max-width: 760px) {
+/* Wave dividers that exist only on one breakpoint (mobile re-bands several sections). */
+.wd-mobile {
+  display: none;
+}
+@media (max-width: 767px) {
+  .wd-desktop {
+    display: none;
+  }
+  .wd-mobile {
+    display: block;
+  }
   .page {
     margin-top: -76px;
   }

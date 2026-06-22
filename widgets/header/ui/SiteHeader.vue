@@ -195,7 +195,7 @@ function isActive(href: string) {
   opacity: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
   .nav {
     display: none;
   }

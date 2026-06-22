@@ -4,7 +4,8 @@
 
 <template>
   <section id="author" class="author">
-    <div class="author__inner container">
+    <!-- DESKTOP (Figma 57:176): white card on the left + photo on the right -->
+    <div class="author__inner container author__desktop">
       <div class="card">
         <h2 class="card__name"><b>Автор обучения - </b><span>Виктория Русских</span></h2>
 
@@ -31,7 +32,31 @@
       </div>
     </div>
 
-    <img class="author__photo" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
+    <!-- MOBILE (Figma Stats Section 73:890): title (white on pink) -> photo -> card{quote, stats} -->
+    <div class="author__mobile container">
+      <h2 class="am__name"><b>Автор обучения -</b> Виктория Русских</h2>
+      <img class="am__photo" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
+      <div class="am__card">
+        <span class="am__mark"><img src="/img/quote-mark.svg" alt="" /></span>
+        <h3 class="am__qtitle">Меня выбирают не только за знания, но и за подход к обучению</h3>
+        <p class="am__qtext">
+          <b>Я знаю, как сложно новичкам разобраться в большом количестве информации.</b>
+          Поэтому создала курс где собрала все самое важное и полезное простым и понятным языком
+        </p>
+        <div class="am__stats">
+          <div class="am__stat">
+            <span class="am__num">200+</span>
+            <span class="am__label">Учеников прошло мое обучение</span>
+          </div>
+          <div class="am__stat">
+            <span class="am__num">8+</span>
+            <span class="am__label">Лет практического опыта</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <img class="author__photo author__desktop" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
 
     <!-- #3 clickable telegram -->
     <a class="tg" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
@@ -180,39 +205,116 @@
   color: var(--c-grey-555);
 }
 
-@media (max-width: 900px) {
+/* Mobile author block (Figma Stats Section 73:890) — hidden on desktop */
+.author__mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
   .author {
-    padding: 36px 0 40px;
+    padding: 24px 0 6px; /* pink band; gallery continues below on the same pink */
   }
-  .card {
-    width: 100%;
-    padding: 26px 22px 32px;
+  .author__desktop {
+    display: none;
   }
-  .card__name {
+  .author__mobile {
+    display: block;
+    position: relative;
+  }
+  /* Author Title 73:893 — Suisse Light 24, white, centered */
+  .am__name {
+    margin: 0;
+    font-family: var(--font-suisse);
+    font-weight: 300;
     font-size: 24px;
+    line-height: 1.2;
+    color: var(--c-white);
     text-align: center;
   }
-  .stat__num {
-    font-size: 42px;
+  .am__name b {
+    font-weight: 700;
   }
-  .stat__label {
-    font-size: 14px;
-  }
-  .quote__title {
-    font-size: 17px;
-  }
-  .quote__text {
-    font-size: 13px;
-  }
-  .author__photo {
-    position: static;
+  /* Photo (Figma IMG_4762 73:894) */
+  .am__photo {
     display: block;
+    position: relative;
+    z-index: 0;
     width: 100%;
     height: auto;
-    margin-top: 24px;
+    margin-top: 6px;
   }
-  .tg {
-    display: none;
+  /* White card (Figma Rectangle 2478 73:895) — overlaps the photo's lower part */
+  .am__card {
+    position: relative;
+    z-index: 1;
+    margin-top: -70px;
+    background: var(--c-white);
+    border-radius: 16px;
+    padding: 18px 18px 22px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  }
+  /* Quote mark (Stats Icon Background 73:904 — 31×31 dark) */
+  .am__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 4px;
+    background: var(--c-ink-2f);
+  }
+  .am__mark img {
+    width: 15px; /* Figma quote vector 15×13 */
+    height: 13px;
+  }
+  /* Quote title (Stats Intro 73:897 — Suisse Bold 16.73, #2f2f2f @80%) */
+  .am__qtitle {
+    margin: 18px 0 0;
+    font-family: var(--font-suisse);
+    font-weight: 700;
+    font-size: 16.73px;
+    line-height: 1.25;
+    color: var(--c-ink-2f);
+    opacity: 0.8;
+  }
+  /* Quote text (Stats Description 73:896 — Suisse 12.045, #2f2f2f @80%; 1st sentence SemiBold) */
+  .am__qtext {
+    margin: 13px 0 0;
+    font-family: var(--font-suisse);
+    font-weight: 400;
+    font-size: 12.045px;
+    line-height: 1.5;
+    color: var(--c-ink-2f);
+    opacity: 0.8;
+  }
+  .am__qtext b {
+    font-weight: 600; /* Figma SemiBold */
+  }
+  /* Stats 200+/8+ as two columns (Figma Statistics Container 73:906) */
+  .am__stats {
+    margin-top: 15px;
+    display: flex;
+  }
+  .am__stat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .am__num {
+    font-family: var(--font-suisse);
+    font-weight: 700;
+    font-size: 42.437px; /* Figma Suisse Bold 42.437 */
+    line-height: 1;
+    color: var(--c-beige); /* #f5c8a9 */
+  }
+  .am__label {
+    margin-top: 6px;
+    max-width: 127px; /* Figma label box w127/129 */
+    font-family: var(--font-suisse);
+    font-weight: 400;
+    font-size: 13.914px; /* Figma Suisse Regular 13.914 */
+    line-height: 1.15;
+    color: var(--c-ink-1a); /* #1a1a1a */
   }
 }
 </style>

@@ -108,14 +108,25 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767px) {
+  /* Figma: gallery is merged into the author pink band (Stats Section 73:890) */
+  .gallery {
+    background: var(--c-pink);
+    padding: 14px 0 18px;
+  }
   .gallery__title {
-    font-size: 16.73px; /* Figma Internal Look Text 16.73 Bold */
+    font-size: 16.73px; /* Figma Internal Look Text 73:898 — Suisse Bold 16.73 */
     font-weight: 700;
+    line-height: 1.25;
+    color: var(--c-ink-2f); /* #2f2f2f */
+    opacity: 0.8;
   }
   /* Figma mobile Stats Section has only title + image row — no swipe hint */
   .gallery__swipe {
     display: none;
+  }
+  .gallery__viewport {
+    margin-top: 12px; /* Figma title y3890 -> image row y3947 */
   }
   .thumb {
     width: 204px; /* Figma Image Row image 204×111 */

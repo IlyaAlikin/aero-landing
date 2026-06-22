@@ -73,11 +73,11 @@ img,
   -webkit-touch-callout: none;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   html {
     scroll-padding-top: 80px;
   }
   .container {
-    padding-inline: 16px;
+    padding-inline: 10px; /* Figma mobile side margins ~9–10px (content ≈300 on 320 frame) */
   }
 }

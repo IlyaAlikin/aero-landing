@@ -142,8 +142,8 @@ const modules = [
 .tg__cta {
   position: relative;
   display: block;
-  width: 544px;
   max-width: calc(100% - 80px);
+  width: 100%;
   margin: 32px auto 40px;
   border-radius: 39.796px;
   box-shadow: 0 31.837px 63.674px -15.918px #58a4c9;
@@ -159,7 +159,7 @@ const modules = [
     margin-bottom: -120px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 767px) {
   .tg {
     padding: 24px 0 40px;
   }
@@ -169,6 +169,16 @@ const modules = [
   }
   .tg__desc {
     font-size: 21px; /* Figma Additional Info 21 */
+  }
+  /* Figma mobile order is Bubbles -> Работа с шарами -> Доп (desktop has Работа & Bubbles swapped) */
+  .tg__module:nth-child(1) {
+    order: 2;
+  }
+  .tg__module:nth-child(2) {
+    order: 1;
+  }
+  .tg__module:nth-child(3) {
+    order: 3;
   }
   .tg__phone {
     width: 171px; /* Figma iPhone-Air 171×353 */

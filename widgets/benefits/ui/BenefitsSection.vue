@@ -89,7 +89,13 @@ const cards: Card[] = [
   transform: scaleX(-1);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 767px) {
+  /* Figma: Banner cards sit on a pink band (Rectangle 47 73:809), not grey */
+  .benefits {
+    background: var(--c-pink);
+    margin-top: 0;
+    padding: 18px 0 12px;
+  }
   .benefits__inner {
     grid-template-columns: 1fr;
     gap: 21px; /* Figma Banner itemSpacing 21 */
