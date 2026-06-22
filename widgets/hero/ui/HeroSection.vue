@@ -31,7 +31,7 @@ import AppButton from '@shared/ui/AppButton.vue'
   position: relative;
   background: var(--c-page);
   padding-top: 8px; /* lift title to Figma y≈184 (measured title = pad + ~176) */
-  padding-bottom: 50px;
+  padding-bottom: 0;
 }
 .hero__inner {
   display: flex;

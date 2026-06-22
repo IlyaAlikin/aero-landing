@@ -28,6 +28,7 @@ const cards: Card[] = [
 <style scoped>
 .benefits {
   background: var(--c-page);
+  margin-top: 175px; /* push stat cards down to Figma y733 (first-screen spacing) */
   padding-bottom: 40px;
 }
 .benefits__inner {

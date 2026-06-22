@@ -82,7 +82,7 @@ const modules = [
 }
 .tg__blue {
   font-weight: 700;
-  color: var(--c-blue-accent); /* vivid accent blue per macet */
+  color: var(--c-blue); /* #2F9DCD per Figma */
 }
 .tg__desc b {
   font-weight: 700;

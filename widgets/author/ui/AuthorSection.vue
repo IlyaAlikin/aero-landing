@@ -141,9 +141,9 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 66%;
+  width: 74%; /* Figma IMG_4762 1424px ≈ 74% of 1920 */
   height: 100%;
-  object-fit: cover; /* fill right side, balanced like Figma 57:165 */
+  object-fit: cover; /* fill right side top-to-bottom, no pink gaps (Figma 57:165) */
   object-position: right top;
   pointer-events: none;
 }
