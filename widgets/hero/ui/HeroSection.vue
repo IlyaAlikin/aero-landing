@@ -152,4 +152,14 @@ import AppButton from '@shared/ui/AppButton.vue'
     margin: 0 auto; /* centred; overlap handled by dog negative margin */
   }
 }
+
+/* 576–768: centred text reads a bit small for the viewport width — bump it up a touch */
+@media (min-width: 576px) and (max-width: 767px) {
+  .hero__title {
+    font-size: calc(18px + 2.2vw); /* ≈31px@576 → 35px@767 (was ≈27→29) */
+  }
+  .hero__sub {
+    font-size: calc(11px + 1.1vw); /* ≈17px@576 → 19px@767 */
+  }
+}
 </style>

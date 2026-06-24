@@ -129,13 +129,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(1.9rem, 3.95vw, 3.5625rem); /* 57 */
-  height: clamp(1.9rem, 3.95vw, 3.5625rem);
+  width: 25px; /* 57 */
+  height: 25px;
   border-radius: clamp(0.25rem, 0.25vw, 0.228rem); /* 3.65 */
   background: var(--c-ink-2f);
 }
 .quote__mark img {
-  width: 47.4%; /* 27 of 57 */
+  width: 100%;
+  height: 100%;
   height: auto;
 }
 .quote__title {
