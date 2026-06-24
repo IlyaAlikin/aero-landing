@@ -32,10 +32,10 @@ const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through 
 
     <CourseSection />
 
-    <WaveDivider :from="PAGE" :to="PINK" :height="80" />
+    <!-- desktop: the pink block's wavy top is drawn inside AuthorSection (so it also clips the photo);
+         mobile keeps a plain divider. No bottom wave on desktop — the pink block has rounded corners. -->
+    <WaveDivider class="wd-mobile" :from="PAGE" :to="PINK" :height="80" />
     <AuthorSection />
-    <!-- desktop: gallery is its own fafa section; mobile merges author+gallery+reviews on one pink band -->
-    <WaveDivider class="wd-desktop" :from="PINK" :to="CLEAR" :height="80" />
 
     <GallerySection />
 

@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import WaveDivider from '@shared/ui/WaveDivider.vue'
 // Author / stats / quote — Figma 57:176/182/234/166. Block: white card + photo on the right.
+// Desktop pink block (Figma Group 23 / 107:6041): wavy TOP edge + rounded BOTTOM corners,
+// no bottom wave. The photo is clipped to this shape (top by the wave, bottom by the radius).
+const PAGE = 'var(--c-page)' // colour above the wave (matches the section above)
 </script>
 
 <template>
   <section id="author" class="author">
+    <!-- DESKTOP: wavy top edge of the pink block; sits over the photo so it clips it too (Figma 107:6042) -->
+    <WaveDivider class="author__wave author__desktop" :from="PAGE" to="transparent" :height="215" />
+
     <!-- DESKTOP (Figma 57:176): white card on the left + photo on the right -->
     <div class="author__inner container author__desktop">
       <div class="card">
@@ -35,7 +42,7 @@
     <!-- MOBILE (Figma Stats Section 73:890): title (white on pink) -> photo -> card{quote, stats} -->
     <div class="author__mobile container">
       <h2 class="am__name"><b>Автор обучения -</b> Виктория Русских</h2>
-      <img class="am__photo" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
+      <img class="am__photo" src="/img/author-photo-mobile.png" alt="Виктория Русских" draggable="false" />
       <div class="am__card">
         <span class="am__mark"><img src="/img/quote-mark.svg" alt="" /></span>
         <h3 class="am__qtitle">Меня выбирают не только за знания, но и за подход к обучению</h3>
@@ -60,7 +67,7 @@
 
     <!-- #3 clickable telegram -->
     <a class="tg" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
-      <span class="tg__cap">Автор обучения<br />Виктория Русских</span>
+      <span class="tg__cap"><span class="tg__cap-muted">Автор обучения</span><br />Виктория Русских</span>
       <span class="tg__pill">
         <img class="tg__icon" src="/img/tg-icon.svg" alt="" />
         <span class="tg__handle">@VikaRusskikh</span>
@@ -74,7 +81,19 @@
   position: relative;
   background: var(--c-pink);
   overflow: hidden;
-  padding: clamp(1rem, 2vw, 1.5rem) 0 clamp(2rem, 3.3vw, 3rem);
+  /* Figma 107:6041: rounded bottom corners (no bottom wave on desktop) */
+  /* border-radius: 0 0 clamp(2rem, 3vw, 3.5rem) clamp(2rem, 3vw, 3.5rem); */
+  /* top: 81px to clear the wave + sit the card where Figma 107:6055 starts */
+  padding: 0 0 clamp(2rem, 3.3vw, 3rem);
+}
+/* Wavy top edge (Figma 107:6042). Above photo (z1), below the card (z2, later in DOM). */
+.author__wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
 }
 .author__inner {
   position: relative;
@@ -84,7 +103,7 @@
   width: min(92%, 39.375rem); /* 630px cap, fluid below */
   background: var(--c-white);
   border-radius: clamp(0.75rem, 1.1vw, 1rem); /* 16 */
-  padding: clamp(1.5rem, 3vw, 2.3125rem) clamp(1.5rem, 3.6vw, 3.25rem) clamp(2rem, 3.5vw, 3.125rem);
+  padding: clamp(1.5rem, 3vw, 2.3125rem) clamp(1.5rem, 3.6vw, 3.25rem) clamp(2rem, 3.5vw, 3.375rem); /* Figma 37 / 52 / 54 */
 }
 .card__name {
   font-family: var(--font-suisse);
@@ -97,10 +116,10 @@
   font-weight: 700;
 }
 .stats {
-  margin-top: clamp(1.5rem, 3vw, 2.75rem);
+  margin-top: clamp(1.5rem, 2.2vw, 2rem); /* Figma gap title→stat = 32 */
   display: flex;
   flex-direction: column;
-  gap: clamp(1rem, 1.8vw, 1.625rem);
+  gap: clamp(1.25rem, 2.2vw, 2rem); /* Figma gap between stats = 32 */
 }
 .stat {
   display: flex;
@@ -110,11 +129,11 @@
   font-family: var(--font-suisse);
   font-weight: 700;
   font-size: clamp(2.625rem, 6.25vw, 5.625rem); /* 42 → 90 */
-  line-height: 1;
+  line-height: 1.155; /* Figma num box 104/90.139 */
   color: var(--c-beige);
 }
 .stat__label {
-  margin-top: -0.2em;
+  margin-top: 0; /* Figma: desc box directly below num box */
   max-width: min(85%, 17.2rem); /* 275 */
   font-family: var(--font-suisse);
   font-weight: 400;
@@ -123,24 +142,24 @@
   color: var(--c-ink-22);
 }
 .quote {
-  margin-top: clamp(1.5rem, 3vw, 2.75rem);
+  margin-top: clamp(1.5rem, 2.2vw, 2rem); /* Figma gap stat→quote = 32 */
 }
 .quote__mark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25px; /* 57 */
-  height: 25px;
+  width: clamp(2.25rem, 3.95vw, 3.5625rem); /* 57 */
+  height: clamp(2.25rem, 3.95vw, 3.5625rem);
   border-radius: clamp(0.25rem, 0.25vw, 0.228rem); /* 3.65 */
   background: var(--c-ink-2f);
 }
 .quote__mark img {
-  width: 100%;
-  height: 100%;
-  height: auto;
+  /* SVG has preserveAspectRatio="none" → must pin both dims to glyph ratio 27×24 */
+  width: 47.4%; /* 27/57 */
+  height: 42.1%; /* 24/57 */
 }
 .quote__title {
-  margin-top: clamp(1.125rem, 2.1vw, 1.875rem);
+  margin-top: clamp(1.25rem, 2.2vw, 2rem); /* Figma gap mark→title = 32 */
   max-width: min(92%, 36.125rem); /* 578 */
   font-family: var(--font-suisse);
   font-weight: 700;
@@ -150,7 +169,7 @@
   opacity: 0.8;
 }
 .quote__text {
-  margin-top: clamp(0.8rem, 1.25vw, 1.125rem);
+  margin-top: clamp(0.4rem, 0.7vw, 0.625rem); /* Figma gap title→text = 10 */
   max-width: min(88%, 33.3rem); /* 533 */
   font-family: var(--font-suisse);
   font-weight: 400;
@@ -165,15 +184,10 @@
   z-index: 1;
   top: 0;
   bottom: 0;
-  /* author-photo.png is a centred cut-out with transparent left/right margins.
-     Anchor by height and bleed the transparent right margin past the edge (section
-     overflow:hidden clips it) so the subject hugs the pink edge. max() tracks viewport
-     but caps the bleed on wide screens where the section height stops growing. */
-  right: max(-32.4rem, -36vw);
+  right: 0;
   height: 100%;
-  width: auto;
+  width: auto; /* full image, no cropping; touches top & bottom */
   max-width: none;
-  object-fit: cover;
   pointer-events: none;
 }
 
@@ -188,8 +202,11 @@
   font-family: var(--font-sf);
   font-size: clamp(0.8rem, 1.06vw, 0.957rem); /* 15.307 */
   line-height: 1.15;
-  color: rgba(255, 255, 255, 0.75);
+  color: #fff; /* Figma: line 2 = white */
   margin-bottom: 0.5rem;
+}
+.tg__cap-muted {
+  color: rgba(255, 255, 255, 0.4); /* Figma: line 1 = 40% white */
 }
 .tg__pill {
   display: inline-flex;
@@ -200,8 +217,11 @@
   padding: clamp(0.4rem, 0.55vw, 0.5rem) clamp(0.75rem, 1.1vw, 1rem);
 }
 .tg__icon {
-  width: clamp(0.9rem, 1.25vw, 1.125rem);
+  /* SVG preserveAspectRatio="none" → lock box to glyph ratio 18×16 */
+  width: clamp(0.9rem, 1.25vw, 1.125rem); /* 18 */
   height: auto;
+  aspect-ratio: 18 / 16;
+  flex: none;
 }
 .tg__handle {
   font-family: var(--font-sf);
@@ -214,23 +234,29 @@
   display: none;
 }
 
+/* MOBILE — exact px from Figma frame 118:129 (428px wide) */
 @media (max-width: 767px) {
   .author {
-    padding: clamp(1rem, 7.5vw, 1.75rem) 0 clamp(0.25rem, 1.9vw, 0.5rem); /* pink band; gallery continues below */
+    padding: 27px 0 24px; /* Figma: title at y27; gallery continues below */
+    border-radius: 0; /* mobile merges author+gallery+reviews on one pink band */
   }
   .author__desktop {
     display: none;
+  }
+  .tg {
+    display: none; /* Instagram/Telegram button is not in the mobile frame */
   }
   .author__mobile {
     display: block;
     position: relative;
   }
-  /* Author Title 73:893 — Suisse Light ≈24, white, centered */
+  /* Author Title 107:6329 — Suisse 24, white, centred, w300 */
   .am__name {
-    margin: 0;
+    margin: 0 auto;
+    max-width: 300px;
     font-family: var(--font-suisse);
     font-weight: 300;
-    font-size: clamp(1.25rem, 7.5vw, 1.85rem);
+    font-size: 24px; /* Figma mobile */
     line-height: 1.2;
     color: var(--c-white);
     text-align: center;
@@ -238,55 +264,63 @@
   .am__name b {
     font-weight: 700;
   }
-  /* Photo (Figma IMG_4762 73:894) */
+  /* Photo 107:6330 — full-width 428×402 (object-cover portrait crop), overlaps title bottom */
   .am__photo {
     display: block;
     position: relative;
     z-index: 0;
-    width: 100%;
+    width: calc(100% + 20px); /* break out of the container's 10px padding → full-bleed 428 */
+    aspect-ratio: 428 / 402; /* Figma photo box */
     height: auto;
-    margin-top: clamp(0.25rem, 1.9vw, 0.5rem);
+    object-fit: cover;
+    object-position: top center;
+    margin: -6px 0 0 -10px; /* Figma: title 27..85, photo at y79; -10 breaks the gutter */
   }
-  /* White card (Figma Rectangle 2478 73:895) — overlaps the photo's lower part */
+  /* White card 107:6331 — w300 centred (64px margins), overlaps the photo's lower 120px */
   .am__card {
     position: relative;
     z-index: 1;
-    margin-top: clamp(-6.5rem, -21.9vw, -3rem);
+    width: 300px;
+    max-width: 300px;
+    margin: -120px auto 0; /* Figma: photo ends 481, card top at 361 */
     background: var(--c-white);
-    border-radius: clamp(0.75rem, 5vw, 1.25rem);
-    padding: clamp(0.9rem, 5.6vw, 1.4rem);
+    border-radius: 20px;
+    padding: 18px 18px 22px; /* Figma: content inset x82 = 18 from card */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
   }
-  /* Quote mark (Stats Icon Background 73:904 — ≈31×31 dark) */
+  /* Quote mark 118:124 — 31×31 dark */
   .am__mark {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: clamp(1.6rem, 9.7vw, 2.4rem);
-    height: clamp(1.6rem, 9.7vw, 2.4rem);
-    border-radius: clamp(0.2rem, 1.25vw, 0.35rem);
+    width: 31px; /* Figma */
+    height: 31px;
+    border-radius: 6px;
     background: var(--c-ink-2f);
   }
   .am__mark img {
-    width: 48%; /* Figma quote vector 15 of 31 */
-    height: auto;
+    /* SVG preserveAspectRatio="none" → pin both dims to glyph ratio 27×24 */
+    width: 15px; /* Figma quote glyph */
+    height: 13.33px; /* 15 × 24/27 */
   }
-  /* Quote title (Stats Intro 73:897 — Suisse Bold ≈16.73, #2f2f2f @80%) */
+  /* Stats Intro 107:6333 — Suisse Bold 16.73, #2f2f2f @80%, w213 */
   .am__qtitle {
-    margin: clamp(0.9rem, 5.6vw, 1.4rem) 0 0;
+    margin: 18px 0 0; /* Figma: icon 18..49, intro at card-rel 67 */
+    max-width: 213px;
     font-family: var(--font-suisse);
     font-weight: 700;
-    font-size: clamp(0.95rem, 5.23vw, 1.3rem);
+    font-size: 16.73px; /* Figma mobile */
     line-height: 1.25;
     color: var(--c-ink-2f);
     opacity: 0.8;
   }
-  /* Quote text (Stats Description 73:896 — Suisse ≈12.045, #2f2f2f @80%; 1st sentence SemiBold) */
+  /* Stats Description 107:6332 — Suisse 12.045, #2f2f2f @80%; 1st sentence SemiBold */
   .am__qtext {
-    margin: clamp(0.65rem, 4vw, 1rem) 0 0;
+    margin: 13px 0 0; /* Figma: intro ends 130, desc at 143 */
+    max-width: 282px;
     font-family: var(--font-suisse);
     font-weight: 400;
-    font-size: clamp(0.7rem, 3.76vw, 0.95rem);
+    font-size: 12.045px; /* Figma mobile */
     line-height: 1.5;
     color: var(--c-ink-2f);
     opacity: 0.8;
@@ -294,29 +328,31 @@
   .am__qtext b {
     font-weight: 600; /* Figma SemiBold */
   }
-  /* Stats 200+/8+ as two columns (Figma Statistics Container 73:906) */
+  /* Statistics 107:6342 — 200+/8+ side by side */
   .am__stats {
-    margin-top: clamp(0.75rem, 4.7vw, 1.2rem);
+    margin-top: 15px; /* Figma: desc ends 233, stats at 248 */
     display: flex;
   }
   .am__stat {
-    flex: 1;
     display: flex;
     flex-direction: column;
+  }
+  .am__stat:first-child {
+    width: 135px; /* Figma: 200+ @x82, 8+ @x217 → 135px column */
   }
   .am__num {
     font-family: var(--font-suisse);
     font-weight: 700;
-    font-size: clamp(2.2rem, 13.26vw, 3.3rem); /* Figma Suisse Bold 42.437 */
+    font-size: 42.437px; /* Figma mobile */
     line-height: 1;
     color: var(--c-beige); /* #f5c8a9 */
   }
   .am__label {
-    margin-top: clamp(0.25rem, 1.9vw, 0.5rem);
-    max-width: 40%; /* Figma label box w127/129 of 320 */
+    margin-top: 3px; /* Figma: num 609.., label at 654 */
+    max-width: 129px; /* Figma label box w127/129 */
     font-family: var(--font-suisse);
     font-weight: 400;
-    font-size: clamp(0.75rem, 4.35vw, 1rem); /* Figma Suisse Regular 13.914 */
+    font-size: 13.914px; /* Figma mobile */
     line-height: 1.15;
     color: var(--c-ink-1a); /* #1a1a1a */
   }
