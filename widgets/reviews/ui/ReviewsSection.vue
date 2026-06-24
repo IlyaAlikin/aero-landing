@@ -23,9 +23,11 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
           <svg viewBox="0 0 10 15"><path d="M9 1 2 7.5 9 14" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>
         </button>
 
-        <div class="phones">
-          <PhoneMockup v-for="(v, i) in phones" :key="i" class="phones__item" :class="{ 'phones__item--center': i === 1 }" :variant="v" />
-        </div>
+        <transition name="rev">
+          <div class="phones" :key="store.active">
+            <PhoneMockup v-for="(v, i) in phones" :key="i" class="phones__item" :class="{ 'phones__item--center': i === 1 }" :variant="v" />
+          </div>
+        </transition>
 
         <button class="arrow" aria-label="Вперёд" @click="store.next()">
           <svg viewBox="0 0 10 15"><path d="M1 1 8 7.5 1 14" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>
@@ -64,6 +66,7 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 }
 
 .stage {
+  position: relative; /* anchors the absolutely-positioned leaving slide during the cross-fade */
   margin-top: 52px; /* Figma: title bottom -> phones */
   display: flex;
   align-items: center;
@@ -74,6 +77,29 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   align-items: center;
   justify-content: center;
   gap: 5px;
+}
+
+/* Smooth slide cross-fade between review slides (#2).
+   Both slides animate at once; the leaving one is taken out of flow so the
+   incoming slide holds the stage height — no jump. */
+.rev-enter-active,
+.rev-leave-active {
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+.rev-leave-active {
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+.rev-enter-from {
+  opacity: 0;
+  transform: translateX(48px);
+}
+.rev-leave-to {
+  opacity: 0;
+  transform: translateX(-48px);
 }
 .phones__item {
   flex: none; /* full 339×685 (Figma 57:201) */

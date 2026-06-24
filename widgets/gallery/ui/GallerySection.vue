@@ -33,47 +33,47 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
 <style scoped>
 .gallery {
   background: var(--c-page-2);
-  padding: 50px 0 60px;
+  padding: clamp(2rem, 3.5vw, 3.125rem) 0 clamp(2.5rem, 4.2vw, 3.75rem);
   overflow: hidden;
 }
 .gallery__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: clamp(1rem, 1.7vw, 1.5rem);
   flex-wrap: wrap;
 }
 .gallery__title {
   font-family: var(--font-suisse);
   font-weight: 600;
-  font-size: 36px;
+  font-size: clamp(1.05rem, 2.5vw, 2.25rem); /* 16.73 → 36 */
   line-height: 1.1;
   color: var(--c-ink);
 }
 .gallery__swipe {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(0.5rem, 0.85vw, 0.75rem);
   color: var(--c-ink);
 }
 .gallery__swipe span {
-  max-width: 211px; /* Figma Swipe Text box 211px -> 2 lines */
+  max-width: 13.2rem; /* Figma Swipe Text box 211px -> 2 lines */
   font-family: var(--font-suisse);
   font-weight: 400;
-  font-size: 21px;
+  font-size: clamp(1rem, 1.46vw, 1.3125rem); /* 21 */
 }
 .gallery__swipe img {
-  width: 72px;
-  height: 15px; /* thin line-arrow, not a stretched blob */
+  width: clamp(3rem, 5vw, 4.5rem); /* 72 */
+  height: auto; /* thin line-arrow, not a stretched blob */
 }
 
 .gallery__viewport {
-  margin-top: 20px;
+  margin-top: clamp(0.75rem, 1.4vw, 1.25rem);
   overflow: hidden;
 }
 .gallery__track {
   display: flex;
-  gap: 46px;
+  gap: clamp(1rem, 3.2vw, 2.875rem); /* 46 */
   width: max-content;
   animation: marquee 28s linear infinite;
 }
@@ -82,14 +82,15 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
 }
 .thumb {
   flex: none;
-  width: 489px;
-  height: 266px;
-  border-radius: 30px;
+  height: clamp(7rem, 18.5vw, 16.625rem); /* 266 */
+  width: auto;
+  aspect-ratio: 489 / 266;
+  border-radius: clamp(0.875rem, 2vw, 1.875rem); /* 30 */
   overflow: hidden;
   box-shadow: 0 4px 52px rgba(0, 0, 0, 0.06);
 }
 .thumb:nth-child(4n + 2) {
-  width: 519px; /* Figma: 2nd photo wider (57:297) */
+  aspect-ratio: 519 / 266; /* Figma: 2nd photo wider (57:297) */
 }
 .thumb img {
   width: 100%;

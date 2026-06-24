@@ -74,23 +74,22 @@
   position: relative;
   background: var(--c-pink);
   overflow: hidden;
-  padding: 24px 0 48px;
+  padding: clamp(1rem, 2vw, 1.5rem) 0 clamp(2rem, 3.3vw, 3rem);
 }
 .author__inner {
   position: relative;
   z-index: 2;
 }
 .card {
-  width: 630px;
-  max-width: 100%;
+  width: min(92%, 39.375rem); /* 630px cap, fluid below */
   background: var(--c-white);
-  border-radius: 16px;
-  padding: 37px 52px 50px;
+  border-radius: clamp(0.75rem, 1.1vw, 1rem); /* 16 */
+  padding: clamp(1.5rem, 3vw, 2.3125rem) clamp(1.5rem, 3.6vw, 3.25rem) clamp(2rem, 3.5vw, 3.125rem);
 }
 .card__name {
   font-family: var(--font-suisse);
   font-weight: 300;
-  font-size: 58px;
+  font-size: clamp(1.5rem, 4vw, 3.625rem); /* 24 → 58 */
   line-height: 1.2;
   color: var(--c-ink-22);
 }
@@ -98,10 +97,10 @@
   font-weight: 700;
 }
 .stats {
-  margin-top: 44px;
+  margin-top: clamp(1.5rem, 3vw, 2.75rem);
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: clamp(1rem, 1.8vw, 1.625rem);
 }
 .stat {
   display: flex;
@@ -110,51 +109,51 @@
 .stat__num {
   font-family: var(--font-suisse);
   font-weight: 700;
-  font-size: 90px;
+  font-size: clamp(2.625rem, 6.25vw, 5.625rem); /* 42 → 90 */
   line-height: 1;
   color: var(--c-beige);
 }
 .stat__label {
-  margin-top: -6px;
-  max-width: 275px;
+  margin-top: -0.2em;
+  max-width: min(85%, 17.2rem); /* 275 */
   font-family: var(--font-suisse);
   font-weight: 400;
-  font-size: 29.554px;
+  font-size: clamp(0.875rem, 2.05vw, 1.847rem); /* 14 → 29.554 */
   line-height: 1.157; /* Figma 34.2/29.554 */
   color: var(--c-ink-22);
 }
 .quote {
-  margin-top: 44px;
+  margin-top: clamp(1.5rem, 3vw, 2.75rem);
 }
 .quote__mark {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 57px;
-  height: 57px;
-  border-radius: 3.65px; /* Figma 57:180 */
+  width: clamp(1.9rem, 3.95vw, 3.5625rem); /* 57 */
+  height: clamp(1.9rem, 3.95vw, 3.5625rem);
+  border-radius: clamp(0.25rem, 0.25vw, 0.228rem); /* 3.65 */
   background: var(--c-ink-2f);
 }
 .quote__mark img {
-  width: 27px;
-  height: 24px;
+  width: 47.4%; /* 27 of 57 */
+  height: auto;
 }
 .quote__title {
-  margin-top: 30px;
-  max-width: 578px;
+  margin-top: clamp(1.125rem, 2.1vw, 1.875rem);
+  max-width: min(92%, 36.125rem); /* 578 */
   font-family: var(--font-suisse);
   font-weight: 700;
-  font-size: 30.416px;
+  font-size: clamp(1.0625rem, 2.11vw, 1.901rem); /* 17 → 30.416 */
   line-height: 1.25;
   color: var(--c-ink-2f);
   opacity: 0.8;
 }
 .quote__text {
-  margin-top: 18px;
-  max-width: 533px;
+  margin-top: clamp(0.8rem, 1.25vw, 1.125rem);
+  max-width: min(88%, 33.3rem); /* 533 */
   font-family: var(--font-suisse);
   font-weight: 400;
-  font-size: 21.899px;
+  font-size: clamp(0.8125rem, 1.52vw, 1.369rem); /* 13 → 21.899 */
   line-height: 1.5;
   color: var(--c-ink-2f);
   opacity: 0.8;
@@ -163,45 +162,49 @@
 .author__photo {
   position: absolute;
   z-index: 1;
-  right: 0;
   top: 0;
   bottom: 0;
-  width: 74%; /* Figma IMG_4762 1424px ≈ 74% of 1920 */
+  /* author-photo.png is a centred cut-out with transparent left/right margins.
+     Anchor by height and bleed the transparent right margin past the edge (section
+     overflow:hidden clips it) so the subject hugs the pink edge. max() tracks viewport
+     but caps the bleed on wide screens where the section height stops growing. */
+  right: max(-32.4rem, -36vw);
   height: 100%;
-  object-fit: cover; /* fill right side top-to-bottom, no pink gaps (Figma 57:165) */
-  object-position: right top;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
   pointer-events: none;
 }
 
 .tg {
   position: absolute;
   z-index: 3;
-  left: calc(50% + 67px); /* Figma Author Info @x1027 */
-  top: 699px; /* Figma pill @y3018 from pink top y2319 */
+  left: calc(50% + 4.65vw); /* Figma Author Info @x1027 (≈ +67px) */
+  top: clamp(30rem, 48.5vw, 44rem); /* Figma pill @y ≈699, tracks the section */
 }
 .tg__cap {
   display: block;
   font-family: var(--font-sf);
-  font-size: 15.307px;
+  font-size: clamp(0.8rem, 1.06vw, 0.957rem); /* 15.307 */
   line-height: 1.15;
   color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 .tg__pill {
   display: inline-flex;
   align-items: center;
-  gap: 13px;
+  gap: clamp(0.5rem, 0.9vw, 0.8125rem);
   background: var(--c-white);
-  border-radius: 7.463px;
-  padding: 8px 16px;
+  border-radius: clamp(0.4rem, 0.52vw, 0.466rem);
+  padding: clamp(0.4rem, 0.55vw, 0.5rem) clamp(0.75rem, 1.1vw, 1rem);
 }
 .tg__icon {
-  width: 18px;
-  height: 16px;
+  width: clamp(0.9rem, 1.25vw, 1.125rem);
+  height: auto;
 }
 .tg__handle {
   font-family: var(--font-sf);
-  font-size: 20px;
+  font-size: clamp(1rem, 1.39vw, 1.25rem);
   color: var(--c-grey-555);
 }
 
@@ -212,7 +215,7 @@
 
 @media (max-width: 767px) {
   .author {
-    padding: 24px 0 6px; /* pink band; gallery continues below on the same pink */
+    padding: clamp(1rem, 7.5vw, 1.75rem) 0 clamp(0.25rem, 1.9vw, 0.5rem); /* pink band; gallery continues below */
   }
   .author__desktop {
     display: none;
@@ -221,12 +224,12 @@
     display: block;
     position: relative;
   }
-  /* Author Title 73:893 — Suisse Light 24, white, centered */
+  /* Author Title 73:893 — Suisse Light ≈24, white, centered */
   .am__name {
     margin: 0;
     font-family: var(--font-suisse);
     font-weight: 300;
-    font-size: 24px;
+    font-size: clamp(1.25rem, 7.5vw, 1.85rem);
     line-height: 1.2;
     color: var(--c-white);
     text-align: center;
@@ -241,48 +244,48 @@
     z-index: 0;
     width: 100%;
     height: auto;
-    margin-top: 6px;
+    margin-top: clamp(0.25rem, 1.9vw, 0.5rem);
   }
   /* White card (Figma Rectangle 2478 73:895) — overlaps the photo's lower part */
   .am__card {
     position: relative;
     z-index: 1;
-    margin-top: -70px;
+    margin-top: clamp(-6.5rem, -21.9vw, -3rem);
     background: var(--c-white);
-    border-radius: 16px;
-    padding: 18px 18px 22px;
+    border-radius: clamp(0.75rem, 5vw, 1.25rem);
+    padding: clamp(0.9rem, 5.6vw, 1.4rem);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
   }
-  /* Quote mark (Stats Icon Background 73:904 — 31×31 dark) */
+  /* Quote mark (Stats Icon Background 73:904 — ≈31×31 dark) */
   .am__mark {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 31px;
-    height: 31px;
-    border-radius: 4px;
+    width: clamp(1.6rem, 9.7vw, 2.4rem);
+    height: clamp(1.6rem, 9.7vw, 2.4rem);
+    border-radius: clamp(0.2rem, 1.25vw, 0.35rem);
     background: var(--c-ink-2f);
   }
   .am__mark img {
-    width: 15px; /* Figma quote vector 15×13 */
-    height: 13px;
+    width: 48%; /* Figma quote vector 15 of 31 */
+    height: auto;
   }
-  /* Quote title (Stats Intro 73:897 — Suisse Bold 16.73, #2f2f2f @80%) */
+  /* Quote title (Stats Intro 73:897 — Suisse Bold ≈16.73, #2f2f2f @80%) */
   .am__qtitle {
-    margin: 18px 0 0;
+    margin: clamp(0.9rem, 5.6vw, 1.4rem) 0 0;
     font-family: var(--font-suisse);
     font-weight: 700;
-    font-size: 16.73px;
+    font-size: clamp(0.95rem, 5.23vw, 1.3rem);
     line-height: 1.25;
     color: var(--c-ink-2f);
     opacity: 0.8;
   }
-  /* Quote text (Stats Description 73:896 — Suisse 12.045, #2f2f2f @80%; 1st sentence SemiBold) */
+  /* Quote text (Stats Description 73:896 — Suisse ≈12.045, #2f2f2f @80%; 1st sentence SemiBold) */
   .am__qtext {
-    margin: 13px 0 0;
+    margin: clamp(0.65rem, 4vw, 1rem) 0 0;
     font-family: var(--font-suisse);
     font-weight: 400;
-    font-size: 12.045px;
+    font-size: clamp(0.7rem, 3.76vw, 0.95rem);
     line-height: 1.5;
     color: var(--c-ink-2f);
     opacity: 0.8;
@@ -292,7 +295,7 @@
   }
   /* Stats 200+/8+ as two columns (Figma Statistics Container 73:906) */
   .am__stats {
-    margin-top: 15px;
+    margin-top: clamp(0.75rem, 4.7vw, 1.2rem);
     display: flex;
   }
   .am__stat {
@@ -303,16 +306,16 @@
   .am__num {
     font-family: var(--font-suisse);
     font-weight: 700;
-    font-size: 42.437px; /* Figma Suisse Bold 42.437 */
+    font-size: clamp(2.2rem, 13.26vw, 3.3rem); /* Figma Suisse Bold 42.437 */
     line-height: 1;
     color: var(--c-beige); /* #f5c8a9 */
   }
   .am__label {
-    margin-top: 6px;
-    max-width: 127px; /* Figma label box w127/129 */
+    margin-top: clamp(0.25rem, 1.9vw, 0.5rem);
+    max-width: 40%; /* Figma label box w127/129 of 320 */
     font-family: var(--font-suisse);
     font-weight: 400;
-    font-size: 13.914px; /* Figma Suisse Regular 13.914 */
+    font-size: clamp(0.75rem, 4.35vw, 1rem); /* Figma Suisse Regular 13.914 */
     line-height: 1.15;
     color: var(--c-ink-1a); /* #1a1a1a */
   }

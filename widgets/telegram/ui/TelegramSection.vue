@@ -40,8 +40,7 @@ const modules = [
         в котором вы найдете материалы <b>с нуля до профи</b>
       </p>
       <div class="tg__phone">
-        <img class="tg__phone-frame" src="/img/tg/air-frame.png" alt="" draggable="false" />
-        <img class="tg__phone-screen" src="/img/tg/air-screen.png" alt="" draggable="false" />
+        <img class="tg__phone-img" src="/img/tg/tg_phone.png" alt="Telegram канал" draggable="false" />
       </div>
     </div>
 
@@ -62,21 +61,20 @@ const modules = [
 .tg {
   position: relative;
   background: var(--c-page-2);
-  padding: 40px 0 40px;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
 }
 .tg__top {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: 30px;
-  min-height: 420px;
+  gap: clamp(1rem, 2.5vw, 1.875rem);
+  min-height: clamp(0rem, 30vw, 26rem);
 }
 .tg__desc {
   flex: 1 1 0;
-  max-width: 667px;
   font-family: var(--font-suisse);
   font-weight: 300;
-  font-size: 64.582px;
+  font-size: clamp(1.3125rem, 4.5vw, 4.036rem); /* 21 → 64.582px */
   line-height: 1.2;
   color: var(--c-ink);
 }
@@ -90,28 +88,13 @@ const modules = [
 .tg__phone {
   position: relative;
   z-index: 1;
-  flex: 0 0 auto;
-  width: 416px;
-  height: 720px;
-  margin-bottom: -260px; /* lower part tucks under the panel (#4) */
+  flex: 0 0 34.7%; /* 416 of the 1200 content column — scales with the container */
+  margin-bottom: -16%; /* lower part tucks under the panel (#4); % of container width */
 }
-.tg__phone-frame {
-  position: absolute;
-  inset: 0;
+.tg__phone-img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: top;
-}
-.tg__phone-screen {
-  position: absolute;
-  left: 5.6%;
-  top: 1.6%;
-  width: 88.5%;
-  height: 84%;
-  object-fit: cover;
-  object-position: top;
-  border-radius: 52px;
+  height: auto;
 }
 
 .tg__panel {
@@ -123,29 +106,31 @@ const modules = [
   position: absolute;
   inset: 0; /* Figma Feature Background spans the full content width */
   background: var(--c-white);
-  border-radius: 50px;
+  border-radius: clamp(1.5rem, 3.2vw, 3.125rem); /* 50px */
   box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
 }
 .tg__modules {
   position: relative;
-  display: flex;
-  justify-content: center;
-  gap: 33px; /* Figma card x-gaps 33/32 */
-  padding: 48px 40px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: start;
+  gap: clamp(0.75rem, 2.5vw, 2.0625rem); /* 33px */
+  padding: clamp(2rem, 3.6vw, 3rem) clamp(1rem, 2.7vw, 2.5rem) 0;
 }
 .tg__module {
   position: relative;
-  flex: 0 0 364px;
-  width: 364px;
-  height: 475px;
+  container-type: inline-size; /* internals (ModuleCard) sized in cqw → scales with the column */
+  width: 100%;
+  max-width: 22.75rem; /* 364px design cap */
+  aspect-ratio: 364 / 475;
 }
 .tg__cta {
   position: relative;
   display: block;
-  max-width: calc(100% - 80px);
-  width: 100%;
-  margin: 32px auto 40px;
-  border-radius: 39.796px;
+  width: calc(100% - clamp(2.5rem, 6vw, 5rem));
+  margin: clamp(1.5rem, 2.2vw, 2rem) auto clamp(1.5rem, 2.8vw, 2.5rem);
+  border-radius: clamp(1.5rem, 2.8vw, 2.487rem); /* 39.796px */
   box-shadow: 0 31.837px 63.674px -15.918px #58a4c9;
 }
 
@@ -154,21 +139,17 @@ const modules = [
     flex-direction: column;
     align-items: center;
     text-align: center;
+    min-height: 0;
   }
   .tg__phone {
-    margin-bottom: -120px;
+    flex-basis: auto;
+    width: min(38%, 18rem);
+    margin-bottom: -10%;
   }
 }
 @media (max-width: 767px) {
-  .tg {
-    padding: 24px 0 40px;
-  }
   .tg__top {
-    min-height: 0;
-    gap: 16px;
-  }
-  .tg__desc {
-    font-size: 21px; /* Figma Additional Info 21 */
+    gap: clamp(0.75rem, 4vw, 1.25rem);
   }
   /* Figma mobile order is Bubbles -> Работа с шарами -> Доп (desktop has Работа & Bubbles swapped) */
   .tg__module:nth-child(1) {
@@ -181,31 +162,17 @@ const modules = [
     order: 3;
   }
   .tg__phone {
-    width: 171px; /* Figma iPhone-Air 171×353 */
-    height: 353px;
-    margin-bottom: -110px; /* lower part tucks under the panel */
-  }
-  .tg__panel::before {
-    border-radius: 24px;
+    width: min(48%, 11rem); /* Figma iPhone-Air 171 */
+    margin-bottom: -14%;
   }
   .tg__modules {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px; /* Figma card pitch ≈9–10 */
-    padding: 40px 0 0;
+    grid-template-columns: 1fr;
+    gap: clamp(0.5rem, 2.6vw, 0.75rem);
+    padding: clamp(2rem, 9vw, 2.75rem) 0 0;
   }
   .tg__module {
-    width: 240px; /* Figma mobile module card 240×314 */
-    height: 314px;
-  }
-  /* mobile module card == desktop card scaled 0.6593 (240/364):
-     reproduces Figma box 203×127, title 15.62, desc 11.25, line tops exactly */
-  .tg__module :deep(.mod) {
-    inset: 0 auto auto 0;
-    width: 364px;
-    height: 475px;
-    transform: scale(0.6593);
-    transform-origin: top left;
+    width: min(75%, 15rem); /* Figma mobile module card 240 */
+    max-width: none;
   }
   .tg__cta {
     display: none; /* Figma mobile: no CTA button in this section */

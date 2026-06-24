@@ -24,7 +24,7 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: clamp(7px, 0.83vw, 12px);
   width: 100%;
   font-family: var(--font-inter);
   font-weight: 600;
@@ -34,16 +34,17 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
   flex: 0 0 auto;
 }
 
-/* size lg — Figma 57:27/57:241: h 123, font 31.837, radius 39.796 */
+/* size lg — fluid from Figma desktop 1440 (h123, font31.84, radius39.8) down to
+   mobile 390 (h68, font17.54, radius21.93). Linear clamp = no breakpoint jumps. */
 .btn--lg {
-  height: 123px;
-  border-radius: 39.796px;
-  font-size: 31.837px;
-  letter-spacing: -0.3184px;
+  height: clamp(68px, 47.57px + 5.238vw, 123px);
+  border-radius: clamp(21.93px, 15.29px + 1.702vw, 39.796px);
+  font-size: clamp(17.544px, 12.24px + 1.361vw, 31.837px);
+  letter-spacing: -0.01em;
 }
 .btn--lg .btn__tri {
-  width: 26px;
-  height: 25px;
+  width: clamp(14px, 9.54px + 1.143vw, 26px);
+  height: clamp(14px, 9.91px + 1.048vw, 25px);
 }
 
 /* size md — Figma 57:359/57:364: h 113, font 28, radius 35 */
@@ -72,17 +73,7 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
 }
 
 @media (max-width: 760px) {
-  /* Figma mobile button 73:804: h68, radius 21.93, Inter SemiBold 17.544, ls -0.1754 */
-  .btn--lg {
-    height: 68px;
-    border-radius: 21.93px;
-    font-size: 17.544px;
-    letter-spacing: -0.1754px;
-  }
-  .btn--lg .btn__tri {
-    width: 14px; /* Figma Polygon 6 size-[14px] */
-    height: 14px;
-  }
+  /* btn--lg is fully fluid via clamp() above — no override needed here. */
   /* Figma mobile offer button 73:1068: h66, radius 20.824, font 16.659, ls -0.1666 */
   .btn--md {
     height: 66px;

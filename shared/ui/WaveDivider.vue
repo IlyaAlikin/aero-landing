@@ -3,7 +3,7 @@
 // `from` = colour above the curve, `to` = colour below. Centre dip matches Figma.
 withDefaults(
   defineProps<{ from?: string; to?: string; height?: number; mobileHeight?: number }>(),
-  { from: 'var(--c-page)', to: 'var(--c-pink)', height: 70, mobileHeight: 34 },
+  { from: 'var(--c-page)', to: 'var(--c-pink)', height: 215, mobileHeight: 34 },
 )
 const PATH = 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0V215H0V0Z'
 </script>

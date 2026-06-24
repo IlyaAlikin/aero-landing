@@ -17,23 +17,27 @@ function isActive(href: string) {
 <template>
   <header class="header">
     <div class="header__inner container">
-      <!-- Mobile-only avatar logo (Figma mobile 73:1148 — 56×56 round). Desktop keeps the nav pill. -->
-      <a class="header__logo" href="#" aria-label="На главную">
-        <img src="/img/logo.png" alt="" />
-      </a>
-
+      <!-- Desktop nav (Figma 107:5875): round logo + floating white pills, gap 52, no container. -->
       <nav class="nav">
+        <a class="nav__logo" href="#" aria-label="На главную">
+          <img src="/img/logo.png" alt="" />
+        </a>
         <a
           v-for="link in NAV_LINKS"
           :key="link.label"
           class="nav__item"
-          :class="{ 'nav__item--accent': link.accent }"
-          :style="{ width: link.width + 'px' }"
+          :class="{ 'nav__item--accent': link.accent, 'nav__item--active': isActive(link.href) }"
+          :style="{ flexGrow: link.width }"
           :href="link.href"
         >
           {{ link.label }}
         </a>
       </nav>
+
+      <!-- Mobile bar (Figma 107:6632): round logo left, burger right -->
+      <a class="header__logo" href="#" aria-label="На главную">
+        <img src="/img/logo.png" alt="" />
+      </a>
 
       <button
         class="burger"
@@ -71,7 +75,7 @@ function isActive(href: string) {
   position: sticky;
   top: 0;
   z-index: 100;
-  padding-top: 20px;
+  padding-top: clamp(0.75rem, 1.4vw, 1.25rem); /* 20 */
   pointer-events: none;
 }
 .header__inner {
@@ -80,31 +84,45 @@ function isActive(href: string) {
   pointer-events: none;
 }
 
+/* Figma 107:5875 — transparent row, gap 52, fills the container (rubber). */
 .nav {
   display: flex;
-  gap: 35px; /* Figma 57:78 itemSpacing */
+  width: 100%;
+  gap: clamp(0.75rem, 3.61vw, 3.25rem); /* 52 at the 1440 design */
   align-items: center;
-  background: var(--c-nav);
-  border-radius: 27.32px;
-  padding: 16px 21px;
   pointer-events: auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+/* Round avatar logo as the first row item (56×56), fixed size. */
+.nav__logo {
+  flex: 0 0 auto;
+  width: clamp(2.6rem, 3.9vw, 3.5rem); /* 56 — fluid, never grows */
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .nav__item {
   display: inline-flex;
+  flex: 1 1 0; /* rubber: pills fill the row, proportions via flex-grow=link.width */
+  min-width: 0;
   align-items: center;
   justify-content: center;
-  height: 55px;
-  padding: 0 10px; /* width is fixed per item (Figma 57:79..91), text centered */
+  height: clamp(2.4rem, 3.82vw, 3.4375rem); /* 55 — fluid pill height */
+  padding: 0 clamp(0.4rem, 0.7vw, 0.625rem); /* 10 */
   background: var(--c-white);
-  border-radius: 19.514px;
+  border-radius: clamp(0.75rem, 1.35vw, 1.22rem); /* 19.514 */
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: 14.013px;
-  letter-spacing: -0.4204px;
+  font-size: clamp(0.7rem, 0.97vw, 0.876rem); /* 14.013 */
+  letter-spacing: -0.03em;
   color: var(--c-black);
   white-space: nowrap;
-  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 .nav__item--active {
   background: var(--c-pink);

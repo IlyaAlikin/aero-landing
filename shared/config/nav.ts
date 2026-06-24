@@ -7,11 +7,11 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Что внутри?', href: '#course', width: 150 },
-  { label: 'Об авторе', href: '#author', width: 150 },
-  { label: 'Отзывы учениц', href: '#reviews', width: 150 },
-  { label: 'Оплата', href: '#pricing', width: 100 },
-  { label: 'Telegram канал', href: '#telegram', width: 150 },
+  { label: 'Что внутри?', href: '#course', width: 89 },
+  { label: 'Об авторе', href: '#author', width: 86 },
+  { label: 'Отзывы учениц', href: '#reviews', width: 118 },
+  { label: 'Telegram канал', href: '#telegram', width: 124 },
+  { label: 'Оплата', href: '#pricing', width: 73 },
   { label: 'FAQ', href: '#faq', width: 79 },
   { label: 'Служба заботы', href: '#faq', width: 169, accent: true },
 ]

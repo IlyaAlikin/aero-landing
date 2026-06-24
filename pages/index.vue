@@ -10,6 +10,7 @@ import TelegramSection from '@widgets/telegram/ui/TelegramSection.vue'
 import OfferSection from '@widgets/offer/ui/OfferSection.vue'
 import FaqSection from '@widgets/faq/ui/FaqSection.vue'
 import WaveDivider from '@shared/ui/WaveDivider.vue'
+import RibbonBand from '@shared/ui/RibbonBand.vue'
 
 const PAGE = 'var(--c-page)'
 const FAFA = 'var(--c-page-2)'
@@ -26,10 +27,8 @@ const PINK = 'var(--c-pink)'
     <BenefitsSection />
     <WaveDivider class="wd-mobile" :from="PINK" :to="FAFA" :height="64" :mobile-height="24" />
 
-    <!-- desktop: pink ribbon between benefits and course -->
-    <WaveDivider class="wd-desktop" :from="PAGE" :to="PINK" :height="64" />
-    <div class="ribbon wd-desktop" />
-    <WaveDivider class="wd-desktop" :from="PINK" :to="FAFA" :height="64" />
+    <!-- desktop: pink ribbon between benefits and course (Figma 111:3) -->
+    <RibbonBand class="wd-desktop" :above="PAGE" :below="FAFA" :height="273" />
 
     <CourseSection />
 
@@ -57,10 +56,6 @@ const PINK = 'var(--c-pink)'
   /* pull content up so the sticky header floats over the hero top */
   margin-top: -107px;
   overflow: clip;
-}
-.ribbon {
-  height: 6px;
-  background: var(--c-pink);
 }
 /* Wave dividers that exist only on one breakpoint (mobile re-bands several sections). */
 .wd-mobile {
