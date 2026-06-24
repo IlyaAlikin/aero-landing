@@ -37,7 +37,7 @@ const modules = [
     <div class="tg__top container">
       <p class="tg__desc">
         Также у нас есть закрытый <span class="tg__blue">Telegram канал,</span>
-        в котором вы найдете материалы <b>с нуля до профи</b>
+        в котором вы найдете материалы <br class="tg__brk" /><b>с нуля до профи</b>
       </p>
       <div class="tg__phone">
         <img class="tg__phone-img" src="/img/tg/tg_phone.png" alt="Telegram канал" draggable="false" />
@@ -50,31 +50,40 @@ const modules = [
           <ModuleCard :title="m.title" :desc="m.desc" :photos="m.photos" />
         </div>
       </div>
-      <a class="tg__cta" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
+      <div class="tg__cta">
         <AppButton label="Хочу перейти в канал" variant="blue" size="lg" />
-      </a>
+      </div>
     </div>
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .tg {
   position: relative;
   background: var(--c-page); /* match section 1 (hero) */
-  padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+  padding: 85px 0 0;
+
+  @media (max-width: 768px) {
+    padding: 40px 0 0;
+  }
+
+   @media (max-width: 576px) {
+    padding: 30px 0 0;
+   }
 }
 .tg__top {
   position: relative;
   display: flex;
   align-items: flex-start;
-  gap: clamp(1rem, 2.5vw, 1.875rem);
+  gap: clamp(1rem, 3.4vw, 2.5625rem); /* Figma 41 */
   min-height: clamp(0rem, 30vw, 26rem);
 }
 .tg__desc {
   flex: 1 1 0;
+  max-width: 55.56%; /* Figma desc 667 of 1200 (keeps the right margin like the macro) */
   font-family: var(--font-suisse);
   font-weight: 300;
-  font-size: clamp(1.3125rem, 4.5vw, 4.036rem); /* 21 → 64.582px */
+  font-size: clamp(1.3125rem, 5vw, 4.036rem); /* 21 → 64.582px (hits max near the 1200 design width) */
   line-height: 1.2;
   color: var(--c-ink);
 }
@@ -85,11 +94,21 @@ const modules = [
 .tg__desc b {
   font-weight: 700;
 }
+.tg__brk {
+  display: none; /* "с нуля до профи" on its own line — mobile only */
+}
+@media (max-width: 767px) {
+  .tg__brk {
+    display: inline;
+  }
+}
 .tg__phone {
   position: relative;
   z-index: 1;
   flex: 0 0 34.7%; /* 416 of the 1200 content column — scales with the container */
-  margin-bottom: -16%; /* lower part tucks under the panel (#4); % of container width */
+  /* Figma: phone y13..872, panel top y490 → lower 382px tucks under the panel.
+     382 / 1200 = 31.83% (margin % is of the container width). */
+  margin-bottom: -31.83%;
 }
 .tg__phone-img {
   display: block;
@@ -104,7 +123,12 @@ const modules = [
 .tg__panel::before {
   content: '';
   position: absolute;
-  inset: 0; /* Figma Feature Background spans the full content width */
+  top: 0;
+  left: 0;
+  right: 0;
+  /* white panel ends half a button-height above the panel bottom, so the CTA (last child)
+     straddles the edge: top half on the white panel, bottom half below it (Figma 107:5986) */
+  bottom: clamp(34px, 26.9px + 1.802vw, 61.5px);
   background: var(--c-white);
   border-radius: clamp(1.5rem, 3.2vw, 3.125rem); /* 50px */
   box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
@@ -128,8 +152,9 @@ const modules = [
 .tg__cta {
   position: relative;
   display: block;
-  width: calc(100% - clamp(2.5rem, 6vw, 5rem));
-  margin: clamp(1.5rem, 2.2vw, 2rem) auto clamp(1.5rem, 2.8vw, 2.5rem);
+  width: clamp(20rem, 45.34%, 34rem); /* Figma button 544 of 1200, centred */
+  /* last child; the shortened white ::before makes its bottom half overhang the panel */
+  margin: clamp(1.5rem, 2.2vw, 2rem) auto 0;
   border-radius: clamp(1.5rem, 2.8vw, 2.487rem); /* 39.796px */
   box-shadow: 0 31.837px 63.674px -15.918px #58a4c9;
 }
@@ -141,17 +166,19 @@ const modules = [
     text-align: center;
     min-height: 0;
   }
+  .tg__desc {
+    max-width: none; /* full width when stacked */
+  }
   .tg__phone {
     flex-basis: auto;
     width: min(38%, 18rem);
     margin-bottom: -10%;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 576px) {
   .tg__top {
     gap: clamp(0.75rem, 4vw, 1.25rem);
   }
-  /* Figma mobile order is Bubbles -> Работа с шарами -> Доп (desktop has Работа & Bubbles swapped) */
   .tg__module:nth-child(1) {
     order: 2;
   }
@@ -163,12 +190,12 @@ const modules = [
   }
   .tg__phone {
     width: min(48%, 11rem); /* Figma iPhone-Air 171 */
-    margin-bottom: -14%;
+    margin-bottom: -30%;
   }
   .tg__modules {
     grid-template-columns: 1fr;
     gap: clamp(0.5rem, 2.6vw, 0.75rem);
-    padding: clamp(2rem, 9vw, 2.75rem) 0 0;
+    padding: 10px 0 24px 0; /* white panel padded top & bottom around the stacked cards */
   }
   .tg__module {
     width: min(75%, 15rem); /* Figma mobile module card 240 */
@@ -176,6 +203,15 @@ const modules = [
   }
   .tg__cta {
     display: none; /* Figma mobile: no CTA button in this section */
+  }
+  .tg__panel {
+    background: var(--c-white);
+    border-radius: clamp(1.5rem, 3.2vw, 3.125rem);
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.05);
+    width: max(300px, 70.09cqw);
+  }
+  .tg__panel::before {
+    display: none;
   }
 }
 </style>

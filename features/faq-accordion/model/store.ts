@@ -1,16 +1,14 @@
 import { defineStore } from 'pinia'
 
-// FAQ accordion open-state. The Figma mockup has no answer bodies (only questions + “+”),
-// so toggling switches the +/− icon; no answer text is invented.
+// FAQ accordion open-state — single-open: opening one closes the others.
 export const useFaqStore = defineStore('faq', {
-  state: () => ({ open: new Set<number>() }),
+  state: () => ({ open: -1 as number }),
   actions: {
     toggle(i: number) {
-      if (this.open.has(i)) this.open.delete(i)
-      else this.open.add(i)
+      this.open = this.open === i ? -1 : i
     },
     isOpen(i: number) {
-      return this.open.has(i)
+      return this.open === i
     },
   },
 })

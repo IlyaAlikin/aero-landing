@@ -29,6 +29,8 @@ function isActive(href: string) {
           :class="{ 'nav__item--accent': link.accent, 'nav__item--active': isActive(link.href) }"
           :style="{ flexGrow: link.width }"
           :href="link.href"
+          :target="link.external ? '_blank' : undefined"
+          :rel="link.external ? 'noopener' : undefined"
         >
           {{ link.label }}
         </a>
@@ -60,6 +62,8 @@ function isActive(href: string) {
             class="menu__item"
             :class="{ 'menu__item--accent': link.accent }"
             :href="link.href"
+            :target="link.external ? '_blank' : undefined"
+            :rel="link.external ? 'noopener' : undefined"
             @click="open = false"
           >
             {{ link.label }}
@@ -84,13 +88,16 @@ function isActive(href: string) {
   pointer-events: none;
 }
 
-/* Figma 107:5875 — transparent row, gap 52, fills the container (rubber). */
+/* Figma 107:6261 — menu sits on a light #ececec rounded bar (gap 52), fills the container. */
 .nav {
   display: flex;
   width: 100%;
   gap: clamp(0.75rem, 3.61vw, 3.25rem); /* 52 at the 1440 design */
   align-items: center;
   pointer-events: auto;
+  background: var(--c-nav); /* #ececec */
+  border-radius: clamp(1.2rem, 1.9vw, 1.7075rem); /* 27.32 */
+  padding: clamp(0.7rem, 1.1vw, 1rem) clamp(0.9rem, 1.46vw, 1.3125rem); /* 16 / 21 */
 }
 /* Round avatar logo as the first row item (56×56), fixed size. */
 .nav__logo {

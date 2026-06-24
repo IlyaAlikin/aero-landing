@@ -9,7 +9,7 @@ interface Polaroid { src: string; w: number; h: number; dx: number; dy: number; 
 const polaroids: Polaroid[] = [
   { src: '/img/offer/p1.png', w: 375, h: 394, dx: 153, dy: -1, rot: -8, z: 1 },
   { src: '/img/offer/p2.png', w: 293, h: 322, dx: 318, dy: 289, rot: 6, z: 2 },
-  { src: '/img/offer/p3.png', w: 351, h: 374, dx: -256, dy: 312, rot: -11, z: 3 },
+  { src: '/img/offer/p3.png', w: 351, h: 374, dx: -256, dy: 312, rot: 12, z: 3 },
   { src: '/img/offer/p4.png', w: 270, h: 284, dx: 378, dy: 523, rot: 14, z: 4 },
   { src: '/img/offer/p5.png', w: 427, h: 455, dx: 19, dy: 319, rot: 3, z: 5 },
 ]
@@ -60,7 +60,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 
       <div class="panel">
         <div class="pcol">
-          <p class="pcol__head">Стоимость курса “Баблс”</p>
+          <p class="pcol__head"><span>Стоимость курса </span><b>“Баблс”</b></p>
           <div class="pcard pcard--pink">
             <span class="pcard__now">8 990₽</span><span class="pcard__old pcard__old--w">9 990₽</span>
           </div>
@@ -85,6 +85,8 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   padding: 50px 0 70px;
 }
 .slogan {
+  position: relative;
+  z-index: 2;
   max-width: 804px;
   font-family: var(--font-suisse);
   font-weight: 300;
@@ -106,12 +108,9 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   flex: 0 0 325px;
   display: flex;
   flex-direction: column;
-  gap: 0; /* Figma: cards 1&2 flush, 3rd +12px */
+  gap: 12px; 
   position: relative;
   z-index: 3;
-}
-.feat:last-child {
-  margin-top: 12px;
 }
 .feat {
   position: relative;
@@ -189,23 +188,32 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   padding: 40px 28px 28px; /* Figma inner 1038×402 in 1066×426 */
 }
 .pcol__head {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* pin the heading text to the bottom of the box */
   font-family: var(--font-sf);
-  font-weight: 800;
-  font-size: 32px;
+  font-weight: 400; /* "Стоимость курса" — normal; course name (b) below in bold */
+  font-size: clamp(18px, 2.9vw, 32px);
   line-height: 1.25;
   letter-spacing: 0.32px;
   color: var(--c-ink-20);
-  min-height: 84px;
+  min-height: clamp(48px, 7.6vw, 84px);
+  margin-bottom: 15px;
 }
-.pcol__head--dark span {
-  font-weight: 400;
+.pcol__head b {
+  font-weight: 800; /* course name on its own line, bold */
+}
+.pcol {
+  min-width: 0; /* let the grid column shrink below the price width */
 }
 .pcard {
   display: flex;
   align-items: center; /* price vertically centered in card */
-  gap: 18px;
-  height: 155px;
-  padding: 0 40px;
+  justify-content: center;
+  min-width: 0;
+  gap: clamp(10px, 1.63vw, 18px);
+  height: clamp(91px, 14vw, 155px); /* proportional height */
+  padding: 0 clamp(20px, 3.62vw, 40px);
   border-radius: 32.716px;
   box-shadow: inset 1.258px 1.258px 100px rgba(255, 255, 255, 0.3);
 }
@@ -218,7 +226,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 .pcard__now {
   font-family: var(--font-sf);
   font-weight: 600;
-  font-size: 69.207px;
+  font-size: clamp(40px, 6.26vw, 69.207px); /* scales so 2 columns never overflow */
   line-height: 1;
   letter-spacing: 0.692px;
   color: var(--c-white);
@@ -230,7 +238,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 .pcard__old {
   font-family: var(--font-sf);
   font-weight: 500;
-  font-size: 32.04px;
+  font-size: clamp(16px, 2.9vw, 32.04px);
   text-decoration: line-through;
   white-space: nowrap;
 }

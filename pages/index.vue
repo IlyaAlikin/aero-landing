@@ -9,6 +9,7 @@ import ReviewsSection from '@widgets/reviews/ui/ReviewsSection.vue'
 import TelegramSection from '@widgets/telegram/ui/TelegramSection.vue'
 import OfferSection from '@widgets/offer/ui/OfferSection.vue'
 import FaqSection from '@widgets/faq/ui/FaqSection.vue'
+import FooterSection from '@widgets/footer/ui/FooterSection.vue'
 import WaveDivider from '@shared/ui/WaveDivider.vue'
 import RibbonBand from '@shared/ui/RibbonBand.vue'
 
@@ -50,8 +51,11 @@ const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through 
     <TelegramSection />
     <OfferSection />
 
-    <WaveDivider :from="PAGE" :to="PINK" :height="80" />
+    <!-- desktop: FAQ top wave is a deep overlay inside FaqSection (like author); mobile: plain divider -->
+    <WaveDivider class="wd-mobile" :from="PAGE" :to="PINK" :height="80" />
     <FaqSection />
+
+    <FooterSection />
   </main>
 </template>
 
@@ -80,7 +84,7 @@ const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through 
 .wd-author {
   display: none;
 }
-@media (max-width: 991px) {
+@media (max-width: 767px) {
   .wd-author {
     display: block;
     position: relative;

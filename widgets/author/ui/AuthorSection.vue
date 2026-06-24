@@ -248,9 +248,8 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
 /* MOBILE — Figma frame 118:129 (428px ref), made fluid: values scale with the
    viewport (vw = px / 428 × 100), capped at the Figma px above 428, floored for
    readability below. Negative offsets cap with max(), max-widths with min().
-   Switches in at ≤991px (desktop gets cramped below 992) — the stack is capped to a
-   phone-width column and centred so tablets show a clean mobile view, not a blown-up one. */
-@media (max-width: 991px) {
+   Switches in at ≤767px — the stack is capped to a phone-width column and centred. */
+@media (max-width: 767px) {
   .author {
     /* floor at Figma (title y27), grow on tablet, cap at the 700-column value */
     padding: clamp(27px, 6.31vw, 44px) 0 clamp(24px, 5.61vw, 39px);

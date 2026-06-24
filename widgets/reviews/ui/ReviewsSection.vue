@@ -17,15 +17,16 @@ function variantFor(slot: number): 1 | 2 | 3 {
 const phones = computed(() => [0, 1, 2].map((s) => variantFor(s)))
 const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 
-// swipe navigation (used on mobile where the arrows are hidden)
-let touchX: number | null = null
-function onTouchStart(e: TouchEvent) {
-  touchX = e.changedTouches[0].clientX
+// swipe / drag navigation (used ≤1200 where the arrows are hidden) — pointer events
+// cover both touch and mouse drag.
+let downX: number | null = null
+function onPointerDown(e: PointerEvent) {
+  downX = e.clientX
 }
-function onTouchEnd(e: TouchEvent) {
-  if (touchX == null) return
-  const dx = e.changedTouches[0].clientX - touchX
-  touchX = null
+function onPointerUp(e: PointerEvent) {
+  if (downX == null) return
+  const dx = e.clientX - downX
+  downX = null
   if (Math.abs(dx) > 40) (dx < 0 ? store.next() : store.prev())
 }
 </script>
@@ -38,7 +39,7 @@ function onTouchEnd(e: TouchEvent) {
     <div class="container">
       <h2 class="reviews__title"><b>Отзывы</b> <span>учениц</span></h2>
 
-      <div class="stage" @touchstart.passive="onTouchStart" @touchend="onTouchEnd">
+      <div class="stage" @pointerdown="onPointerDown" @pointerup="onPointerUp">
         <button class="arrow" aria-label="Назад" @click="store.prev()">
           <svg viewBox="0 0 10 15"><path d="M9 1 2 7.5 9 14" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>
         </button>
@@ -112,6 +113,8 @@ function onTouchEnd(e: TouchEvent) {
   display: flex;
   align-items: center;
   justify-content: space-between; /* arrows pinned to content edges (Figma 57:193) */
+  touch-action: pan-y; /* keep vertical scroll, let horizontal swipes reach our pointer handler */
+  user-select: none;
 }
 /* both the entering and leaving slide share one grid cell → no box reflow / no jump */
 .viewport {
@@ -186,6 +189,15 @@ function onTouchEnd(e: TouchEvent) {
   background: var(--c-white);
 }
 
+/* ≤1200: hide the arrows, navigate by swipe/drag + dots */
+@media (max-width: 1200px) {
+  .arrow {
+    display: none;
+  }
+  .stage {
+    justify-content: center;
+  }
+}
 @media (max-width: 1100px) {
   .phones__item:not(.phones__item--center) {
     display: none;

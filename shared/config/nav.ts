@@ -4,6 +4,7 @@ export interface NavLink {
   href: string
   width: number
   accent?: boolean
+  external?: boolean
 }
 
 export const NAV_LINKS: NavLink[] = [
@@ -13,5 +14,5 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Telegram канал', href: '#telegram', width: 124 },
   { label: 'Оплата', href: '#pricing', width: 73 },
   { label: 'FAQ', href: '#faq', width: 79 },
-  { label: 'Служба заботы', href: '#faq', width: 169, accent: true },
+  { label: 'Служба заботы', href: 'https://t.me/VikaRusskikh', width: 169, accent: true, external: true },
 ]
