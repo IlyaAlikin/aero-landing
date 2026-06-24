@@ -34,17 +34,17 @@ withDefaults(defineProps<{ label: string; variant?: Variant; size?: Size }>(), {
   flex: 0 0 auto;
 }
 
-/* size lg — fluid from Figma desktop 1440 (h123, font31.84, radius39.8) down to
-   mobile 390 (h68, font17.54, radius21.93). Linear clamp = no breakpoint jumps. */
+/* size lg — fluid between the two Figma frames: mobile 394 (h68, font17.544, r21.93)
+   ↔ desktop 1920 (h123, font31.837, r39.796). Linear clamp, no breakpoint jumps. */
 .btn--lg {
-  height: clamp(68px, 47.57px + 5.238vw, 123px);
-  border-radius: clamp(21.93px, 15.29px + 1.702vw, 39.796px);
-  font-size: clamp(17.544px, 12.24px + 1.361vw, 31.837px);
+  height: clamp(68px, 53.8px + 3.604vw, 123px);
+  border-radius: clamp(21.93px, 17.317px + 1.171vw, 39.796px);
+  font-size: clamp(17.544px, 13.854px + 0.9366vw, 31.837px);
   letter-spacing: -0.01em;
 }
 .btn--lg .btn__tri {
-  width: clamp(14px, 9.54px + 1.143vw, 26px);
-  height: clamp(14px, 9.91px + 1.048vw, 25px);
+  width: clamp(14px, 10.902px + 0.7864vw, 26px);
+  height: clamp(14px, 11.16px + 0.7208vw, 25px);
 }
 
 /* size md — Figma 57:359/57:364: h 113, font 28, radius 35 */

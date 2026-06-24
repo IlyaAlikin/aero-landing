@@ -1,25 +1,28 @@
 <script setup lang="ts">
-// Hero — Figma 57:25 / 57:32 / 57:27 / 57:33. Block layout: text column + dog art.
+// Hero — fluid between two Figma frames: mobile 394 (112:44) ↔ desktop 1920 (112:43).
+// Typography/spacing interpolate via clamp(); layout (row↔column) switches at 767px.
 import AppButton from '@shared/ui/AppButton.vue'
 </script>
 
 <template>
   <section class="hero">
-    <div class="hero__inner container">
-      <div class="hero__text">
-        <h1 class="hero__title">
-          <span class="dim">Научитесь создавать</span>
-          <span class="accent">современные<br />и качественные</span>
-          <!-- desktop keeps the forced break; mobile (Figma Heading 73:802) is one line -->
-          <span class="dim">оформления <br class="hero__brk" />из шаров</span>
-        </h1>
-        <p class="hero__sub">
-          Пошаговая система работы с шарами, материалами и техниками
-          <b>от практика с реальным опытом.</b>
-        </p>
-        <img class="hero__dog hero__dog--mobile" src="/img/hero-dog.png" alt="Собачка из шаров" />
-        <div class="hero__cta">
-          <AppButton label="Перейти к покупке" variant="pink" size="lg" />
+    <div class="hero__frame">
+      <div class="hero__inner">
+        <div class="hero__text">
+          <h1 class="hero__title">
+            <span class="dim">Научитесь создавать</span>
+            <span class="accent">современные<br />и качественные</span>
+            <!-- desktop keeps the forced break; mobile is "оформления из шаров" on one line -->
+            <span class="dim">оформления <br class="hero__brk" />из шаров</span>
+          </h1>
+          <p class="hero__sub">
+            Пошаговая система работы с шарами, материалами и техниками
+            <b>от практика с реальным опытом.</b>
+          </p>
+          <img class="hero__dog hero__dog--mobile" src="/img/hero-dog.png" alt="Собачка из шаров" />
+          <div class="hero__cta">
+            <AppButton label="Перейти к покупке" variant="pink" size="lg" />
+          </div>
         </div>
       </div>
       <img class="hero__dog hero__dog--desktop" src="/img/hero-dog.png" alt="Собачка из шаров" />
@@ -31,23 +34,34 @@ import AppButton from '@shared/ui/AppButton.vue'
 .hero {
   position: relative;
   background: var(--c-page);
-  padding-top: clamp(7.5rem, 12vw, 10.625rem);
+  padding-top: clamp(72px, 46.7px + 6.42vw, 170px); /* Figma: pad-top mob 72 → desktop 170 */
   padding-bottom: 0;
 }
+@media (min-width: 1200px) {
+  .hero {
+    padding-top: clamp(150px, 80px + 6.25vw, 200px); /* 1200→150 … 1920→200 */
+  }
+}
+.hero__frame {
+  max-width: 1920px;
+  margin-inline: auto;
+  position: relative;
+}
 .hero__inner {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 1.4vw, 1.25rem);
+  width: 100%;
+  max-width: 1243px;
+  margin-inline: auto;
+  padding-inline: 20px;
 }
 .hero__text {
-  flex: 1 1 0;
-  min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 .hero__title {
-  max-width: 53.3%; /* Figma Huge Subtitle box ≈640 of 1200 col */
+  max-width: clamp(300px, 177.9px + 30.99vw, 773px); /* Figma: mob 300 → desktop 773 */
   font-family: var(--font-suisse);
   font-weight: 300;
-  font-size: clamp(1.5rem, 3.2vw, 2.875rem); /* 24 → 46px */
+  font-size: clamp(24px, 18.32px + 1.4417vw, 46px); /* Figma: 24 → 46 */
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -61,37 +75,35 @@ import AppButton from '@shared/ui/AppButton.vue'
   font-weight: 700;
 }
 .hero__sub {
-  margin-top: clamp(0.75rem, 1.3vw, 1.125rem);
-  max-width: 40.8%; /* ≈490 of 1200 col */
+  margin-top: clamp(8px, 4.64px + 0.852vw, 21px); /* Figma: 8 → 21 */
+  max-width: clamp(303px, 255.76px + 11.99vw, 486px); /* Figma: 303 → 486 */
   font-family: var(--font-suisse);
   font-weight: 400;
-  font-size: clamp(0.9375rem, 1.6vw, 1.4375rem); /* 15 → 23px */
-  line-height: 1.45;
-  letter-spacing: -0.02em; /* ≈ -0.46px at 23px, scales with font */
+  font-size: clamp(15px, 12.935px + 0.5242vw, 23px); /* Figma: 15 → 23 */
+  line-height: clamp(18px, 14.04px + 1.006vw, 33.35px); /* Figma: lh 1.2 → 1.45 */
+  letter-spacing: -0.02em; /* Figma: -0.3px@15 / -0.46px@23 → same -0.02em */
   color: var(--c-ink-1b);
 }
 .hero__sub b {
   font-weight: 700;
 }
 .hero__cta {
-  margin-top: clamp(1.25rem, 1.95vw, 1.75rem);
-  max-width: 34rem; /* 544px cap */
-  width: 100%;
-  box-shadow: 0 31.837px 63.674px -15.918px rgba(233, 97, 129, 0.5);
-  border-radius: clamp(1.5rem, 2.8vw, 2.487rem); /* 39.796px */
-
-  @media(max-width: 992px) {
-    max-width: 20rem;
-  }
+  margin-top: 21px; /* Figma desktop: subtitle → button */
+  width: clamp(300px, 237px + 15.99vw, 544px); /* Figma: 300 → 544 */
+  border-radius: clamp(21.93px, 17.317px + 1.171vw, 39.796px); /* match button radius */
+  /* Figma shadow: mob 0 17.5 35 -8.8 → desktop 0 31.8 63.7 -15.9 */
+  box-shadow:
+    0 clamp(17.544px, 13.854px + 0.9366vw, 31.837px)
+    clamp(35.088px, 27.708px + 1.8732vw, 63.674px)
+    clamp(-15.918px, -6.927px - 0.4683vw, -8.772px)
+    rgba(233, 97, 129, 0.5);
 }
-
 .hero__dog--desktop {
-  position: absolute; /* Figma 57:33: big head-crop anchored right, body covered by next section */
+  position: absolute; /* Figma 107:5868: 1039×1250 @1920, x818 y-69 */
   z-index: 0;
-  right: -10px;
-  top: -30px;
-  width: 1000px;
-  max-width: 54vw;
+  left: 42.6%; /* Figma x818 of 1920 */
+  top: -130px; /* Figma: dog top y-69 vs hero top y61 */
+  width: 54.1%; /* Figma 1039 of 1920; height auto ≈1250 (ratio 64/77) */
   height: auto;
   pointer-events: none;
 }
@@ -99,50 +111,39 @@ import AppButton from '@shared/ui/AppButton.vue'
   display: none;
 }
 
+/* ── layout switch: row → column (no fluid here, hard breakpoint) ── */
 @media (max-width: 767px) {
-  .hero {
-    padding-top: clamp(5rem, 28vw, 7rem);
-  }
   .hero__inner {
-    flex-direction: column;
     text-align: center;
   }
   .hero__title {
-    max-width: 100%; /* full-width centred on mobile (dog moves below) */
-    font-size: clamp(1.25rem, 6.4vw, 1.75rem); /* Figma Heading 73:802 ≈24 @375 */
-    line-height: 1.2;
-    text-transform: none; /* Figma mobile heading is mixed-case, not uppercase */
+    margin-inline: auto;
+    text-transform: none; /* Figma mobile heading is mixed-case */
   }
-  /* Figma mobile: last line is "оформления из шаров" on ONE line (desktop keeps the break) */
   .hero__brk {
-    display: none;
+    display: none; /* "оформления из шаров" on one line */
   }
   .hero__sub {
     margin-inline: auto;
-    max-width: min(80%, 19rem); /* Figma Huge Title box ≈303 */
-    font-size: clamp(0.8125rem, 4vw, 1rem); /* ≈15 @375 */
-    line-height: 1.2; /* Figma mobile */
-    letter-spacing: -0.02em; /* Figma tracking -0.3, scales with font */
   }
   .hero__dog--desktop {
     display: none;
   }
-  /* Figma Huge Background Image 73:801: 394px wide on the 320 frame (x:-37), full-bleed.
-     Button (73:803 @y466) overlaps the dog's lower body. */
+  /* Figma mobile Huge Background Image 107:6588: 394px full-bleed, y215; button overlaps lower body. */
   .hero__dog--mobile {
     display: block;
-    width: 123vw; /* 394 / 320 — fluid */
+    width: 100vw; /* Figma 394 of 394 — full-bleed */
     max-width: none;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin: 1.6vw 0 -32vw; /* tuck under the button, fluid */
+    margin: -22px 0 -182px; /* dog box top 151, button top 396 over the dog */
     z-index: 0;
   }
   .hero__cta {
     position: relative;
     z-index: 1;
-    height: auto;
+    margin: 0 auto; /* centred; overlap handled by dog negative margin */
   }
 }
 </style>

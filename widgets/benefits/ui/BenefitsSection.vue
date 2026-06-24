@@ -39,14 +39,11 @@ const cards: Card[] = [
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(1rem, 1.6vw, 1.4375rem); /* 23px */
-
-  @media (max-width: 992px) {
-    display: flex;
-    flex-direction: column;
-  }
 }
+
 .bcard {
   position: relative;
+  z-index: 2; /* stay above the pink ribbon that overlaps the cards' lower part */
   container-type: inline-size; /* title/desc/images sized in cqw → scale with the card */
   min-height: clamp(9rem, 15.5vw, 11.8rem); /* 189 */
   background: var(--c-white);
@@ -103,6 +100,8 @@ const cards: Card[] = [
 @media (max-width: 767px) {
   /* Figma: Banner cards sit on a pink band (Rectangle 47 73:809), not grey */
   .benefits {
+    position: relative;
+    z-index: 1;
     background: var(--c-pink);
     margin-top: 0;
     padding: 18px 0 12px;

@@ -27,8 +27,8 @@ const PINK = 'var(--c-pink)'
     <BenefitsSection />
     <WaveDivider class="wd-mobile" :from="PINK" :to="FAFA" :height="64" :mobile-height="24" />
 
-    <!-- desktop: pink ribbon between benefits and course (Figma 111:3) -->
-    <RibbonBand class="wd-desktop" :above="PAGE" :below="FAFA" :height="273" />
+    <!-- desktop: pink ribbon overlaps the cards' lower part + the dog's paws (Figma 112:23) -->
+    <RibbonBand class="wd-desktop hero-overlap" :above="PAGE" :below="FAFA" :height="273" />
 
     <CourseSection />
 
@@ -51,11 +51,22 @@ const PINK = 'var(--c-pink)'
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .page {
   /* pull content up so the sticky header floats over the hero top */
   margin-top: -107px;
   overflow: clip;
+}
+/* Desktop pink ribbon pulled up over the cards' lower part + dog paws.
+   Layering: dog (z0) < ribbon (z1) < cards (z2, set in BenefitsSection). */
+.hero-overlap {
+  position: relative;
+  z-index: 1;
+  margin-top: -101px; /* Figma 112:23: ribbon top lands 131px below the card top */
+
+  @media (max-width: 1400px) {
+    margin-top: -150px;
+  }
 }
 /* Wave dividers that exist only on one breakpoint (mobile re-bands several sections). */
 .wd-mobile {
