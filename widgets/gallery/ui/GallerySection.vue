@@ -32,7 +32,7 @@ const loop = [...thumbs, ...thumbs, ...thumbs]
 
 <style scoped>
 .gallery {
-  background: var(--c-page-2);
+  background: var(--c-page); /* match section 1 (hero) */
   padding: clamp(2rem, 3.5vw, 3.125rem) 0 clamp(2.5rem, 4.2vw, 3.75rem);
   overflow: hidden;
 }

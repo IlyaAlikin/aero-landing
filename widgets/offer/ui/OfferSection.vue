@@ -81,7 +81,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 <style scoped>
 .offer {
   position: relative;
-  background: var(--c-page-2);
+  background: var(--c-page); /* match section 1 (hero) */
   padding: 50px 0 70px;
 }
 .slogan {

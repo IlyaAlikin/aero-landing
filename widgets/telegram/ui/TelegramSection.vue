@@ -60,7 +60,7 @@ const modules = [
 <style scoped>
 .tg {
   position: relative;
-  background: var(--c-page-2);
+  background: var(--c-page); /* match section 1 (hero) */
   padding: clamp(1.5rem, 3vw, 2.5rem) 0;
 }
 .tg__top {

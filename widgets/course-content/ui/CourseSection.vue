@@ -44,9 +44,9 @@ function maskStyle(src: string, size: number): CSSProperties {
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .course {
-  background: var(--c-page-2);
+  background: var(--c-page); /* match section 1 (hero) */
   padding: clamp(2.25rem, 4vw, 3.5rem) 0 clamp(2.5rem, 5.5vw, 5rem);
 }
 .course__title {
@@ -139,7 +139,7 @@ function maskStyle(src: string, size: number): CSSProperties {
 
 @media (max-width: 767px) {
   .course {
-    padding: clamp(2rem, 9.6vw, 2.5rem) 0 clamp(2.25rem, 10.7vw, 2.75rem);
+    padding: 62px 0 clamp(2.25rem, 10.7vw, 2.75rem);
   }
   .course__title {
     margin-bottom: clamp(1.75rem, 10vw, 2.6rem); /* 38px */
@@ -155,6 +155,10 @@ function maskStyle(src: string, size: number): CSSProperties {
     border-radius: clamp(1.5rem, 8.6vw, 2.02rem); /* 32.279 */
     padding: 65px 30px 25px 30px;
     box-shadow: 0 4px 65px rgba(0, 0, 0, 0.1); /* Figma card shadow */
+
+    @media(max-width: 768px) {
+      padding: 55px 30px 25px 30px;
+    }
   }
   .cc__tile {
     width: clamp(2.8rem, 14.4vw, 3.375rem); /* 54 */

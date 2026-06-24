@@ -13,8 +13,8 @@ import WaveDivider from '@shared/ui/WaveDivider.vue'
 import RibbonBand from '@shared/ui/RibbonBand.vue'
 
 const PAGE = 'var(--c-page)'
-const FAFA = 'var(--c-page-2)'
 const PINK = 'var(--c-pink)'
+const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through */
 </script>
 
 <template>
@@ -22,31 +22,31 @@ const PINK = 'var(--c-pink)'
   <main class="page">
     <HeroSection />
 
-    <!-- mobile: benefits sits on a pink band (Figma Rectangle 47 73:809) -->
-    <WaveDivider class="wd-mobile" :from="PAGE" :to="PINK" :height="64" :mobile-height="24" />
+    <!-- mobile: benefits sits on a pink band with up-bulging curves (Figma 117:83) -->
+    <WaveDivider class="wd-mobile" flip :from="PAGE" :to="PINK" :height="64" :mobile-height="24" />
     <BenefitsSection />
-    <WaveDivider class="wd-mobile" :from="PINK" :to="FAFA" :height="64" :mobile-height="24" />
+    <WaveDivider class="wd-mobile" flip :from="PINK" :to="CLEAR" :height="64" :mobile-height="24" />
 
     <!-- desktop: pink ribbon overlaps the cards' lower part + the dog's paws (Figma 112:23) -->
-    <RibbonBand class="wd-desktop hero-overlap" :above="PAGE" :below="FAFA" :height="273" />
+    <RibbonBand class="wd-desktop hero-overlap" :above="CLEAR" :below="CLEAR" :height="273" />
 
     <CourseSection />
 
-    <WaveDivider :from="FAFA" :to="PINK" :height="80" />
+    <WaveDivider :from="PAGE" :to="PINK" :height="80" />
     <AuthorSection />
     <!-- desktop: gallery is its own fafa section; mobile merges author+gallery+reviews on one pink band -->
-    <WaveDivider class="wd-desktop" :from="PINK" :to="FAFA" :height="80" />
+    <WaveDivider class="wd-desktop" :from="PINK" :to="CLEAR" :height="80" />
 
     <GallerySection />
 
-    <WaveDivider class="wd-desktop" :from="FAFA" :to="PINK" :height="80" />
+    <WaveDivider class="wd-desktop" :from="PAGE" :to="PINK" :height="80" />
     <ReviewsSection />
-    <WaveDivider :from="PINK" :to="FAFA" :height="80" />
+    <WaveDivider :from="PINK" :to="CLEAR" :height="80" />
 
     <TelegramSection />
     <OfferSection />
 
-    <WaveDivider :from="FAFA" :to="PINK" :height="80" />
+    <WaveDivider :from="PAGE" :to="PINK" :height="80" />
     <FaqSection />
   </main>
 </template>
@@ -78,6 +78,8 @@ const PINK = 'var(--c-pink)'
   }
   .wd-mobile {
     display: block;
+    position: relative;
+    z-index: 1;
   }
   .page {
     margin-top: -76px;

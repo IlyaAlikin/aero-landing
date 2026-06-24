@@ -1,21 +1,37 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 // Full-bleed wavy transition between two sections (Figma wave dividers 57:34 etc.).
 // `from` = colour above the curve, `to` = colour below. Centre dip matches Figma.
-withDefaults(
-  defineProps<{ from?: string; to?: string; height?: number; mobileHeight?: number }>(),
-  { from: 'var(--c-page)', to: 'var(--c-pink)', height: 215, mobileHeight: 34 },
+const props = withDefaults(
+  defineProps<{ from?: string; to?: string; height?: number; mobileHeight?: number; flip?: boolean }>(),
+  { from: 'transparent', to: 'var(--c-pink)', height: 215, mobileHeight: 34, flip: false },
 )
-const PATH = 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0V215H0V0Z'
+// `BODY` = region below the curve (filled with `to`); `CAP` = the thin wave above it
+// (filled with `from`). Drawing both — instead of a solid `from` background — lets `to`
+// be transparent so the area below the curve shows through.
+// Default curve dips DOWN at the centre (desktop). `flip` bulges it UP at the centre
+// (Figma mobile benefits band 117:83).
+const BODY = computed(() =>
+  props.flip
+    ? 'M0 36.9745C0 36.9745 584.126 0 960 0C1335.87 0 1920 36.9745 1920 36.9745V215H0V36.9745Z'
+    : 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0V215H0V0Z',
+)
+const CAP = computed(() =>
+  props.flip
+    ? 'M0 36.9745C0 36.9745 584.126 0 960 0C1335.87 0 1920 36.9745 1920 36.9745L1920 0L0 0Z'
+    : 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0Z',
+)
 </script>
 
 <template>
   <div
     class="wd"
-    :style="{ background: from, '--h': height + 'px', '--mh': mobileHeight + 'px' }"
+    :style="{ '--h': height + 'px', '--mh': mobileHeight + 'px' }"
     aria-hidden="true"
   >
     <svg viewBox="0 0 1920 215" preserveAspectRatio="none">
-      <path :d="PATH" :fill="to" />
+      <path :d="BODY" :fill="to" />
+      <path :d="CAP" :fill="from" />
     </svg>
   </div>
 </template>
@@ -26,6 +42,7 @@ const PATH = 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0
   width: 100%;
   height: var(--h);
   line-height: 0;
+  background: transparent; /* below-curve area is the `to` path, so it can be see-through */
 }
 .wd svg {
   display: block;

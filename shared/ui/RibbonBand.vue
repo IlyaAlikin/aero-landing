@@ -4,7 +4,7 @@
 // `above`/`below` fill the transparent centre gaps so it blends with its neighbours.
 withDefaults(
   defineProps<{ above?: string; below?: string; height?: number }>(),
-  { above: 'var(--c-page)', below: 'var(--c-page-2)', height: 273 },
+  { above: 'transparent', below: 'transparent', height: 273 },
 )
 const TOP = 'M0 0C0 0 584.126 36.9745 960 36.9745C1335.87 36.9745 1920 0 1920 0V215H0V0Z'
 const BOTTOM = 'M0 273C0 273 584.126 236.025 960 236.025C1335.87 236.025 1920 273 1920 273V58H0V273Z'

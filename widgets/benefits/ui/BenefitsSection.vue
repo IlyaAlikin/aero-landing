@@ -34,6 +34,10 @@ const cards: Card[] = [
   @media (max-width: 1440px) {
     margin-top: clamp(6rem, 10vw, 6rem); /* ≤1440 */
   }
+
+  @media (max-width: 1024px) {
+    margin-top: 50px;
+  }
 }
 .benefits__inner {
   display: grid;

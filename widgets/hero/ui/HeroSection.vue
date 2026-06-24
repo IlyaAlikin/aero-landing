@@ -34,8 +34,12 @@ import AppButton from '@shared/ui/AppButton.vue'
 .hero {
   position: relative;
   background: var(--c-page);
-  padding-top: clamp(72px, 46.7px + 6.42vw, 170px); /* Figma: pad-top mob 72 → desktop 170 */
+  padding-top: clamp(72px, 70.7px + 6.42vw, 170px); /* Figma: pad-top mob 72 → desktop 170 */
   padding-bottom: 0;
+
+  @media (max-width: 768px) {
+    padding-bottom: 20px;
+  }
 }
 @media (min-width: 1200px) {
   .hero {
@@ -102,8 +106,10 @@ import AppButton from '@shared/ui/AppButton.vue'
   position: absolute; /* Figma 107:5868: 1039×1250 @1920, x818 y-69 */
   z-index: 0;
   left: 42.6%; /* Figma x818 of 1920 */
-  top: -130px; /* Figma: dog top y-69 vs hero top y61 */
-  width: 54.1%; /* Figma 1039 of 1920; height auto ≈1250 (ratio 64/77) */
+  /* top scales with the viewport (like width) so the dog doesn't drift when the screen
+     shrinks: -40px @1024 … -230px @1920, then capped so it can't creep past 1920. */
+  top: max(-230px, 177px - 21.2vw);
+  width: 62.1%; /* Figma 1039 of 1920; height auto ≈1250 (ratio 64/77) */
   height: auto;
   pointer-events: none;
 }
