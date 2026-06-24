@@ -78,11 +78,15 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .offer {
   position: relative;
   background: var(--c-page); /* match section 1 (hero) */
-  padding: 50px 0 70px;
+  padding: 130px 0 70px;
+
+  @media(max-width: 768px) {
+    padding: 35px 0 50px;
+  }
 }
 .slogan {
   position: relative;
@@ -212,7 +216,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   justify-content: center;
   min-width: 0;
   gap: clamp(10px, 1.63vw, 18px);
-  height: clamp(91px, 14vw, 155px); /* proportional height */
+  height: clamp(91px, 12.12vw, 134px); /* Figma Price Container 134 */
   padding: 0 clamp(20px, 3.62vw, 40px);
   border-radius: 32.716px;
   box-shadow: inset 1.258px 1.258px 100px rgba(255, 255, 255, 0.3);
@@ -258,6 +262,17 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 }
 .pcol:last-child .pcol__btn {
   box-shadow: 0 28.395px 56.79px -14.197px rgba(245, 200, 169, 0.5);
+}
+/* Figma: button card 134 = price card 134; button text 28.395. Scale the md button with
+   the panel (same clamp as the price card) so the hierarchy holds at every width. */
+.pcol__btn :deep(.btn--md) {
+  height: clamp(91px, 12.12vw, 134px);
+  font-size: clamp(16.659px, 2.567vw, 28.395px);
+  border-radius: 32.716px;
+}
+.pcol__btn :deep(.btn--md .btn__tri) {
+  width: clamp(13px, 2.26vw, 25px);
+  height: clamp(13px, 2.47vw, 27.27px);
 }
 
 @media (max-width: 900px) {
@@ -311,6 +326,9 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   }
   .pcard__old {
     font-size: 16px;
+  }
+  .pcol__btn :deep(.btn--md) {
+    height: 91px; /* match the mobile price card */
   }
 }
 </style>

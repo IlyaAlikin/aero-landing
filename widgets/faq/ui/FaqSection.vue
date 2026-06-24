@@ -93,23 +93,26 @@ const items = [
 .faq__title--light {
   font-weight: 300;
 }
+/* Accordion items — fluid between Figma mobile (428: q10.771 / a8 / h43 / pad22 / r6.463)
+   and desktop (1200: q25 / a18.744 / h100 / pad51 / r15) via clamp, so the tablet range
+   interpolates smoothly with no jump or skew. */
 .faq__list {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: clamp(9px, 2.083vw, 25px);
 }
 .row {
   background: var(--c-white);
-  border-radius: 15px;
-  padding: 0 51px; /* Figma: question left 51 */
+  border-radius: clamp(6.463px, 1.25vw, 15px);
+  padding: 0 clamp(22px, 4.25vw, 51px); /* Figma question left 22 → 51 */
 }
 .row__head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: clamp(12px, 2vw, 24px);
   width: 100%;
-  min-height: 100px; /* collapsed item height — constant, so the body grows linearly (smooth) */
+  min-height: clamp(43px, 8.333vw, 100px); /* collapsed height, constant per width → body grows linearly */
   background: none;
   border: 0;
   padding: 0;
@@ -119,32 +122,34 @@ const items = [
 .row__q {
   font-family: var(--font-suisse);
   font-weight: 450;
-  font-size: 25px;
+  font-size: clamp(10.771px, 2.083vw, 25px); /* Figma 10.771 → 25 */
   line-height: 1.2;
   color: var(--c-black);
 }
-/* +/− icon (Figma) — vertical bar fades out when open */
+/* +/− icon (Figma 9×9 → 22×22) — bars sized as % of the icon so they scale with it */
 .row__icon {
   position: relative;
   flex: none;
-  width: 22px;
-  height: 21px;
+  width: clamp(9px, 1.833vw, 22px);
+  height: clamp(9px, 1.833vw, 22px);
 }
 .bar {
   position: absolute;
   background: var(--c-black);
 }
 .bar--h {
+  top: 50%;
   left: 0;
-  top: 9.5px;
-  width: 22px;
-  height: 2px;
+  width: 100%;
+  height: 9.5%;
+  transform: translateY(-50%);
 }
 .bar--v {
-  left: 10px;
+  left: 50%;
   top: 0;
-  width: 2px;
-  height: 21px;
+  width: 9.5%;
+  height: 100%;
+  transform: translateX(-50%);
   transition: opacity 0.25s ease;
 }
 .row__icon--open .bar--v {
@@ -164,11 +169,11 @@ const items = [
 }
 .row__answer {
   margin: 0;
-  padding: 0 0 33px; /* head min-height already spaces the question; bottom ~33 */
+  padding: 0 0 clamp(14px, 2.75vw, 33px); /* head min-height spaces the question; bottom 14 → 33 */
   max-width: 1069px;
   font-family: var(--font-suisse);
   font-weight: 450;
-  font-size: 18.744px;
+  font-size: clamp(8px, 1.562vw, 18.744px); /* Figma 8 → 18.744 */
   line-height: 1.35;
   color: var(--c-ink-2f); /* #2f2f2f */
 }
@@ -179,9 +184,6 @@ const items = [
   }
 }
 @media (max-width: 760px) {
-  .faq {
-    padding: 56px 0 70px;
-  }
   .faq__title {
     font-size: 21px; /* Figma Suisse Medium 21 */
     font-weight: 500;
@@ -190,44 +192,6 @@ const items = [
   }
   .faq__title--light {
     font-weight: 500; /* single weight on mobile */
-  }
-  .faq__list {
-    gap: 9px; /* Figma FAQ List gap 9 */
-  }
-  .row {
-    min-height: 43px; /* Figma collapsed item h43 */
-    padding: 15px 22px 0; /* Figma: question top 15 / left 22 */
-    border-radius: 6.463px; /* Figma rounded-[6.463px] */
-  }
-  .row__head {
-    gap: 12px;
-  }
-  .row__q {
-    font-size: 10.771px; /* Figma Suisse Book 10.771 */
-    font-weight: 450;
-  }
-  /* Figma Expand Icon 9×9 */
-  .row__icon {
-    width: 9px;
-    height: 9px;
-  }
-  .bar--h {
-    left: 0;
-    top: 4px;
-    width: 9px;
-    height: 1px;
-  }
-  .bar--v {
-    left: 4px;
-    top: 0;
-    width: 1px;
-    height: 9px;
-  }
-  .row__answer {
-    padding: 0 0 14px; /* head min-height spaces the question; bottom ~14 */
-    font-size: 8px; /* Figma mobile answer 8 */
-    line-height: 1.2;
-    color: var(--c-black);
   }
 }
 </style>
