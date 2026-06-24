@@ -3,6 +3,11 @@
 import { computed } from 'vue'
 import PhoneMockup from '@entities/phone-mockup/ui/PhoneMockup.vue'
 import { useReviewsStore } from '@features/reviews-slider/model/store'
+import WaveDivider from '@shared/ui/WaveDivider.vue'
+
+// Deep wavy top edge (Figma 107:5935), drawn as an overlay like AuthorSection so the
+// curve is the full 37px (height 215) without adding a tall pink strip above the title.
+const PAGE = 'var(--c-page)'
 
 const store = useReviewsStore()
 const base: Array<1 | 2 | 3> = [1, 2, 3]
@@ -11,23 +16,40 @@ function variantFor(slot: number): 1 | 2 | 3 {
 }
 const phones = computed(() => [0, 1, 2].map((s) => variantFor(s)))
 const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
+
+// swipe navigation (used on mobile where the arrows are hidden)
+let touchX: number | null = null
+function onTouchStart(e: TouchEvent) {
+  touchX = e.changedTouches[0].clientX
+}
+function onTouchEnd(e: TouchEvent) {
+  if (touchX == null) return
+  const dx = e.changedTouches[0].clientX - touchX
+  touchX = null
+  if (Math.abs(dx) > 40) (dx < 0 ? store.next() : store.prev())
+}
 </script>
 
 <template>
   <section id="reviews" class="reviews">
+    <!-- deep wavy edges (Figma 107:5935 top / 107:5934 bottom) — page colour scoops into pink -->
+    <WaveDivider class="reviews__wave" :from="PAGE" to="transparent" :height="215" />
+    <WaveDivider class="reviews__wave reviews__wave--bottom" :from="PAGE" to="transparent" :height="215" />
     <div class="container">
       <h2 class="reviews__title"><b>Отзывы</b> <span>учениц</span></h2>
 
-      <div class="stage">
+      <div class="stage" @touchstart.passive="onTouchStart" @touchend="onTouchEnd">
         <button class="arrow" aria-label="Назад" @click="store.prev()">
           <svg viewBox="0 0 10 15"><path d="M9 1 2 7.5 9 14" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>
         </button>
 
-        <transition name="rev">
-          <div class="phones" :key="store.active">
-            <PhoneMockup v-for="(v, i) in phones" :key="i" class="phones__item" :class="{ 'phones__item--center': i === 1 }" :variant="v" />
-          </div>
-        </transition>
+        <div class="viewport">
+          <transition name="rev">
+            <div class="phones" :key="store.active">
+              <PhoneMockup v-for="(v, i) in phones" :key="i" class="phones__item" :class="{ 'phones__item--center': i === 1 }" :variant="v" />
+            </div>
+          </transition>
+        </div>
 
         <button class="arrow" aria-label="Вперёд" @click="store.next()">
           <svg viewBox="0 0 10 15"><path d="M1 1 8 7.5 1 14" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>
@@ -50,8 +72,27 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
 
 <style scoped>
 .reviews {
+  position: relative;
   background: var(--c-pink);
-  padding: 24px 0 40px;
+  padding: 104px 0 88px; /* clears the 37px wave crescents top & bottom */
+}
+/* wavy overlays (page crescent over the pink), like AuthorSection */
+.reviews__wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.reviews__wave--bottom {
+  top: auto;
+  bottom: 0;
+  transform: scaleY(-1); /* crescent flips to the bottom, scooping UP into the pink */
+}
+.reviews > .container {
+  position: relative;
+  z-index: 1; /* content above the wave overlay */
 }
 .reviews__title {
   text-align: center;
@@ -72,6 +113,13 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   align-items: center;
   justify-content: space-between; /* arrows pinned to content edges (Figma 57:193) */
 }
+/* both the entering and leaving slide share one grid cell → no box reflow / no jump */
+.viewport {
+  display: grid;
+}
+.viewport > * {
+  grid-area: 1 / 1;
+}
 .phones {
   display: flex;
   align-items: center;
@@ -88,10 +136,7 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   will-change: opacity, transform;
 }
 .rev-leave-active {
-  position: absolute;
-  left: 0;
-  right: 0;
-  pointer-events: none;
+  pointer-events: none; /* stacked via grid — no absolute, so the box never jumps */
 }
 .rev-enter-from {
   opacity: 0;
@@ -150,6 +195,9 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   .reviews {
     padding: 30px 0 36px; /* on the pink band, continuous from gallery */
   }
+  .reviews__wave {
+    display: none; /* mobile reviews sit on the continuous pink band — no top wave */
+  }
   .reviews__title {
     font-size: 24px; /* Figma Reviews Title 24 */
   }
@@ -164,7 +212,9 @@ const dots = computed(() => Array.from({ length: store.total }, (_, i) => i))
   }
   .phones__item {
     transform: scale(0.543); /* Figma phone 184 from base 339 */
-    margin-inline: -76px;
+    /* scale keeps the 339×685 layout box → collapse the empty space it leaves:
+       horizontal -76 (bleed), vertical -156 ((685-685×0.543)/2) */
+    margin: -156px -76px;
   }
   /* Figma mobile: no visible arrow buttons — navigation via dots / swipe */
   .arrow {

@@ -50,6 +50,7 @@ import AppButton from '@shared/ui/AppButton.vue'
   max-width: 1920px;
   margin-inline: auto;
   position: relative;
+  container-type: inline-size; /* base for the dog's cqw offset (capped at 1920 by max-width) */
 }
 .hero__inner {
   width: 100%;
@@ -106,9 +107,9 @@ import AppButton from '@shared/ui/AppButton.vue'
   position: absolute; /* Figma 107:5868: 1039×1250 @1920, x818 y-69 */
   z-index: 0;
   left: 42.6%; /* Figma x818 of 1920 */
-  /* top scales with the viewport (like width) so the dog doesn't drift when the screen
-     shrinks: -40px @1024 … -230px @1920, then capped so it can't creep past 1920. */
-  top: max(-230px, 177px - 21.2vw);
+  /* top scales with the CONTAINER width (same base as left/width) so the dog never drifts:
+     -230px @1920 = -230/1920 = -11.98cqw. Container is capped at 1920 → offset caps too. */
+  top: -11.98cqw;
   width: 62.1%; /* Figma 1039 of 1920; height auto ≈1250 (ratio 64/77) */
   height: auto;
   pointer-events: none;

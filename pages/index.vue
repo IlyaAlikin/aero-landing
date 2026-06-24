@@ -32,16 +32,20 @@ const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through 
 
     <CourseSection />
 
-    <!-- desktop: the pink block's wavy top is drawn inside AuthorSection (so it also clips the photo);
-         mobile keeps a plain divider. No bottom wave on desktop — the pink block has rounded corners. -->
-    <WaveDivider class="wd-mobile" :from="PAGE" :to="PINK" :height="80" />
+    <!-- desktop (≥992): the pink block's wavy top is drawn inside AuthorSection (so it also clips
+         the photo) and there is no bottom wave. ≤991 switches to the mobile stack, which gets its
+         own pink band: top curve bulges UP at the centre (flip), bottom curve bulges DOWN (Figma 118:129). -->
+    <WaveDivider class="wd-author" flip :from="PAGE" :to="PINK" :height="80" />
     <AuthorSection />
+    <WaveDivider class="wd-author" :from="PINK" :to="CLEAR" :height="80" />
 
     <GallerySection />
 
-    <WaveDivider class="wd-desktop" :from="PAGE" :to="PINK" :height="80" />
+    <!-- desktop: reviews top+bottom are deep wave overlays inside ReviewsSection.
+         mobile: plain dividers (top like the author — flip bulge-up). -->
+    <WaveDivider class="wd-mobile" flip :from="PAGE" :to="PINK" :height="80" />
     <ReviewsSection />
-    <WaveDivider :from="PINK" :to="CLEAR" :height="80" />
+    <WaveDivider class="wd-mobile" :from="PINK" :to="CLEAR" :height="80" />
 
     <TelegramSection />
     <OfferSection />
@@ -71,6 +75,17 @@ const CLEAR = 'transparent' /* second (grey) colour of dividers → see-through 
 /* Wave dividers that exist only on one breakpoint (mobile re-bands several sections). */
 .wd-mobile {
   display: none;
+}
+/* Author switches to its mobile stack at ≤991 (not 767) — its top divider follows. */
+.wd-author {
+  display: none;
+}
+@media (max-width: 991px) {
+  .wd-author {
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
 }
 @media (max-width: 767px) {
   .wd-desktop {
