@@ -63,7 +63,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
       </div>
     </div>
 
-    <img class="author__photo author__desktop" src="/img/author-photo.png" alt="Виктория Русских" draggable="false" />
+    <img class="author__photo author__desktop" src="/img/photo-author.png" alt="Виктория Русских" draggable="false" />
 
     <!-- #3 clickable telegram -->
     <a class="tg" href="https://t.me/VikaRusskikh" target="_blank" rel="noopener">
@@ -84,7 +84,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
   /* Figma 107:6041: rounded bottom corners (no bottom wave on desktop) */
   /* border-radius: 0 0 clamp(2rem, 3vw, 3.5rem) clamp(2rem, 3vw, 3.5rem); */
   /* top: 81px to clear the wave + sit the card where Figma 107:6055 starts */
-  padding: 0 0 clamp(2rem, 3.3vw, 3rem);
+  padding: 80px 0 clamp(2rem, 3.3vw, 3rem);
 }
 /* Wavy top edge (Figma 107:6042). Above photo (z1), below the card (z2, later in DOM). */
 .author__wave {
@@ -182,12 +182,16 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
 .author__photo {
   position: absolute;
   z-index: 1;
-  top: 0;
+  /* Figma 119:167: anchored to bottom-right, width 1424/2010 of the section.
+     Portrait source → cover fills the box; object-position keeps the face/balloon
+     (skirt is cropped to fill), and the wave overlay clips the very top. */
+  right: -5vw; /* nudge the photo slightly to the right (bleeds off the edge) */
   bottom: 0;
-  right: 0;
+  width: 70.85%; /* 1424 / 2010 */
   height: 100%;
-  width: auto; /* full image, no cropping; touches top & bottom */
   max-width: none;
+  object-fit: cover;
+  object-position: center top;
   pointer-events: none;
 }
 
