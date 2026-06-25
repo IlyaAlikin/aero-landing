@@ -3,10 +3,25 @@ services:
     build: .
     image: aero-landing:latest
     container_name: aero-landing
-    # auto-restart: recover from crashes AND come back up after a server reboot
-    # (works as long as the docker service itself is enabled on boot:
-    #  `sudo systemctl enable --now docker`). "unless-stopped" = restart always,
-    # except when you deliberately `docker compose stop` it.
     restart: unless-stopped
+    # internal only — Caddy terminates TLS and proxies to this on the compose network
+    expose:
+      - "80"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: aero-caddy
+    restart: unless-stopped
+    depends_on:
+      - web
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data        # LE certs persist here (survive restarts/redeploys)
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

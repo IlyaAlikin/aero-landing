@@ -1,0 +1,4 @@
+# Caddy auto-obtains & auto-renews Let's Encrypt certs and redirects http->https.
+aerodesign59.ru, www.aerodesign59.ru {
+	reverse_proxy web:80
+}
