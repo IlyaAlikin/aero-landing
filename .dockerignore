@@ -1,0 +1,21 @@
+# keep the build context small & deterministic — deps are installed inside the image
+node_modules
+.nuxt
+.output
+dist
+.git
+.gitignore
+*.log
+.DS_Store
+.vscode
+.idea
+# local one-off helper scripts (not needed to build the site)
+diag.mjs
+hdr_tmp.mjs
+tools-mobile-shot.mjs
+shot.mjs
+undefined
+Dockerfile
+docker-compose.yml
+.dockerignore
+DEPLOY.md

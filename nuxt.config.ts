@@ -35,7 +35,7 @@ export default defineNuxtConfig({
     '@widgets': fileURLToPath(new URL('./widgets', import.meta.url)),
     '@features': fileURLToPath(new URL('./features', import.meta.url)),
     '@entities': fileURLToPath(new URL('./entities', import.meta.url)),
-    '@shared': fileURLToPath(new URL('./shared', import.meta.url)),
+    '@shared': fileURLToPath(new URL('./lib', import.meta.url)), /* folder is ./lib — 'shared' is a reserved Nuxt dir (pulled into the Nitro build) */
   },
 
   app: {

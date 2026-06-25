@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    image: aero-landing:latest
+    container_name: aero-landing
+    # auto-restart: recover from crashes AND come back up after a server reboot
+    # (works as long as the docker service itself is enabled on boot:
+    #  `sudo systemctl enable --now docker`). "unless-stopped" = restart always,
+    # except when you deliberately `docker compose stop` it.
+    restart: unless-stopped
+    ports:
+      - "80:80"
