@@ -29,9 +29,15 @@ const CAP = computed(() =>
     :style="{ '--h': height + 'px', '--mh': mobileHeight + 'px' }"
     aria-hidden="true"
   >
-    <svg viewBox="0 0 1920 215" preserveAspectRatio="none">
-      <path :d="BODY" :fill="to" />
-      <path :d="CAP" :fill="from" />
+    <!-- Each path is stroked with its own fill colour via non-scaling-stroke: this
+         expands the fill by ~0.5 screen-px on every side, sealing the sub-pixel
+         antialiasing seam along the shared curve AND the straight edges where the
+         divider meets the neighbouring sections (the pink/grey hairlines on mobile).
+         A transparent colour yields a transparent stroke, so nothing is added below
+         a see-through curve. -->
+    <svg viewBox="0 0 1920 215" preserveAspectRatio="none" shape-rendering="geometricPrecision">
+      <path :d="BODY" :fill="to" :stroke="to" stroke-width="1" vector-effect="non-scaling-stroke" />
+      <path :d="CAP" :fill="from" :stroke="from" stroke-width="1" vector-effect="non-scaling-stroke" />
     </svg>
   </div>
 </template>
@@ -46,8 +52,14 @@ const CAP = computed(() =>
 }
 .wd svg {
   display: block;
+  position: absolute;
+  left: 0;
+  /* bleed 1px past the top & bottom so the filled straight edges overlap the
+     neighbouring sections — kills the hairline seam at fractional device-pixel
+     ratios. preserveAspectRatio=none means the 2px overscan is imperceptible. */
+  top: -1px;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 2px);
 }
 @media (max-width: 760px) {
   .wd {
