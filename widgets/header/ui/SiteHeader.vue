@@ -161,7 +161,7 @@ function isActive(href: string) {
 .burger {
   display: none;
   width: 32px; /* Figma Menu w-[32px] */
-  height: 21px; /* Figma Menu viewBox 32×21 */
+  height: 20px; /* Figma 107:6634 Menu h-[20px] */
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;

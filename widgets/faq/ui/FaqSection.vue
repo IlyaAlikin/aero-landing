@@ -84,11 +84,13 @@ const items = [
   max-width: 760px; /* wraps to 2 lines: 'ОТВЕТЫ НА ЧАСТЫЕ' / 'ВОПРОСЫ' */
   font-family: var(--font-suisse);
   font-weight: 700;
-  font-size: 64.582px;
+  /* fluid like the accordion (vw anchored at desktop 1200): 21 ↔ 64.582, so the
+     title shrinks in step with the rows instead of staying big then jumping. */
+  font-size: clamp(21px, 5.382vw, 64.582px);
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--c-white);
-  margin-bottom: 44px;
+  margin-bottom: clamp(15px, 3.667vw, 44px); /* Figma 15 (mobile) → 44 (desktop) */
 }
 .faq__title--light {
   font-weight: 300;
@@ -185,10 +187,10 @@ const items = [
 }
 @media (max-width: 760px) {
   .faq__title {
-    font-size: 21px; /* Figma Suisse Medium 21 */
-    font-weight: 500;
+    /* size/margin stay fluid (clamp above) so the title keeps shrinking with the
+       accordion; only the discrete Figma-mobile styling switches here. */
+    font-weight: 500; /* Figma Suisse Medium */
     text-transform: none; /* Figma mobile title is not uppercase */
-    margin-bottom: 15px; /* Figma FAQ Section gap 15 (title -> list) */
   }
   .faq__title--light {
     font-weight: 500; /* single weight on mobile */

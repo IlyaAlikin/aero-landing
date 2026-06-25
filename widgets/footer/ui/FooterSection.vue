@@ -32,7 +32,7 @@ import { NAV_LINKS } from '@shared/config/nav'
         <a href="https://t.me/VikaRusskikh" target="_blank" rel="noopener" aria-label="Telegram">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.14-3.05-1.99 1.93c-.23.23-.42.42-.83.42z" /></svg>
         </a>
-        <a href="#" target="_blank" rel="noopener" aria-label="Instagram">
+        <a href="https://www.instagram.com/len_krk_59" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
             <circle cx="12" cy="12" r="4.5" />
@@ -44,6 +44,12 @@ import { NAV_LINKS } from '@shared/config/nav'
       <div class="footer__links">
         <a class="footer__link" href="#">Политика конфиденциальности</a>
         <a class="footer__link" href="#">Соглашение на обработку персональных данных</a>
+        <a
+          class="footer__link"
+          href="https://docs.google.com/document/d/1DUbyXIMvpjbP9_HFO4pbEuEvpSfpU9-_OQUKvrkttwg/edit?usp=sharing"
+          target="_blank"
+          rel="noopener"
+        >Публичная оферта</a>
         <p class="footer__legal">
           ИП Русских Олег Игоревич<br />
           ИНН 591610036427<br />
@@ -148,7 +154,7 @@ import { NAV_LINKS } from '@shared/config/nav'
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 29px;
   font-family: var(--font-suisse);
   font-weight: 400;
   font-size: 14.013px;
@@ -162,8 +168,8 @@ import { NAV_LINKS } from '@shared/config/nav'
   max-width: 100%;
 }
 .footer__legal {
-  margin: 10px 0 0;
-  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  color: var(--c-white);
 }
 
 @media (max-width: 767px) {
@@ -189,8 +195,8 @@ import { NAV_LINKS } from '@shared/config/nav'
   }
   .footer__links {
     margin-top: 20px;
-    gap: 9px;
-    font-size: 10px; /* Figma mobile ~10 */
+    gap: 12px; /* Figma mobile Footer Links gap 12 */
+    font-size: 8px; /* Figma mobile text 8 */
   }
 }
 </style>

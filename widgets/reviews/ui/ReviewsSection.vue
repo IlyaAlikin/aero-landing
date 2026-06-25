@@ -212,6 +212,10 @@ function onPointerUp(e: PointerEvent) {
   }
   .reviews__title {
     font-size: 24px; /* Figma Reviews Title 24 */
+    color: rgba(255, 255, 255, 0.8); /* Figma mobile 107:6284 — 80% white */
+  }
+  .reviews__title span {
+    font-weight: 700; /* Figma mobile title is uniform Bold (no light split) */
   }
   .stage {
     gap: 0;

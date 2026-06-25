@@ -60,7 +60,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 
       <div class="panel">
         <div class="pcol">
-          <p class="pcol__head"><span>Стоимость курса </span><b>“Баблс”</b></p>
+          <p class="pcol__head"><b>Стоимость курса “Баблс”</b></p>
           <div class="pcard pcard--pink">
             <span class="pcard__now">8 990₽</span><span class="pcard__old pcard__old--w">9 990₽</span>
           </div>
@@ -327,8 +327,20 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   .pcard__old {
     font-size: 16px;
   }
+  .pcol__btn {
+    margin-top: 16px; /* Figma mobile: price card → button gap = 16px (799-783) */
+  }
+  /* Figma mobile (137:227 Button Background): h66, radius 20.824, font 16.659, tri 13×13.
+     The button is SHORTER than the 91px price card here — don't force it to match. */
   .pcol__btn :deep(.btn--md) {
-    height: 91px; /* match the mobile price card */
+    height: 66px;
+    border-radius: 20.824px;
+    font-size: 16.659px;
+    letter-spacing: -0.1666px;
+  }
+  .pcol__btn :deep(.btn--md .btn__tri) {
+    width: 13px;
+    height: 13px;
   }
 }
 </style>

@@ -142,30 +142,27 @@ function maskStyle(src: string, size: number): CSSProperties {
     padding: 62px 0 clamp(2.25rem, 10.7vw, 2.75rem);
   }
   .course__title {
-    margin-bottom: clamp(1.75rem, 10vw, 2.6rem); /* 38px */
+    color: rgba(27, 27, 27, 0.8); /* Figma mobile title 80% ink */
+    margin-bottom: clamp(3rem, 18.75vw, 3.75rem); /* card-bg gap 60 (tile overhangs 26 → 34 visible) */
   }
   .course__grid {
     grid-template-columns: 1fr;
-    gap: clamp(2.25rem, 11vw, 2.875rem); /* Figma item pitch 16 + badge overhang 26 */
+    gap: clamp(2.5rem, 13.1vw, 2.625rem); /* bg-to-bg 42 (Figma item pitch 271, card 230, overhang 26) */
   }
   .cc,
   .cc--wide {
     grid-column: auto;
-    min-height: clamp(12rem, 61vw, 15rem); /* Figma card bg h230 */
-    border-radius: clamp(1.5rem, 8.6vw, 2.02rem); /* 32.279 */
-    padding: 65px 30px 25px 30px;
+    min-height: clamp(12rem, 71.875vw, 14.375rem); /* Figma card bg h230 */
+    border-radius: clamp(1.5rem, 10.09vw, 2.0174rem); /* 32.279 of 320 */
+    padding: 55px 30px 25px 30px; /* title top 54, desc gap per Figma */
     box-shadow: 0 4px 65px rgba(0, 0, 0, 0.1); /* Figma card shadow */
-
-    @media(max-width: 768px) {
-      padding: 55px 30px 25px 30px;
-    }
   }
   .cc__tile {
-    width: clamp(2.8rem, 14.4vw, 3.375rem); /* 54 */
-    height: clamp(2.75rem, 14.1vw, 3.3125rem); /* 53 */
-    top: clamp(-1.625rem, -6.9vw, -1.3rem); /* -26 */
-    left: clamp(1.25rem, 7.2vw, 1.6875rem); /* 27 */
-    border-radius: clamp(0.8rem, 4.3vw, 1.0086rem); /* 16.139 */
+    width: clamp(3rem, 16.875vw, 3.375rem); /* 54 of 320 */
+    height: clamp(2.95rem, 16.5625vw, 3.3125rem); /* 53 of 320 */
+    top: clamp(-1.625rem, -8.125vw, -1.3rem); /* -26 of 320 */
+    left: clamp(1.25rem, 8.4375vw, 1.6875rem); /* 27 of 320 */
+    border-radius: clamp(0.875rem, 5.04vw, 1.0087rem); /* 16.139 of 320 */
   }
 }
 </style>
