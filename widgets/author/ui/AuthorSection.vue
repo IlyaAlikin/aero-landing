@@ -42,7 +42,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     <!-- MOBILE (Figma Stats Section 73:890): title (white on pink) -> photo -> card{quote, stats} -->
     <div class="author__mobile container">
       <h2 class="am__name"><b>Автор обучения -</b> Виктория Русских</h2>
-      <img class="am__photo" src="/img/photo-author.png" alt="Виктория Русских" draggable="false" />
+      <img class="am__photo" src="/img/photo-author-mobile.png" alt="Виктория Русских" draggable="false" />
       <div class="am__card">
         <span class="am__mark"><img src="/img/quote-mark.svg" alt="" /></span>
         <h3 class="am__qtitle">Меня выбирают не только за знания, но и за подход к обучению</h3>
@@ -295,7 +295,9 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     aspect-ratio: 428 / 402; /* Figma photo box */
     height: auto;
     object-fit: cover;
-    object-position: top center;
+    /* photo is wider than the box → cover crops the sides; X% pans horizontally.
+       lower X = subject moves right into view, higher X = moves left. */
+    object-position: 0% top;
     margin: min(-6px, -1.4cqw) 0 0 0; /* Figma: title 27..85, photo at y79 → -6px overlap */
   }
   /* White card 107:6331 — w300 centred (64px margins), overlaps the photo's lower 120px */
