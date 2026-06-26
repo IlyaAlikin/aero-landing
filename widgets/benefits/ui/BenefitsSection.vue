@@ -30,15 +30,15 @@ const cards: Card[] = [
 <style scoped lang="scss">
 .benefits {
   background: var(--c-page);
-  margin-top: clamp(7rem, 12vw, 10.9rem); /* push stat cards down (≈175) */
-  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: clamp(3.5rem, 6vw, 5.45rem); /* push stat cards down (≈87) */
+  padding-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
 
   @media (max-width: 1440px) {
-    margin-top: clamp(6rem, 10vw, 6rem); /* ≤1440 */
+    margin-top: clamp(3rem, 5vw, 3rem); /* ≤1440 */
   }
 
   @media (max-width: 1024px) {
-    margin-top: 50px;
+    margin-top: 25px;
   }
 }
 .benefits__inner {

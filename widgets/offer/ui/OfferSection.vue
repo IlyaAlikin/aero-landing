@@ -82,7 +82,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
 .offer {
   position: relative;
   background: var(--c-page); /* match section 1 (hero) */
-  padding: 130px 0 70px;
+  padding: 60px 0 70px;
 
   @media(max-width: 768px) {
     padding: 35px 0 50px;
@@ -106,7 +106,7 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
   display: flex;
   gap: 30px;
   align-items: flex-start;
-  margin-top: 30px;
+  margin-top: 100px; /* +70 compensates the slogan's reduced top padding so cards/panel stay put */
 }
 .features {
   flex: 0 0 325px;

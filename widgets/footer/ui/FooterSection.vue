@@ -42,7 +42,12 @@ import { NAV_LINKS } from '@shared/config/nav'
       </div>
 
       <div class="footer__links">
-        <a class="footer__link" href="#">Политика конфиденциальности</a>
+        <a
+          class="footer__link"
+          href="https://docs.google.com/document/d/10i1XNl1X5uWmuZGeEM68TorV6lflUgP3NRE8iH-wqtw/edit?usp=sharing"
+          target="_blank"
+          rel="noopener"
+        >Политика конфиденциальности</a>
         <a class="footer__link" href="#">Соглашение на обработку персональных данных</a>
         <a
           class="footer__link"
