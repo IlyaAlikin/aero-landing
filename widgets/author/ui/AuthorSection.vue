@@ -185,7 +185,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
   /* Figma 119:167: anchored to bottom-right, width 1424/2010 of the section.
      Portrait source → cover fills the box; object-position keeps the face/balloon
      (skirt is cropped to fill), and the wave overlay clips the very top. */
-  right: -5vw; /* nudge the photo slightly to the right (bleeds off the edge) */
+  right: -12vw; /* nudge the photo slightly to the right (bleeds off the edge) */
   bottom: 0;
   width: 70.85%; /* 1424 / 2010 */
   height: 100%;
