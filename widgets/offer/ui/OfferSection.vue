@@ -64,14 +64,14 @@ const ICON_GRAD = 'linear-gradient(97.38deg, #ff1e8b 28.5%, #ff75b0 81.5%)'
           <div class="pcard pcard--pink">
             <span class="pcard__now">8 990₽</span><span class="pcard__old pcard__old--w">9 990₽</span>
           </div>
-          <a class="pcol__btn" href="#"><AppButton label="Перейти к покупке" variant="pink" size="md" /></a>
+          <a class="pcol__btn" href="https://payform.ru/5abRF5I/" target="_blank" rel="noopener"><AppButton label="Перейти к покупке" variant="pink" size="md" /></a>
         </div>
         <div class="pcol">
           <p class="pcol__head pcol__head--dark"><span>Стоимость курса </span><b>“Аэродизайн с нуля”</b></p>
           <div class="pcard pcard--beige">
             <span class="pcard__now pcard__now--dark">10 990₽</span><span class="pcard__old pcard__old--d">15 990₽</span>
           </div>
-          <a class="pcol__btn" href="#"><AppButton label="Перейти к покупке" variant="beige" size="md" /></a>
+          <a class="pcol__btn" href="https://payform.ru/awbRFaW/" target="_blank" rel="noopener"><AppButton label="Перейти к покупке" variant="beige" size="md" /></a>
         </div>
       </div>
     </div>

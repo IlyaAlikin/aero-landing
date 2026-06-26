@@ -21,7 +21,7 @@ import AppButton from '@shared/ui/AppButton.vue'
           </p>
           <img class="hero__dog hero__dog--mobile" src="/img/hero-dog.png" alt="Собачка из шаров" />
           <div class="hero__cta">
-            <AppButton label="Перейти к покупке" variant="pink" size="lg" />
+            <a href="#pricing"><AppButton label="Перейти к покупке" variant="pink" size="lg" /></a>
           </div>
         </div>
       </div>
@@ -102,6 +102,10 @@ import AppButton from '@shared/ui/AppButton.vue'
     clamp(35.088px, 27.708px + 1.8732vw, 63.674px)
     clamp(-15.918px, -6.927px - 0.4683vw, -8.772px)
     rgba(233, 97, 129, 0.5);
+}
+.hero__cta > a {
+  display: block;
+  border-radius: inherit;
 }
 .hero__dog--desktop {
   position: absolute; /* Figma 107:5868: 1039×1250 @1920, x818 y-69 */
