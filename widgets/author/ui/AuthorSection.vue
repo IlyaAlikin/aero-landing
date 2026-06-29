@@ -42,7 +42,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     <!-- MOBILE (Figma Stats Section 73:890): title (white on pink) -> photo -> card{quote, stats} -->
     <div class="author__mobile container">
       <h2 class="am__name"><b>Автор обучения -</b> Виктория Русских</h2>
-      <img class="am__photo" src="/img/photo-author-mobile.png" alt="Виктория Русских" draggable="false" />
+      <img class="am__photo" src="/img/author-photo-mobile.png" alt="Виктория Русских" draggable="false" />
       <div class="am__card">
         <span class="am__mark"><img src="/img/quote-mark.svg" alt="" /></span>
         <h3 class="am__qtitle">Меня выбирают не только за знания, но и за подход к обучению</h3>
