@@ -294,7 +294,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     position: relative;
     z-index: 0;
     width: 100%; /* full-bleed the column (container has no padding) */
-    aspect-ratio: 320 / 540; /* shorter than the natural 320/728 → less tall */
+    aspect-ratio: 260 / 540; /* shorter than the natural 320/728 → less tall */
     height: auto;
     object-fit: cover; /* fill the shorter box */
     object-position: center bottom; /* anchor to the figure, drop the empty/transparent top */
@@ -305,7 +305,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     position: relative;
     z-index: 1;
     width: max(300px, 70.09cqw);
-    margin: min(-300px, -70.1cqw) auto 0; /* pulled high up over the photo */
+    margin: min(-300px, -120.1cqw) auto 0; /* pulled high up over the photo */
     background: var(--c-white);
     border-radius: max(20px, 4.67cqw);
     /* Figma 118:125: content inset is 18 left / 0 right (text box reaches the card edge) */
