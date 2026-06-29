@@ -302,7 +302,7 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
     position: relative;
     z-index: 1;
     width: max(300px, 70.09cqw);
-    margin: min(-120px, -28.04cqw) auto 0; /* Figma: photo ends 481, card top at 361 */
+    margin: min(-200px, -46.73cqw) auto 0; /* pulled higher up over the photo */
     background: var(--c-white);
     border-radius: max(20px, 4.67cqw);
     /* Figma 118:125: content inset is 18 left / 0 right (text box reaches the card edge) */
