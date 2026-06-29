@@ -286,18 +286,15 @@ const PAGE = 'var(--c-page)' // colour above the wave (matches the section above
   .am__name b {
     font-weight: 700;
   }
-  /* Photo 107:6330 — full-bleed 428×402 (object-cover portrait crop), overlaps title bottom */
+  /* Photo 107:6330 — full-bleed the column at the image's natural ratio (no fixed box /
+     crop), so the whole portrait shows and fills the width edge-to-edge. Sits behind the
+     card (z-index 0 < card 1) so the card overlaps its lower part. */
   .am__photo {
     display: block;
     position: relative;
     z-index: 0;
     width: 100%; /* full-bleed the column (container has no padding) */
-    aspect-ratio: 428 / 402; /* Figma photo box */
-    height: auto;
-    object-fit: cover;
-    /* photo is wider than the box → cover crops the sides; X% pans horizontally.
-       lower X = subject moves right into view, higher X = moves left. */
-    object-position: 0% top;
+    height: auto; /* natural aspect ratio — no crop */
     margin: min(-6px, -1.4cqw) 0 0 0; /* Figma: title 27..85, photo at y79 → -6px overlap */
   }
   /* White card 107:6331 — w300 centred (64px margins), overlaps the photo's lower 120px */
